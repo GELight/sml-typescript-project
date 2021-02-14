@@ -7,9 +7,10 @@ const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const SmlFile_1 = __importDefault(require("./SmlFile"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 class WsvDocument {
-    constructor() {
+    constructor(...args) {
         this.lines = [];
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
+        this.parse(args);
         return this;
     }
     setEncoding(encoding) {
@@ -43,6 +44,18 @@ class WsvDocument {
                 newLine.addValue(value);
             }
             this.lines.push(newLine);
+        }
+        return this.lines;
+    }
+    parse(args) {
+        for (const arg of args) {
+            let argumentParts;
+            argumentParts = [...arg.split("\n")];
+            const line = new WsvLine_1.default();
+            for (const argument of argumentParts) {
+                line.addValue(argument);
+            }
+            this.lines.push(line);
         }
         return this.lines;
     }

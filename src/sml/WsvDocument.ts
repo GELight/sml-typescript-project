@@ -7,7 +7,8 @@ export default class WsvDocument {
     private lines: WsvLine[] = [];
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
-    constructor() {
+    constructor(...args: string[]) {
+        this.parse(args);
         return this;
     }
 
@@ -49,6 +50,20 @@ export default class WsvDocument {
             }
 
             this.lines.push(newLine);
+        }
+        return this.lines;
+    }
+
+    private parse(args: string[]): WsvLine[] {
+        for (const arg of args) {
+            let argumentParts: string[];
+            argumentParts = [...arg.split("\n")];
+
+            const line: WsvLine = new WsvLine();
+            for (const argument of argumentParts) {
+                line.addValue(argument);
+            }
+            this.lines.push(line);
         }
         return this.lines;
     }

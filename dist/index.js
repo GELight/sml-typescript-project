@@ -35,4 +35,8 @@ console.log("---- LOAD WsvDocument -----------------------------------");
 const loadWsvDocument = new WsvDocument_1.default();
 const data = loadWsvDocument.load("Example-WsvDocument.wsv");
 console.log(data);
+console.log("");
+console.log("---- PARSE WsvDocument -----------------------------------");
+const parseWsvDocument = new WsvDocument_1.default("Value11 Value12\nValue 13");
+console.log(parseWsvDocument.getLines());
 //# sourceMappingURL=index.js.map

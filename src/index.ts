@@ -46,3 +46,9 @@ console.log("---- LOAD WsvDocument -----------------------------------");
 const loadWsvDocument: WsvDocument = new WsvDocument();
 const data = loadWsvDocument.load("Example-WsvDocument.wsv");
 console.log(data);
+
+console.log("");
+console.log("---- PARSE WsvDocument -----------------------------------");
+
+const parseWsvDocument: WsvDocument = new WsvDocument("Value11 Value12\nValue 13");
+console.log(parseWsvDocument.getLines());
