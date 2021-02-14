@@ -17,13 +17,20 @@ export default class WsvDocument {
         return this;
     }
 
-    public addLine(...args: string[]): WsvLine {
+    public addLine(...args: WsvLine[]): WsvLine[] {
+        for (const arg of args) {
+            this.lines.push(arg);
+        }
+        return this.getLines();
+    }
+
+    public addLineByValues(...args: string[]): WsvLine[] {
         const line: WsvLine = new WsvLine();
         for (const arg of args) {
             line.addValue(arg);
         }
         this.lines.push(line);
-        return line;
+        return this.getLines();
     }
 
     public getLines() {
@@ -51,7 +58,7 @@ export default class WsvDocument {
 
             this.lines.push(newLine);
         }
-        return this.lines;
+        return this.getLines();
     }
 
     private parse(args: string[]): WsvLine[] {

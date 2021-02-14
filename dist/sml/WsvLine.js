@@ -16,7 +16,6 @@ class WsvLine {
         return this.values.join(" ");
     }
     parse(args) {
-        this.values = [...this.values, ...args];
         for (const arg of args) {
             let valueParts;
             valueParts = [...arg.split(" ")];

@@ -18,12 +18,18 @@ class WsvDocument {
         return this;
     }
     addLine(...args) {
+        for (const arg of args) {
+            this.lines.push(arg);
+        }
+        return this.getLines();
+    }
+    addLineByValues(...args) {
         const line = new WsvLine_1.default();
         for (const arg of args) {
             line.addValue(arg);
         }
         this.lines.push(line);
-        return line;
+        return this.getLines();
     }
     getLines() {
         return this.lines;
@@ -45,7 +51,7 @@ class WsvDocument {
             }
             this.lines.push(newLine);
         }
-        return this.lines;
+        return this.getLines();
     }
     parse(args) {
         for (const arg of args) {

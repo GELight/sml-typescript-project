@@ -20,8 +20,6 @@ export default class WsvLine {
     }
 
     private parse(args: string[]): string[] {
-        this.values = [...this.values, ...args];
-
         for (const arg of args) {
             let valueParts: string[];
             valueParts = [...arg.split(" ")];
