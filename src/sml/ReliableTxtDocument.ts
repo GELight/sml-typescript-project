@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from "fs";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
+import SmlFile from "./SmlFile";
 
 interface IReadFileSyncOptions {
     encoding?: ReliableTxtEncoding;
@@ -16,47 +17,36 @@ export default class ReliableTxtDocument {
         return this;
     }
 
-    public setEncoding(encoding: ReliableTxtEncoding) {
+    public setEncoding(encoding: ReliableTxtEncoding): ReliableTxtDocument {
         this.encoding = encoding;
         return this;
     }
 
-    public getLines() {
+    public getLines(): string[] {
         return this.lines;
     }
 
-    public save(filePath: string) {
-        try {
-            writeFileSync(filePath, this.toString(), this.encoding);
-        } catch (err) {
-            console.log(`Error writing '${filePath}'`, err);
-        }
+    public save(filePath: string): ReliableTxtDocument {
+        new SmlFile(this.encoding).save(filePath, this.toString());
         return this;
     }
 
-    public load(filePath: string) {
-        try {
-            const data: string[] = readFileSync(filePath, Object.assign({
-                encoding: this.encoding,
-                flag: "r"
-            })).toString().split("\n");
-            this.parse(data);
-        } catch (err) {
-            console.log(`Error reading '${filePath}'`, err);
-        }
-        return this;
+    public load(filePath: string): string[] {
+        const data: string[] = new SmlFile(this.encoding).load(filePath);
+        return this.parse(data);
     }
 
-    public toString() {
+    public toString(): string {
         return this.lines.join("\n");
     }
 
-    private parse(args: string[]) {
+    private parse(args: string[]): string[] {
         for (const arg of args) {
             let argumentParts: string[];
             argumentParts = [...arg.split("\n")];
             this.lines = [...this.lines, ...argumentParts];
         }
+        return this.lines;
     }
 
 }
