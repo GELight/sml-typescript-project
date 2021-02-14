@@ -14,12 +14,7 @@ class SmlFile {
     save(filePath, content, encoding) {
         this.setEncoding(encoding);
         try {
-            if (fs_1.existsSync(filePath)) {
-                fs_1.writeFileSync(filePath, content, this.encoding);
-            }
-            else {
-                console.log(`File '${filePath}' could not be written!`);
-            }
+            fs_1.writeFileSync(filePath, content, this.encoding);
         }
         catch (e) {
             console.error(e);
@@ -29,13 +24,7 @@ class SmlFile {
     load(filePath, encoding) {
         this.setEncoding(encoding);
         try {
-            if (fs_1.existsSync(filePath)) {
-                return fs_1.readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString().split("\n");
-            }
-            else {
-                console.log(`File '${filePath}' not found!`);
-            }
-            return Array();
+            return fs_1.readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString().split("\n");
         }
         catch (e) {
             console.error(e);

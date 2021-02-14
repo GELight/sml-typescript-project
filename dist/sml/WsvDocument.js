@@ -3,10 +3,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
+const SmlFile_1 = __importDefault(require("./SmlFile"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 class WsvDocument {
     constructor() {
         this.lines = [];
+        this.encoding = ReliableTxtEncoding_1.default.UTF8;
+        return this;
+    }
+    setEncoding(encoding) {
+        this.encoding = encoding;
         return this;
     }
     addLine(...args) {
@@ -15,6 +22,7 @@ class WsvDocument {
             line.addValue(arg);
         }
         this.lines.push(line);
+        return line;
     }
     getLines() {
         return this.lines;
@@ -23,7 +31,20 @@ class WsvDocument {
         return this.lines.join("\n");
     }
     save(filePath) {
+        new SmlFile_1.default(this.encoding).save(filePath, this.toString());
         return this;
+    }
+    load(filePath) {
+        const lines = new SmlFile_1.default(this.encoding).load(filePath);
+        for (const l of lines) {
+            const newLine = new WsvLine_1.default();
+            const lineValues = l.split(" ");
+            for (const value of lineValues) {
+                newLine.addValue(value);
+            }
+            this.lines.push(newLine);
+        }
+        return this.lines;
     }
 }
 exports.default = WsvDocument;

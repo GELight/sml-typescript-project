@@ -13,11 +13,7 @@ export default class SmlFile {
     public save(filePath: string, content: string, encoding?: ReliableTxtEncoding) {
         this.setEncoding(encoding);
         try {
-            if (existsSync(filePath)) {
-                writeFileSync(filePath, content, this.encoding);
-            } else {
-                console.log(`File '${filePath}' could not be written!`);
-            }
+            writeFileSync(filePath, content, this.encoding);
         } catch (e) {
             console.error(e);
         }
@@ -27,12 +23,7 @@ export default class SmlFile {
     public load(filePath: string, encoding?: ReliableTxtEncoding): string[] {
         this.setEncoding(encoding);
         try {
-            if (existsSync(filePath)) {
-                return readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString().split("\n");
-            } else {
-                console.log(`File '${filePath}' not found!`);
-            }
-            return Array<string>();
+            return readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString().split("\n");
         } catch (e) {
             console.error(e);
             return Array<string>();

@@ -1,4 +1,3 @@
-import { readFileSync, writeFileSync } from "fs";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 import SmlFile from "./SmlFile";
 

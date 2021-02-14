@@ -9,7 +9,7 @@ class WsvLine {
     addValue(value) {
         this.values.push(value);
     }
-    getLines() {
+    getValues() {
         return this.values;
     }
     toString() {

@@ -11,7 +11,7 @@ export default class WsvLine {
         this.values.push(value);
     }
 
-    public getLines() {
+    public getValues() {
         return this.values;
     }
 
