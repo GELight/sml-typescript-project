@@ -3,7 +3,7 @@ export default class WsvLine {
     private values: string[] = [];
 
     constructor(...args: string[]) {
-        this.values = [...this.values, ...args];
+        this.parse(args);
         return this;
     }
 
@@ -17,6 +17,21 @@ export default class WsvLine {
 
     public toString() {
         return this.values.join(" ");
+    }
+
+    private parse(args: string[]): string[] {
+        this.values = [...this.values, ...args];
+
+        for (const arg of args) {
+            let valueParts: string[];
+            valueParts = [...arg.split(" ")];
+
+            for (const value of valueParts) {
+                this.values.push(value);
+            }
+        }
+
+        return this.getValues();
     }
 
 }

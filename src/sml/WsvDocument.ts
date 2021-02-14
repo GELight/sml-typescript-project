@@ -65,7 +65,7 @@ export default class WsvDocument {
             }
             this.lines.push(line);
         }
-        return this.lines;
+        return this.getLines();
     }
 
 }

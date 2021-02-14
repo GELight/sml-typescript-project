@@ -36,7 +36,7 @@ class ReliableTxtDocument {
             argumentParts = [...arg.split("\n")];
             this.lines = [...this.lines, ...argumentParts];
         }
-        return this.lines;
+        return this.getLines();
     }
 }
 exports.default = ReliableTxtDocument;
