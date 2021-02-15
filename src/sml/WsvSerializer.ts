@@ -1,11 +1,20 @@
+import WsvLine from "./WsvLine";
+
 export default class WsvSerializer {
 
-    constructor() {
-        console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
-        console.log(this.serializeValue(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
+    constructor() { 
+        return this;
     }
 
-    public serializeValue(str: string): string {
+    public toString(items: string[], separator: string): string {
+        const serializedValues: string[] = [];
+        for (const item of items) {
+            serializedValues.push(this.serialize(item));
+        }
+        return serializedValues.join(separator);
+    }
+
+    public serialize(str: string): string {
         if (str === null) {
             return "-";
         } else if (str === "") {

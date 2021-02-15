@@ -1,3 +1,4 @@
+import { serialize, Serializer } from "v8";
 import ReliableTxtDocument from "./sml/ReliableTxtDocument";
 import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
 import WsvDocument from "./sml/WsvDocument";
@@ -6,8 +7,9 @@ import WsvSerializer from "./sml/WsvSerializer";
 
 // console.log("---- SERIALIZER -----------------------------------");
 
-const serializer = new WsvSerializer();
-
+// const serializer = new WsvSerializer();
+// console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
+// console.log(Serializer.serialize(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
 
 // console.log("---- SAVE -----------------------------------");
 
@@ -28,23 +30,24 @@ const serializer = new WsvSerializer();
 // console.log("");
 // console.log("---- WsvLine -----------------------------------");
 
-// const line: WsvLine = new WsvLine("Value 1", "Value2", "Value 3 Value 4");
-// line.addValue("Value 5");
+// const line: WsvLine = new WsvLine("Value 1", "Value2", "Value 3 ABC Muh");
+// line.addValue("Value 4");
 
 // console.log("");
+// console.log("Value 1", "Value2", "Value 3 ABC Muh");
 // console.log("line values >>>", line.getValues());
 // console.log("line >>>", line.toString());
 
-// console.log("");
-// console.log("---- SAVE WsvDocument -----------------------------------");
+console.log("");
+console.log("---- SAVE WsvDocument -----------------------------------");
 
-// const saveWsvDocument: WsvDocument = new WsvDocument();
-// saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
-// saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_Value2", "Row2 Value3", "Row2_Value4"));
-// saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
-// saveWsvDocument.save("Example-WsvDocument.wsv");
-// console.log("");
-// console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
+const saveWsvDocument: WsvDocument = new WsvDocument();
+saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
+saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3", "Row2_Value4"));
+saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
+saveWsvDocument.save("Example-WsvDocument.wsv");
+console.log("");
+console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
 
 // console.log("");
 // console.log("---- LOAD WsvDocument -----------------------------------");

@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvLine {
     constructor(...args) {
         this.values = [];
@@ -13,15 +17,11 @@ class WsvLine {
         return this.values;
     }
     toString() {
-        return this.values.join(" ");
+        return new WsvSerializer_1.default().toString(this.getValues(), " ");
     }
     parse(args) {
         for (const arg of args) {
-            let valueParts;
-            valueParts = [...arg.split(" ")];
-            for (const value of valueParts) {
-                this.values.push(value);
-            }
+            this.values.push(arg);
         }
         return this.getValues();
     }

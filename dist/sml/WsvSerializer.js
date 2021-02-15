@@ -2,10 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class WsvSerializer {
     constructor() {
-        console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
-        console.log(this.serializeValue(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
+        return this;
     }
-    serializeValue(str) {
+    toString(items, separator) {
+        const serializedValues = [];
+        for (const item of items) {
+            serializedValues.push(this.serialize(item));
+        }
+        return serializedValues.join(separator);
+    }
+    serialize(str) {
         if (str === null) {
             return "-";
         }

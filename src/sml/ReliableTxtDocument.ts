@@ -1,5 +1,6 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 import SmlFile from "./SmlFile";
+import WsvSerializer from "./WsvSerializer";
 
 export default class ReliableTxtDocument {
 
@@ -31,7 +32,7 @@ export default class ReliableTxtDocument {
     }
 
     public toString(): string {
-        return this.lines.join("\n");
+        return new WsvSerializer().toString(this.getLines(), "\n");
     }
 
     private parse(args: string[]): string[] {

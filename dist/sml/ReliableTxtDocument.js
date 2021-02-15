@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const SmlFile_1 = __importDefault(require("./SmlFile"));
+const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class ReliableTxtDocument {
     constructor(...args) {
         this.lines = [];
@@ -28,7 +29,7 @@ class ReliableTxtDocument {
         return this.parse(data);
     }
     toString() {
-        return this.lines.join("\n");
+        return new WsvSerializer_1.default().toString(this.getLines(), "\n");
     }
     parse(args) {
         for (const arg of args) {

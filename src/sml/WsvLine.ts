@@ -1,3 +1,5 @@
+import WsvSerializer from "./WsvSerializer";
+
 export default class WsvLine {
 
     private values: string[] = [];
@@ -16,17 +18,12 @@ export default class WsvLine {
     }
 
     public toString() {
-        return this.values.join(" ");
+        return new WsvSerializer().toString(this.getValues(), " ");
     }
 
     private parse(args: string[]): string[] {
         for (const arg of args) {
-            let valueParts: string[];
-            valueParts = [...arg.split(" ")];
-
-            for (const value of valueParts) {
-                this.values.push(value);
-            }
+            this.values.push(arg);
         }
 
         return this.getValues();

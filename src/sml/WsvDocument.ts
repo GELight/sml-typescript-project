@@ -1,6 +1,7 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 import SmlFile from "./SmlFile";
 import WsvLine from "./WsvLine";
+import WsvSerializer from "./WsvSerializer";
 
 export default class WsvDocument {
 
@@ -33,12 +34,16 @@ export default class WsvDocument {
         return this.getLines();
     }
 
-    public getLines() {
+    public getLines(): WsvLine[] {
         return this.lines;
     }
 
     public toString() {
-        return this.lines.join("\n");
+        const serializedValues: string[] = [];
+        for (const item of this.getLines()) {
+            serializedValues.push(new WsvSerializer().toString(item.getValues(), " "));
+        }
+        return serializedValues.join("\n");
     }
 
     public save(filePath: string): WsvDocument {
