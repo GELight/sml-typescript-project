@@ -46,6 +46,7 @@ saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
 saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3", "Row2_Value4"));
 saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
 saveWsvDocument.save("Example-WsvDocument.wsv");
+
 console.log("");
 console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
 
