@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 
 export default class SmlFile {

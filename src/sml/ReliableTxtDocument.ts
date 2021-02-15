@@ -1,11 +1,6 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 import SmlFile from "./SmlFile";
 
-interface IReadFileSyncOptions {
-    encoding?: ReliableTxtEncoding;
-    flag?: "r";
-}
-
 export default class ReliableTxtDocument {
 
     private lines: string[] = [];
