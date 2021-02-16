@@ -31,6 +31,9 @@ class SmlFile {
             return Array();
         }
     }
+    parse(data) {
+        // TODO ... implementation ...
+    }
     setEncoding(encoding) {
         if (encoding) {
             this.encoding = encoding;

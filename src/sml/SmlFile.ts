@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from "fs";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
+import WsvSerializer from "./WsvSerializer";
 
 export default class SmlFile {
 
@@ -10,7 +11,7 @@ export default class SmlFile {
         return this;
     }
 
-    public save(filePath: string, content: string, encoding?: ReliableTxtEncoding) {
+    public save(filePath: string, content: string, encoding?: ReliableTxtEncoding): SmlFile {
         this.setEncoding(encoding);
         try {
             writeFileSync(filePath, content, this.encoding);
@@ -28,6 +29,10 @@ export default class SmlFile {
             console.error(e);
             return Array<string>();
         }
+    }
+
+    public parse(data: string): void {
+        // TODO ... implementation ...
     }
 
     private setEncoding(encoding: ReliableTxtEncoding) {

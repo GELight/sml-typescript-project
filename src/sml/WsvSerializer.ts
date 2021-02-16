@@ -1,8 +1,6 @@
-import WsvLine from "./WsvLine";
-
 export default class WsvSerializer {
 
-    constructor() { 
+    constructor() {
         return this;
     }
 

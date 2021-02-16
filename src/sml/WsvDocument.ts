@@ -66,18 +66,8 @@ export default class WsvDocument {
         return this.getLines();
     }
 
-    private parse(args: string[]): WsvLine[] {
-        for (const arg of args) {
-            let argumentParts: string[];
-            argumentParts = [...arg.split("\n")];
-
-            const line: WsvLine = new WsvLine();
-            for (const argument of argumentParts) {
-                line.addValue(argument);
-            }
-            this.lines.push(line);
-        }
-        return this.getLines();
+    private parse(args: string[]): void {
+        // TODO ... implementation ...
     }
 
 }

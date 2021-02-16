@@ -1,9 +1,19 @@
 import { serialize, Serializer } from "v8";
 import ReliableTxtDocument from "./sml/ReliableTxtDocument";
 import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
+import SmlFile from "./sml/SmlFile";
 import WsvDocument from "./sml/WsvDocument";
 import WsvLine from "./sml/WsvLine";
+import WsvParser from "./sml/WsvParser";
 import WsvSerializer from "./sml/WsvSerializer";
+
+console.log("---- WsvParser -----------------------------------");
+console.log("");
+
+new WsvParser().parse(`"hello ""world""!" "" "-" - "Line1"/"Line2"`);
+
+// console.log("---- SmlFile -----------------------------------");
+// new SmlFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
 
 // console.log("---- SERIALIZER -----------------------------------");
 
@@ -38,17 +48,17 @@ import WsvSerializer from "./sml/WsvSerializer";
 // console.log("line values >>>", line.getValues());
 // console.log("line >>>", line.toString());
 
-console.log("");
-console.log("---- SAVE WsvDocument -----------------------------------");
+// console.log("");
+// console.log("---- SAVE WsvDocument -----------------------------------");
 
-const saveWsvDocument: WsvDocument = new WsvDocument();
-saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
-saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3", "Row2_Value4"));
-saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
-saveWsvDocument.save("Example-WsvDocument.wsv");
+// const saveWsvDocument: WsvDocument = new WsvDocument();
+// saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
+// saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3", "Row2_Value4"));
+// saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
+// saveWsvDocument.save("Example-WsvDocument.wsv");
 
-console.log("");
-console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
+// console.log("");
+// console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
 
 // console.log("");
 // console.log("---- LOAD WsvDocument -----------------------------------");

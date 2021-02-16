@@ -59,16 +59,7 @@ class WsvDocument {
         return this.getLines();
     }
     parse(args) {
-        for (const arg of args) {
-            let argumentParts;
-            argumentParts = [...arg.split("\n")];
-            const line = new WsvLine_1.default();
-            for (const argument of argumentParts) {
-                line.addValue(argument);
-            }
-            this.lines.push(line);
-        }
-        return this.getLines();
+        // TODO ... implementation ...
     }
 }
 exports.default = WsvDocument;
