@@ -1,11 +1,13 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
 import SmlFile from "./SmlFile";
 import WsvSerializer from "./WsvSerializer";
+import WsvParser from "./WsvParser";
 
 export default class ReliableTxtDocument {
 
     private lines: string[] = [];
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
+    private parsedDocument: string[][] = [];
 
     constructor(...args: string[]) {
         this.parse(args);
@@ -26,7 +28,7 @@ export default class ReliableTxtDocument {
         return this;
     }
 
-    public load(filePath: string): string[] {
+    public load(filePath: string): string[][] {
         const data: string[] = new SmlFile(this.encoding).load(filePath);
         return this.parse(data);
     }
@@ -35,13 +37,13 @@ export default class ReliableTxtDocument {
         return new WsvSerializer().toString(this.getLines(), "\n");
     }
 
-    private parse(args: string[]): string[] {
-        for (const arg of args) {
-            let argumentParts: string[];
-            argumentParts = [...arg.split("\n")];
-            this.lines = [...this.lines, ...argumentParts];
-        }
-        return this.getLines();
+    public getParsedDocument(): string[][] {
+        return this.parsedDocument;
+    }
+
+    public parse(lines: string[]): string[][] {
+        this.parsedDocument = new WsvParser().parseDocument(lines.join("\n"));
+        return this.parsedDocument;
     }
 
 }

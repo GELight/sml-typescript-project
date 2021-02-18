@@ -1,4 +1,3 @@
-import { serialize, Serializer } from "v8";
 import ReliableTxtDocument from "./sml/ReliableTxtDocument";
 import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
 import SmlFile from "./sml/SmlFile";
@@ -7,30 +6,30 @@ import WsvLine from "./sml/WsvLine";
 import WsvParser from "./sml/WsvParser";
 import WsvSerializer from "./sml/WsvSerializer";
 
-console.log("---- Parser -----------------------------------");
-console.log("");
+// console.log("---- Parser -----------------------------------");
+// console.log("");
 
-const parsedLines = new WsvParser().parseDocument([
-    `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-    "\"hello\" abc",
-    "#My doc",
-    " #Doc\nR1_1 R1_2",
-    " R2_1 R2_2 ",
-    "R3_1 #",
-    "",
-    "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
-].join("\n"));
+// const parsedLines = new WsvParser().parseDocument([
+//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
+//     "\"hello\" abc",
+//     "#My doc",
+//     " #Doc\nR1_1 R1_2",
+//     " R2_1 R2_2 ",
+//     "R3_1 #",
+//     "",
+//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+// ].join("\n"));
 
-console.log(parsedLines);
+// console.log(parsedLines);
 
 // console.log("---- SmlFile -----------------------------------");
 // new SmlFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
 
 // console.log("---- SERIALIZER -----------------------------------");
 
-// const serializer = new WsvSerializer();
+// const serializer: WsvSerializer = new WsvSerializer();
 // console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
-// console.log(Serializer.serialize(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
+// console.log(serializer.serialize(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
 
 // console.log("---- SAVE -----------------------------------");
 
@@ -40,13 +39,22 @@ console.log(parsedLines);
 // saveDoc.setEncoding(ReliableTxtEncoding.UTF8);
 // saveDoc.save("Example-ReliableTxtDocument.txt");
 
-// console.log("---- LOAD -----------------------------------");
+console.log("---- ReliableTxtDocument - LOAD -----------------------------------");
 
-// const loadDoc: ReliableTxtDocument = new ReliableTxtDocument();
-// const loadDocData = loadDoc.load("Example-ReliableTxtDocument.txt");
+const loadDoc: ReliableTxtDocument = new ReliableTxtDocument();
+const loadDocData = loadDoc.load("Example-ReliableTxtDocument.txt");
 
+console.log("");
+console.log("ReliableTxtDocument > loaded >>>", loadDocData);
+
+// console.log("---- ReliableTxtDocument - PARSE ----------------------------------");
 // console.log("");
-// console.log("ReliableTxtDocument > loaded >>>", loadDocData);
+
+// const parseData = "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\"";
+// const reliableTxtDocument: ReliableTxtDocument = new ReliableTxtDocument(parseData);
+// console.log(parseData);
+// console.log(reliableTxtDocument.getParsedDocument());
+// console.log("");
 
 // console.log("");
 // console.log("---- WsvLine -----------------------------------");
@@ -55,7 +63,6 @@ console.log(parsedLines);
 // line.addValue("Value 4");
 
 // console.log("");
-// console.log("Value 1", "Value2", "Value 3 ABC Muh");
 // console.log("line values >>>", line.getValues());
 // console.log("line >>>", line.toString());
 
@@ -63,13 +70,14 @@ console.log(parsedLines);
 // console.log("---- SAVE WsvDocument -----------------------------------");
 
 // const saveWsvDocument: WsvDocument = new WsvDocument();
-// saveWsvDocument.addLineByValues("Row1_1", "Row1_2", "Row1_3");
+// saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
 // saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3", "Row2_Value4"));
 // saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
 // saveWsvDocument.save("Example-WsvDocument.wsv");
 
 // console.log("");
 // console.log("saveWsvDocument >>>", saveWsvDocument.getLines());
+// console.log("");
 
 // console.log("");
 // console.log("---- LOAD WsvDocument -----------------------------------");

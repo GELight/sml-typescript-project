@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const SmlFile_1 = __importDefault(require("./SmlFile"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
+const WsvParser_1 = __importDefault(require("./WsvParser"));
 class ReliableTxtDocument {
     constructor(...args) {
         this.lines = [];
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
+        this.parsedDocument = [];
         this.parse(args);
         return this;
     }
@@ -31,13 +33,12 @@ class ReliableTxtDocument {
     toString() {
         return new WsvSerializer_1.default().toString(this.getLines(), "\n");
     }
-    parse(args) {
-        for (const arg of args) {
-            let argumentParts;
-            argumentParts = [...arg.split("\n")];
-            this.lines = [...this.lines, ...argumentParts];
-        }
-        return this.getLines();
+    getParsedDocument() {
+        return this.parsedDocument;
+    }
+    parse(lines) {
+        this.parsedDocument = new WsvParser_1.default().parseDocument(lines.join("\n"));
+        return this.parsedDocument;
     }
 }
 exports.default = ReliableTxtDocument;
