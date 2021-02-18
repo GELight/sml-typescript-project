@@ -1,10 +1,15 @@
+import WsvChar from "./WsvChar";
+import WsvParserException from "./WsvParserException";
+
 export default class WsvParserCharIterator {
 
     private chars: number[];
     private index: number = 0;
+    private lineIndex: number = 0;
 
-    constructor(str: string) {
+    constructor(str: string, lineIndex: number) {
         this.chars = Array.from(str).map((v) => v.codePointAt(0));
+        this.lineIndex = lineIndex;
     }
 
     public isEnd(): boolean {
@@ -16,7 +21,7 @@ export default class WsvParserCharIterator {
     }
 
     public isWhitespace(): boolean {
-        return (this.chars[this.index] === 0x20);
+        return new WsvChar().isWhitespace(this.chars[this.index]);
     }
 
     public next(): boolean {
@@ -26,5 +31,21 @@ export default class WsvParserCharIterator {
 
     public get(): number {
         return this.chars[this.index];
+    }
+
+    public getByIndex(index: number): string {
+        const len: number = this.index - index;
+        const chars = this.chars.map((c) => {
+            return String.fromCodePoint(c);
+        }).join("");
+        return `${chars.substr(index, len)}`;
+    }
+
+    public getIndex(): number {
+        return this.index;
+    }
+
+    public getException(message: string): WsvParserException {
+        return new WsvParserException(message, this.lineIndex, this.index);
     }
 }

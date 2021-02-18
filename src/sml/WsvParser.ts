@@ -13,13 +13,14 @@ export default class WsvParser {
     public parseDocument(content: string): string[][] {
         this.lines = content.split("\n");
         for (const line of this.lines) {
-            this.result.push(this.parseLine(line));
+            const lineIndex = this.lines.indexOf(line);
+            this.result.push(this.parseLine(line, lineIndex));
         }
         return this.result;
     }
 
-    private parseLine(str: string): string[] {
-        const iterator: WsvParserCharIterator = new WsvParserCharIterator(str);
+    private parseLine(str: string, lineIndex: number): string[] {
+        const iterator: WsvParserCharIterator = new WsvParserCharIterator(str, lineIndex);
         const values: string[] = [];
         const sb: StringBuilder = new StringBuilder();
 
@@ -31,14 +32,11 @@ export default class WsvParser {
             if (iterator.is("#")) {
                 break;
             }
-            sb.clear();
             let curValue: string = "";
             if (iterator.is('"')) {
-                this.parseDoubleQuoteValue(iterator, sb);
-                curValue = sb.toString();
+                curValue = this.parseDoubleQuoteValue(iterator, sb);
             } else {
-                this.parseValue(iterator, sb);
-                curValue = sb.toString();
+                curValue = this.parseValue(iterator);
                 if (curValue === "-") {
                     curValue = null;
                 }
@@ -48,10 +46,11 @@ export default class WsvParser {
         return [...values];
     }
 
-    private parseDoubleQuoteValue(iterator: WsvParserCharIterator, sb: StringBuilder): void {
+    private parseDoubleQuoteValue(iterator: WsvParserCharIterator, sb: StringBuilder): string {
+        sb.clear();
         while (true) {
             if (!iterator.next()) {
-                throw new Error("String not closed");
+                throw iterator.getException("String not closed");
             }
             if (iterator.is('"')) {
                 if (!iterator.next()) {
@@ -61,23 +60,24 @@ export default class WsvParser {
                     sb.append('"');
                 } else if (iterator.is("/")) {
                     if (!(iterator.next() && iterator.is('"'))) {
-                        throw new Error("Invalid line break");
+                        throw iterator.getException("Invalid line break");
                     }
                     sb.append("\n");
                 } else if (iterator.isWhitespace() || iterator.is("#")) {
                     break;
                 } else {
-                    throw new Error("Invalid character after string");
+                    throw iterator.getException("Invalid character after string");
                 }
             } else {
                 sb.appendCodePoint(iterator.get());
             }
         }
+        return sb.toString();
     }
 
-    private parseValue(iterator: WsvParserCharIterator, sb: StringBuilder): void {
+    private parseValue(iterator: WsvParserCharIterator): string {
+        const startIndex: number = iterator.getIndex();
         while (true) {
-            sb.appendCodePoint(iterator.get());
             if (!iterator.next()) {
                 break;
             }
@@ -87,6 +87,7 @@ export default class WsvParser {
                 throw new Error("Invalid double quote");
             }
         }
+        return iterator.getByIndex(startIndex);
     }
 
     private skipWhitespace(iterator: WsvParserCharIterator): void {

@@ -13,12 +13,13 @@ class WsvParser {
     parseDocument(content) {
         this.lines = content.split("\n");
         for (const line of this.lines) {
-            this.result.push(this.parseLine(line));
+            const lineIndex = this.lines.indexOf(line);
+            this.result.push(this.parseLine(line, lineIndex));
         }
         return this.result;
     }
-    parseLine(str) {
-        const iterator = new WsvParserCharIterator_1.default(str);
+    parseLine(str, lineIndex) {
+        const iterator = new WsvParserCharIterator_1.default(str, lineIndex);
         const values = [];
         const sb = new StringBuilder_1.default();
         while (true) {
@@ -29,15 +30,12 @@ class WsvParser {
             if (iterator.is("#")) {
                 break;
             }
-            sb.clear();
             let curValue = "";
             if (iterator.is('"')) {
-                this.parseDoubleQuoteValue(iterator, sb);
-                curValue = sb.toString();
+                curValue = this.parseDoubleQuoteValue(iterator, sb);
             }
             else {
-                this.parseValue(iterator, sb);
-                curValue = sb.toString();
+                curValue = this.parseValue(iterator);
                 if (curValue === "-") {
                     curValue = null;
                 }
@@ -47,9 +45,10 @@ class WsvParser {
         return [...values];
     }
     parseDoubleQuoteValue(iterator, sb) {
+        sb.clear();
         while (true) {
             if (!iterator.next()) {
-                throw new Error("String not closed");
+                throw iterator.getException("String not closed");
             }
             if (iterator.is('"')) {
                 if (!iterator.next()) {
@@ -60,7 +59,7 @@ class WsvParser {
                 }
                 else if (iterator.is("/")) {
                     if (!(iterator.next() && iterator.is('"'))) {
-                        throw new Error("Invalid line break");
+                        throw iterator.getException("Invalid line break");
                     }
                     sb.append("\n");
                 }
@@ -68,17 +67,18 @@ class WsvParser {
                     break;
                 }
                 else {
-                    throw new Error("Invalid character after string");
+                    throw iterator.getException("Invalid character after string");
                 }
             }
             else {
                 sb.appendCodePoint(iterator.get());
             }
         }
+        return sb.toString();
     }
-    parseValue(iterator, sb) {
+    parseValue(iterator) {
+        const startIndex = iterator.getIndex();
         while (true) {
-            sb.appendCodePoint(iterator.get());
             if (!iterator.next()) {
                 break;
             }
@@ -89,6 +89,7 @@ class WsvParser {
                 throw new Error("Invalid double quote");
             }
         }
+        return iterator.getByIndex(startIndex);
     }
     skipWhitespace(iterator) {
         if (iterator.isEnd()) {
