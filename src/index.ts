@@ -7,10 +7,21 @@ import WsvLine from "./sml/WsvLine";
 import WsvParser from "./sml/WsvParser";
 import WsvSerializer from "./sml/WsvSerializer";
 
-console.log("---- WsvParser -----------------------------------");
+console.log("---- Parser -----------------------------------");
 console.log("");
 
-new WsvParser().parse(`"hello ""world""!" "" "-" - "Line1"/"Line2"`);
+const parsedLines = new WsvParser().parseDocument([
+    `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
+    "\"hello\" abc",
+    "#My doc",
+    " #Doc\nR1_1 R1_2",
+    " R2_1 R2_2 ",
+    "R3_1 #",
+    "",
+    "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+].join("\n"));
+
+console.log(parsedLines);
 
 // console.log("---- SmlFile -----------------------------------");
 // new SmlFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
