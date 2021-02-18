@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const SmlFile_1 = __importDefault(require("./SmlFile"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
+const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvDocument {
     constructor(...args) {
@@ -48,18 +49,15 @@ class WsvDocument {
     }
     load(filePath) {
         const lines = new SmlFile_1.default(this.encoding).load(filePath);
+        return this.parse(lines);
+    }
+    parse(lines) {
         for (const l of lines) {
-            const newLine = new WsvLine_1.default();
-            const lineValues = l.split(" ");
-            for (const value of lineValues) {
-                newLine.addValue(value);
-            }
+            const line = new WsvParser_1.default().parse(l);
+            const newLine = new WsvLine_1.default(line.join(" "));
             this.lines.push(newLine);
         }
         return this.getLines();
-    }
-    parse(args) {
-        // TODO ... implementation ...
     }
 }
 exports.default = WsvDocument;

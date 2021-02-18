@@ -10,8 +10,9 @@ class WsvParser {
         this.result = [];
         // ...
     }
-    parseDocument(content) {
+    parse(content) {
         this.lines = content.split("\n");
+        this.result = [];
         for (const line of this.lines) {
             const lineIndex = this.lines.indexOf(line);
             this.result.push(this.parseLine(line, lineIndex));

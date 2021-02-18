@@ -10,12 +10,15 @@ export default class WsvParser {
         // ...
     }
 
-    public parseDocument(content: string): string[][] {
+    public parse(content: string): string[][] {
         this.lines = content.split("\n");
+        this.result = [];
+
         for (const line of this.lines) {
             const lineIndex = this.lines.indexOf(line);
             this.result.push(this.parseLine(line, lineIndex));
         }
+
         return this.result;
     }
 
