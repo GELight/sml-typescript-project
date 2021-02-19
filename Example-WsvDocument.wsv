@@ -10,3 +10,18 @@ R3_1
 Row1_1 "Row1 2" Row1_3
 Row2_Value1 Row2_Value2 "Row2 Value3"
 Row3_Val1 Row3_Val2
+
+Name            Nachname
+Mario           Linz
+Stefan          John
+"Hans Peter"    Wurst
+
+Message
+    From    Mario
+    To      Stefan
+    Text    "Muh sagt die Kuh"
+    Priority    -
+    Attachments
+        Image   http://muh.jpg
+    End
+End
