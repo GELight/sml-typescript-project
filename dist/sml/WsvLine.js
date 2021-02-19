@@ -7,7 +7,9 @@ const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvLine {
     constructor(...args) {
         this.values = [];
-        this.parse(args);
+        for (const arg of args) {
+            this.addValue(arg);
+        }
         return this;
     }
     addValue(value) {
@@ -17,13 +19,7 @@ class WsvLine {
         return this.values;
     }
     toString() {
-        return new WsvSerializer_1.default().toString(this.getValues(), " ");
-    }
-    parse(args) {
-        for (const arg of args) {
-            this.values.push(arg);
-        }
-        return this.getValues();
+        return new WsvSerializer_1.default().serializeLine(this.getValues());
     }
 }
 exports.default = WsvLine;

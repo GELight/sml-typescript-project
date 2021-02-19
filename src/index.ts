@@ -1,6 +1,6 @@
 import ReliableTxtDocument from "./sml/ReliableTxtDocument";
 import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
-import SmlFile from "./sml/SmlFile";
+import ReliableTxtFile from "./sml/ReliableTxtFile";
 import WsvDocument from "./sml/WsvDocument";
 import WsvLine from "./sml/WsvLine";
 import WsvParser from "./sml/WsvParser";
@@ -23,25 +23,27 @@ import WsvSerializer from "./sml/WsvSerializer";
 // console.log(parsedLines);
 // console.log("");
 
-console.log("");
-console.log("---- SAVE WsvDocument -----------------------------------");
+// console.log("");
+// console.log("---- SAVE WsvDocument -----------------------------------");
 
-const saveWsvDocument: WsvDocument = new WsvDocument(
-    `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-    "\"hello\" abc",
-    "#My doc",
-    " #Doc\nR1_1 R1_2",
-    " R2_1 R2_2 ",
-    "R3_1 #",
-    "",
-    "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
-);
-saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
-saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_\nValue2", "Row2 Value3"));
-saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
-saveWsvDocument.save("Example-WsvDocument.wsv");
-console.log(saveWsvDocument.getLines());
-console.log("");
+// const saveWsvDocument: WsvDocument = new WsvDocument(
+//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
+//     "\"hello\" abc",
+//     "#My doc",
+//     " #Doc",
+//     "R1_1 R1_2",
+//     " R2_1 R2_2 ",
+//     "R3_1 #",
+//     "",
+//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+// );
+// saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
+// saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_Value2", "Row2 Value3"));
+// saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
+// saveWsvDocument.save("Example-WsvDocument.wsv");
+// console.log("");
+// console.log(saveWsvDocument.getLines());
+// console.log("");
 
 console.log("---- LOAD WsvDocument -----------------------------------");
 
@@ -55,8 +57,8 @@ console.log("");
 // const parseWsvDocument: WsvDocument = new WsvDocument("Value11 Value12\nValue 13", "Value14 Value15\nValue 16");
 // console.log(parseWsvDocument.getLines());
 
-// console.log("---- SmlFile -----------------------------------");
-// new SmlFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
+// console.log("---- ReliableTxtFile -----------------------------------");
+// new ReliableTxtFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
 
 // console.log("---- SERIALIZER -----------------------------------");
 
@@ -93,17 +95,13 @@ console.log("");
 // console.log("---- WsvLine -----------------------------------");
 
 // const line: WsvLine = new WsvLine(
-//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-//     "\"hello\" abc",
-//     "#My doc",
-//     " #Doc\nR1_1 R1_2",
-//     " R2_1 R2_2 ",
+//     "R1_1",
+//     "R1_2",
 //     "R3_1 #",
-//     "",
-//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+//     ""
 // );
-// line.addValue("Value 4");
+// line.addValue("Value 5");
 
 // console.log("");
-// console.log("line values >>>", line.getValues());
-// console.log("line >>>", line.toString());
+// console.log(line.getValues());
+// console.log(line.toString());

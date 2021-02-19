@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class WsvSerializer {
     constructor() {
-        return this;
+        // ...
     }
-    toString(items, separator) {
+    serializeLine(items) {
         const serializedValues = [];
         for (const item of items) {
             serializedValues.push(this.serialize(item));
         }
-        return serializedValues.join(separator);
+        return serializedValues.join(" ");
     }
     serialize(str) {
         if (str === null) {

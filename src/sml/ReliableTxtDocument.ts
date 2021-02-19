@@ -1,16 +1,13 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
-import SmlFile from "./SmlFile";
-import WsvParser from "./WsvParser";
-import WsvSerializer from "./WsvSerializer";
+import ReliableTxtFile from "./ReliableTxtFile";
 
 export default class ReliableTxtDocument {
 
-    private lines: string[] = [];
+    private text: string = "";
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
-    private parsedDocument: string[][] = [];
 
     constructor(...args: string[]) {
-        this.parse(args);
+        this.text = args.join("\n");
         return this;
     }
 
@@ -20,30 +17,21 @@ export default class ReliableTxtDocument {
     }
 
     public getLines(): string[] {
-        return this.lines;
+        return this.text.split("\n");
     }
 
     public save(filePath: string): ReliableTxtDocument {
-        new SmlFile(this.encoding).save(filePath, this.toString());
+        new ReliableTxtFile(this.encoding).save(filePath, this.text);
         return this;
     }
 
-    public load(filePath: string): string[][] {
-        const data: string[] = new SmlFile(this.encoding).load(filePath);
-        return this.parse(data);
+    public load(filePath: string): string {
+        this.text = new ReliableTxtFile(this.encoding).load(filePath);
+        return this.text;
     }
 
     public toString(): string {
-        return new WsvSerializer().toString(this.getLines(), "\n");
-    }
-
-    public getParsedDocument(): string[][] {
-        return this.parsedDocument;
-    }
-
-    public parse(lines: string[]): string[][] {
-        this.parsedDocument = new WsvParser().parse(lines.join("\n"));
-        return this.parsedDocument;
+        return this.text;
     }
 
 }

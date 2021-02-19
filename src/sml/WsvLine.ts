@@ -5,7 +5,9 @@ export default class WsvLine {
     private values: string[] = [];
 
     constructor(...args: string[]) {
-        this.parse(args);
+        for (const arg of args) {
+            this.addValue(arg);
+        }
         return this;
     }
 
@@ -18,15 +20,7 @@ export default class WsvLine {
     }
 
     public toString() {
-        return new WsvSerializer().toString(this.getValues(), " ");
-    }
-
-    private parse(args: string[]): string[] {
-        for (const arg of args) {
-            this.values.push(arg);
-        }
-
-        return this.getValues();
+        return new WsvSerializer().serializeLine(this.getValues());
     }
 
 }

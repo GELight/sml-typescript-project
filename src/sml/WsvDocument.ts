@@ -1,5 +1,5 @@
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
-import SmlFile from "./SmlFile";
+import ReliableTxtFile from "./ReliableTxtFile";
 import WsvLine from "./WsvLine";
 import WsvParser from "./WsvParser";
 import WsvSerializer from "./WsvSerializer";
@@ -10,7 +10,12 @@ export default class WsvDocument {
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
     constructor(...args: string[]) {
-        this.parse(args);
+        for (const lineStr of args) {
+            const lines = new WsvParser().parseDocument(lineStr);
+            const firstLine = lines[0];
+            const newLine: WsvLine = new WsvLine(...firstLine);
+            this.lines.push(newLine);
+        }
         return this;
     }
 
@@ -42,25 +47,25 @@ export default class WsvDocument {
     public toString() {
         const serializedValues: string[] = [];
         for (const item of this.getLines()) {
-            serializedValues.push(new WsvSerializer().toString(item.getValues(), " "));
+            serializedValues.push(new WsvSerializer().serializeLine(item.getValues()));
         }
         return serializedValues.join("\n");
     }
 
     public save(filePath: string): WsvDocument {
-        new SmlFile(this.encoding).save(filePath, this.toString());
+        new ReliableTxtFile(this.encoding).save(filePath, this.toString());
         return this;
     }
 
     public load(filePath: string): WsvLine[] {
-        const lines: string[] = new SmlFile(this.encoding).load(filePath);
-        return this.parse(lines);
+        const content: string = new ReliableTxtFile(this.encoding).load(filePath);
+        return this.parse(content);
     }
 
-    public parse(lines: string[]): WsvLine[] {
-        for (const l of lines) {
-            const line = new WsvParser().parse(l);
-            const newLine: WsvLine = new WsvLine(line.join(" "));
+    public parse(content: string): WsvLine[] {
+        const lines = new WsvParser().parseDocument(content);
+        for (const line of lines) {
+            const newLine: WsvLine = new WsvLine(...line);
             this.lines.push(newLine);
         }
         return this.getLines();

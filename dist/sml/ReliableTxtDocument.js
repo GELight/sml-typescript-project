@@ -4,15 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
-const SmlFile_1 = __importDefault(require("./SmlFile"));
-const WsvParser_1 = __importDefault(require("./WsvParser"));
-const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
+const ReliableTxtFile_1 = __importDefault(require("./ReliableTxtFile"));
 class ReliableTxtDocument {
     constructor(...args) {
-        this.lines = [];
+        this.text = "";
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
-        this.parsedDocument = [];
-        this.parse(args);
+        this.text = args.join("\n");
         return this;
     }
     setEncoding(encoding) {
@@ -20,25 +17,18 @@ class ReliableTxtDocument {
         return this;
     }
     getLines() {
-        return this.lines;
+        return this.text.split("\n");
     }
     save(filePath) {
-        new SmlFile_1.default(this.encoding).save(filePath, this.toString());
+        new ReliableTxtFile_1.default(this.encoding).save(filePath, this.text);
         return this;
     }
     load(filePath) {
-        const data = new SmlFile_1.default(this.encoding).load(filePath);
-        return this.parse(data);
+        this.text = new ReliableTxtFile_1.default(this.encoding).load(filePath);
+        return this.text;
     }
     toString() {
-        return new WsvSerializer_1.default().toString(this.getLines(), "\n");
-    }
-    getParsedDocument() {
-        return this.parsedDocument;
-    }
-    parse(lines) {
-        this.parsedDocument = new WsvParser_1.default().parse(lines.join("\n"));
-        return this.parsedDocument;
+        return this.text;
     }
 }
 exports.default = ReliableTxtDocument;

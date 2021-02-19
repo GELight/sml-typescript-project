@@ -10,7 +10,7 @@ class WsvParser {
         this.result = [];
         // ...
     }
-    parse(content) {
+    parseDocument(content) {
         this.lines = content.split("\n");
         this.result = [];
         for (const line of this.lines) {

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvDocument_1 = __importDefault(require("./sml/WsvDocument"));
-const WsvLine_1 = __importDefault(require("./sml/WsvLine"));
 // console.log("---- Parser -----------------------------------");
 // console.log("");
 // const parsedLines = new WsvParser().parse([
@@ -19,15 +18,26 @@ const WsvLine_1 = __importDefault(require("./sml/WsvLine"));
 // ].join("\n"));
 // console.log(parsedLines);
 // console.log("");
-console.log("");
-console.log("---- SAVE WsvDocument -----------------------------------");
-const saveWsvDocument = new WsvDocument_1.default(`"hello ""world""!" "" "-" - "Line1"/"Line2"`, "\"hello\" abc", "#My doc", " #Doc\nR1_1 R1_2", " R2_1 R2_2 ", "R3_1 #", "", "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\"");
-saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
-saveWsvDocument.addLine(new WsvLine_1.default("Row2_Value1", "Row2_\nValue2", "Row2 Value3"));
-saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
-saveWsvDocument.save("Example-WsvDocument.wsv");
-console.log(saveWsvDocument.getLines());
-console.log("");
+// console.log("");
+// console.log("---- SAVE WsvDocument -----------------------------------");
+// const saveWsvDocument: WsvDocument = new WsvDocument(
+//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
+//     "\"hello\" abc",
+//     "#My doc",
+//     " #Doc",
+//     "R1_1 R1_2",
+//     " R2_1 R2_2 ",
+//     "R3_1 #",
+//     "",
+//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+// );
+// saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
+// saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_Value2", "Row2 Value3"));
+// saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
+// saveWsvDocument.save("Example-WsvDocument.wsv");
+// console.log("");
+// console.log(saveWsvDocument.getLines());
+// console.log("");
 console.log("---- LOAD WsvDocument -----------------------------------");
 const loadWsvDocument = new WsvDocument_1.default();
 const loadWsvDocumentData = loadWsvDocument.load("Example-WsvDocument.wsv");
@@ -36,8 +46,8 @@ console.log("");
 // console.log("---- PARSE WsvDocument -----------------------------------");
 // const parseWsvDocument: WsvDocument = new WsvDocument("Value11 Value12\nValue 13", "Value14 Value15\nValue 16");
 // console.log(parseWsvDocument.getLines());
-// console.log("---- SmlFile -----------------------------------");
-// new SmlFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
+// console.log("---- ReliableTxtFile -----------------------------------");
+// new ReliableTxtFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
 // console.log("---- SERIALIZER -----------------------------------");
 // const serializer: WsvSerializer = new WsvSerializer();
 // console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
@@ -63,17 +73,13 @@ console.log("");
 // console.log("");
 // console.log("---- WsvLine -----------------------------------");
 // const line: WsvLine = new WsvLine(
-//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-//     "\"hello\" abc",
-//     "#My doc",
-//     " #Doc\nR1_1 R1_2",
-//     " R2_1 R2_2 ",
+//     "R1_1",
+//     "R1_2",
 //     "R3_1 #",
-//     "",
-//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
+//     ""
 // );
-// line.addValue("Value 4");
+// line.addValue("Value 5");
 // console.log("");
-// console.log("line values >>>", line.getValues());
-// console.log("line >>>", line.toString());
+// console.log(line.getValues());
+// console.log(line.toString());
 //# sourceMappingURL=index.js.map

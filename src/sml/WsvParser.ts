@@ -10,7 +10,7 @@ export default class WsvParser {
         // ...
     }
 
-    public parse(content: string): string[][] {
+    public parseDocument(content: string): string[][] {
         this.lines = content.split("\n");
         this.result = [];
 

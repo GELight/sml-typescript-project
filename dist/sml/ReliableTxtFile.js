@@ -24,11 +24,11 @@ class ReliableTxtFile {
     load(filePath, encoding) {
         this.setEncoding(encoding);
         try {
-            return fs_1.readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString().split("\n");
+            return fs_1.readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString();
         }
         catch (e) {
             console.error(e);
-            return Array();
+            return "";
         }
     }
     setEncoding(encoding) {
@@ -39,4 +39,4 @@ class ReliableTxtFile {
     }
 }
 exports.default = ReliableTxtFile;
-//# sourceMappingURL=SmlFile.js.map
+//# sourceMappingURL=ReliableTxtFile.js.map

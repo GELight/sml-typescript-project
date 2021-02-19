@@ -1,15 +1,15 @@
 export default class WsvSerializer {
 
     constructor() {
-        return this;
+        // ...
     }
 
-    public toString(items: string[], separator: string): string {
+    public serializeLine(items: string[]): string {
         const serializedValues: string[] = [];
         for (const item of items) {
             serializedValues.push(this.serialize(item));
         }
-        return serializedValues.join(separator);
+        return serializedValues.join(" ");
     }
 
     public serialize(str: string): string {
