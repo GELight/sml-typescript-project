@@ -6,6 +6,16 @@ import WsvLine from "./sml/WsvLine";
 import WsvParser from "./sml/WsvParser";
 import WsvSerializer from "./sml/WsvSerializer";
 
+export {
+    ReliableTxtDocument,
+    ReliableTxtEncoding,
+    ReliableTxtFile,
+    WsvDocument,
+    WsvLine,
+    WsvParser,
+    WsvSerializer
+};
+
 // console.log("---- Parser -----------------------------------");
 // console.log("");
 
@@ -45,12 +55,12 @@ import WsvSerializer from "./sml/WsvSerializer";
 // console.log(saveWsvDocument.getLines());
 // console.log("");
 
-console.log("---- LOAD WsvDocument -----------------------------------");
+// console.log("---- LOAD WsvDocument -----------------------------------");
 
-const loadWsvDocument: WsvDocument = new WsvDocument();
-const loadWsvDocumentData = loadWsvDocument.load("Example-WsvDocument.wsv");
-console.log(loadWsvDocumentData);
-console.log("");
+// const loadWsvDocument: WsvDocument = new WsvDocument();
+// const loadWsvDocumentData = loadWsvDocument.load("Example-WsvDocument.wsv");
+// console.log(loadWsvDocumentData);
+// console.log("");
 
 // console.log("---- PARSE WsvDocument -----------------------------------");
 
