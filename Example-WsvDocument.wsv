@@ -20,8 +20,8 @@ Message
     From    Mario
     To      Stefan
     Text    "Muh sagt die Kuh"
-    Priority    -
-    Attachments
-        Image   http://muh.jpg
-    End
+    Priority    -   # ist nicht so wichtig
+    # Attachments
+    #     Image   http://muh.jpg
+    # End
 End
