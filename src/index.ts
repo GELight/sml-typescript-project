@@ -1,22 +1,9 @@
-import ReliableTxtDocument from "./sml/ReliableTxtDocument";
-// import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
-// import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
-// import ReliableTxtFile from "./sml/ReliableTxtFile";
-import WsvDocument from "./sml/WsvDocument";
-// import WsvDocumentServer from "./sml/WsvDocumentServer";
-import WsvLine from "./sml/WsvLine";
-import WsvParser from "./sml/WsvParser";
-import WsvSerializer from "./sml/WsvSerializer";
-
-export default {
-    ReliableTxtDocument,
-    // ReliableTxtDocumentServer,
-    // ReliableTxtEncoding,
-    // ReliableTxtFile,
-    Test: "Muh sagt die Kuh",
-    WsvDocument,
-    // WsvDocumentServer,
-    WsvLine,
-    WsvParser,
-    WsvSerializer
-};
+export { default as ReliableTxtDocument } from "./sml/ReliableTxtDocument";
+// export { default as ReliableTxtDocumentServer } from "./sml/ReliableTxtDocumentServer";
+// export { default as ReliableTxtEncoding } from "./sml/ReliableTxtEncoding";
+// export { default as ReliableTxtFile } from "./sml/ReliableTxtFile";
+export { default as WsvDocument } from "./sml/WsvDocument";
+// export { default as WsvDocumentServer } from "./sml/WsvDocumentServer";
+export { default as WsvLine } from "./sml/WsvLine";
+export { default as WsvParser } from "./sml/WsvParser";
+export { default as WsvSerializer } from "./sml/WsvSerializer";

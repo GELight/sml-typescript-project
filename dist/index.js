@@ -1,27 +1,17 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const ReliableTxtDocument_1 = __importDefault(require("./sml/ReliableTxtDocument"));
-// import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
-// import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
-// import ReliableTxtFile from "./sml/ReliableTxtFile";
-const WsvDocument_1 = __importDefault(require("./sml/WsvDocument"));
-// import WsvDocumentServer from "./sml/WsvDocumentServer";
-const WsvLine_1 = __importDefault(require("./sml/WsvLine"));
-const WsvParser_1 = __importDefault(require("./sml/WsvParser"));
-const WsvSerializer_1 = __importDefault(require("./sml/WsvSerializer"));
-exports.default = {
-    ReliableTxtDocument: ReliableTxtDocument_1.default,
-    // ReliableTxtDocumentServer,
-    // ReliableTxtEncoding,
-    // ReliableTxtFile,
-    Test: "Muh sagt die Kuh",
-    WsvDocument: WsvDocument_1.default,
-    // WsvDocumentServer,
-    WsvLine: WsvLine_1.default,
-    WsvParser: WsvParser_1.default,
-    WsvSerializer: WsvSerializer_1.default
-};
+var ReliableTxtDocument_1 = require("./sml/ReliableTxtDocument");
+Object.defineProperty(exports, "ReliableTxtDocument", { enumerable: true, get: function () { return ReliableTxtDocument_1.default; } });
+// export { default as ReliableTxtDocumentServer } from "./sml/ReliableTxtDocumentServer";
+// export { default as ReliableTxtEncoding } from "./sml/ReliableTxtEncoding";
+// export { default as ReliableTxtFile } from "./sml/ReliableTxtFile";
+var WsvDocument_1 = require("./sml/WsvDocument");
+Object.defineProperty(exports, "WsvDocument", { enumerable: true, get: function () { return WsvDocument_1.default; } });
+// export { default as WsvDocumentServer } from "./sml/WsvDocumentServer";
+var WsvLine_1 = require("./sml/WsvLine");
+Object.defineProperty(exports, "WsvLine", { enumerable: true, get: function () { return WsvLine_1.default; } });
+var WsvParser_1 = require("./sml/WsvParser");
+Object.defineProperty(exports, "WsvParser", { enumerable: true, get: function () { return WsvParser_1.default; } });
+var WsvSerializer_1 = require("./sml/WsvSerializer");
+Object.defineProperty(exports, "WsvSerializer", { enumerable: true, get: function () { return WsvSerializer_1.default; } });
 //# sourceMappingURL=index.js.map
