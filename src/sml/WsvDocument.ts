@@ -1,5 +1,3 @@
-import ReliableTxtEncoding from "./ReliableTxtEncoding";
-import ReliableTxtFile from "./ReliableTxtFile";
 import WsvLine from "./WsvLine";
 import WsvParser from "./WsvParser";
 import WsvSerializer from "./WsvSerializer";
@@ -7,7 +5,6 @@ import WsvSerializer from "./WsvSerializer";
 export default class WsvDocument {
 
     private lines: WsvLine[] = [];
-    private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
     constructor(...args: string[]) {
         for (const lineStr of args) {
@@ -16,11 +13,6 @@ export default class WsvDocument {
             const newLine: WsvLine = new WsvLine(...firstLine);
             this.lines.push(newLine);
         }
-        return this;
-    }
-
-    public setEncoding(encoding: ReliableTxtEncoding): WsvDocument {
-        this.encoding = encoding;
         return this;
     }
 
@@ -50,16 +42,6 @@ export default class WsvDocument {
             serializedValues.push(new WsvSerializer().serializeLine(item.getValues()));
         }
         return serializedValues.join("\n");
-    }
-
-    public save(filePath: string): WsvDocument {
-        new ReliableTxtFile(this.encoding).save(filePath, this.toString());
-        return this;
-    }
-
-    public load(filePath: string): WsvLine[] {
-        const content: string = new ReliableTxtFile(this.encoding).load(filePath);
-        return this.parse(content);
     }
 
     public parse(content: string): WsvLine[] {
