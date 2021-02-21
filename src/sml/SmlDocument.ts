@@ -10,4 +10,16 @@ export default class SmlDocument {
         // ...
     }
 
+    public getEndKeyword(): string {
+        return "";
+    }
+
+    public getDefaultIndentation(): string {
+        return "";
+    }
+
+    public getRoot(): SmlElement {
+        return new SmlElement("muh");
+    }
+
 }
