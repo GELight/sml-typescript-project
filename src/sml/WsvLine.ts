@@ -15,11 +15,11 @@ export default class WsvLine {
         this.values.push(value);
     }
 
-    public getValues() {
+    public getValues(): string[] {
         return this.values;
     }
 
-    public toString() {
+    public toString(): string {
         return new WsvSerializer().serializeLine(this.getValues());
     }
 
