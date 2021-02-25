@@ -10,6 +10,18 @@ class WsvParser {
         this.result = [];
         // ...
     }
+    parseLineByString(content) {
+        // const iterator: WsvCharIterator = new WsvCharIterator(content);
+        // ArrayList<String> values = new ArrayList<>();
+        // ArrayList<String> whitespaces = new ArrayList<>();
+        // WsvLine newLine = parseLine(iterator, values, whitespaces);
+        // if (iterator.tryReadChar('\n')) {
+        //     throw new WsvParserException(iterator, "Multiple WSV lines not allowed");
+        // } else if (!iterator.isEndOfText()) {
+        //     throw new WsvParserException(iterator, "WSV line not parsed completely");
+        // }
+        // return newLine;
+    }
     parseDocument(content) {
         this.lines = content.split("\n");
         this.result = [];

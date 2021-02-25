@@ -15,7 +15,7 @@ class SmlSerializer {
             defaultIndentation = "\t";
         }
         this.serializeElement(sb, document.getRoot(), 0, defaultIndentation, document.getEndKeyword());
-        // sb.setLength(sb.length()-1);
+        sb.setLength(sb.getLength() - 1);
         return sb.toString();
     }
     serializeElement(sb, element, level, defaultIndentation, endKeyword) {

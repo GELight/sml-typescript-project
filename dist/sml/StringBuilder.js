@@ -19,6 +19,18 @@ class StringBuilder {
     append(str) {
         this.codePoints.push(str.codePointAt(0));
     }
+    getLength() {
+        return this.codePoints.length;
+    }
+    setLength(from, until) {
+        if (from !== undefined && until !== undefined) {
+            this.codePoints = this.codePoints.slice(from, until);
+        }
+        else {
+            this.codePoints = this.codePoints.slice(from);
+        }
+        return this.getLength();
+    }
 }
 exports.default = StringBuilder;
 //# sourceMappingURL=StringBuilder.js.map

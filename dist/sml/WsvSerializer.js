@@ -7,11 +7,11 @@ class WsvSerializer {
     serializeLine(items) {
         const serializedValues = [];
         for (const item of items) {
-            serializedValues.push(this.serialize(item));
+            serializedValues.push(this.serializeValue(item));
         }
         return serializedValues.join(" ");
     }
-    serialize(str) {
+    serializeValue(str) {
         if (str === null) {
             return "-";
         }

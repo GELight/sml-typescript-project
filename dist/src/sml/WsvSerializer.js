@@ -1,17 +1,26 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const StringBuilder_1 = __importDefault(require("./StringBuilder"));
 class WsvSerializer {
     constructor() {
         // ...
     }
-    serializeLine(items) {
-        const serializedValues = [];
-        for (const item of items) {
-            serializedValues.push(this.serialize(item));
+    serializeLine(sb, line) {
+        if (line.getWhitespaces().length > 0) {
+            serializeValuesWithWhitespace(sb, line);
         }
-        return serializedValues.join(" ");
+        else {
+            serializeValuesWithoutWhitespace(sb, line);
+        }
+        if (line.getComment() !== "") {
+            sb.append("#");
+            sb.append(line.getComment());
+        }
     }
-    serialize(str) {
+    serializeValue(str) {
         if (str === null) {
             return "-";
         }
@@ -48,6 +57,28 @@ class WsvSerializer {
             return true;
         }
         return false;
+    }
+    serializeDocument(document) {
+        const sb = new StringBuilder_1.default();
+        let isFirstLine = true;
+        for (const line of document.getLines()) {
+            if (!isFirstLine) {
+                sb.append("\n");
+            }
+            else {
+                isFirstLine = false;
+            }
+            this.serializeLine(sb, line);
+        }
+        return sb.toString();
+    }
+    serializeWhitespace(sb, whitespace, isRequired) {
+        if (whitespace != null && whitespace.length > 0) {
+            sb.append(whitespace);
+        }
+        else if (isRequired) {
+            sb.append(" ");
+        }
     }
 }
 exports.default = WsvSerializer;

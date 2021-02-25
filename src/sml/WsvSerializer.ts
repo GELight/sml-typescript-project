@@ -1,18 +1,27 @@
+import StringBuilder from "./StringBuilder";
+import WsvDocument from "./WsvDocument";
+import WsvLine from "./WsvLine";
+
 export default class WsvSerializer {
 
     constructor() {
         // ...
     }
 
-    public serializeLine(items: string[]): string {
-        const serializedValues: string[] = [];
-        for (const item of items) {
-            serializedValues.push(this.serialize(item));
+    public serializeLine(sb: StringBuilder, line: WsvLine): void {
+        if (line.getWhitespaces().length > 0) {
+            serializeValuesWithWhitespace(sb, line);
+        } else {
+            serializeValuesWithoutWhitespace(sb, line);
         }
-        return serializedValues.join(" ");
+
+        if (line.getComment() !== "") {
+            sb.append("#");
+            sb.append(line.getComment());
+        }
     }
 
-    public serialize(str: string): string {
+    public serializeValue(str: string): string {
         if (str === null) {
             return "-";
         } else if (str === "") {
@@ -53,4 +62,25 @@ export default class WsvSerializer {
         return false;
     }
 
+    public serializeDocument(document: WsvDocument): string {
+        const sb: StringBuilder = new StringBuilder();
+        let isFirstLine: boolean = true;
+        for (const line of document.getLines()) {
+            if (!isFirstLine) {
+                sb.append("\n");
+            } else {
+                isFirstLine = false;
+            }
+            this.serializeLine(sb, line);
+        }
+        return sb.toString();
+    }
+
+    private serializeWhitespace(sb: StringBuilder, whitespace: string, isRequired: boolean): void {
+        if (whitespace != null && whitespace.length > 0) {
+            sb.append(whitespace);
+        } else if (isRequired) {
+            sb.append(" ");
+        }
+    }
 }
