@@ -10,9 +10,9 @@ export default class WsvSerializer {
 
     public serializeLine(sb: StringBuilder, line: WsvLine): void {
         if (line.getWhitespaces().length > 0) {
-            serializeValuesWithWhitespace(sb, line);
+            this.serializeValuesWithWhitespace(sb, line);
         } else {
-            serializeValuesWithoutWhitespace(sb, line);
+            this.serializeValuesWithoutWhitespace(sb, line);
         }
 
         if (line.getComment() !== "") {

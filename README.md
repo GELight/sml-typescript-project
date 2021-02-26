@@ -25,6 +25,43 @@ Alternatively you can build your project without file watcher.
 npm run build
 ```
 
+## Rework Status
+
+* [x] ReliableTxtDocument
+* [x] ReliableTxtDocumentServer
+* [x] ReliableTxtEncoding
+* [x] ReliableTxtFile
+* [ ] ReliableTxtException
+* [ ] ReliableTxtStreamReader
+* [ ] ReliableTxtStreamWriter
+
+* [ ] SmlAttribute      ( leere Klasse )
+* [ ] SmlDocument       ( leere Klasse )
+* [ ] SmlElement        ( leere Klasse )
+* [x] SmlIllegalArgumentException
+* [ ] SmlNode           ( leere Klasse )
+* [ ] SmlNode           ( leere Klasse )
+* [x] SmlParser
+* [x] SmlParserException
+* [ ] SmlSerializer     ( teilweise umgesetzt )
+
+* [x] StringBuilder
+
+* [x] WsvChar
+* [x] WsvCharIterator
+* [x] WsvDocument
+* [x] WsvDocumentServer
+* [x] WsvLineIterator
+* [x] WsvLine
+* [x] WsvDocument
+* [x] WsvDocumentServer
+* [x] WsvParser
+* [x] WsvParserCharIterator
+* [x] WsvParserException
+* [ ] WsvSerializer     ( teilweise umgesetzt )
+* [ ] WsvStreamReader
+* [ ] WsvStreamWriter
+
 
 ## Test
 ```js
