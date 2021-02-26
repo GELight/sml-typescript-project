@@ -17,12 +17,16 @@ export default class WsvDocumentServer extends WsvDocument {
         return this;
     }
 
+    public getEncoding(): ReliableTxtEncoding {
+        return this.encoding;
+    }
+
     public save(filePath: string): WsvDocument {
         new ReliableTxtFile(this.encoding).save(filePath, this.toString());
         return this;
     }
 
-    public load(filePath: string): WsvLine[] {
+    public load(filePath: string): WsvDocument {
         const content: string = new ReliableTxtFile(this.encoding).load(filePath);
         return this.parse(content);
     }

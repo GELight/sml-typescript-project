@@ -63,6 +63,7 @@ class WsvLine {
         this.values = values;
         this.whitespaces = whitespaces;
         this.comment = comment;
+        return this;
     }
     toString() {
         const sb = new StringBuilder_1.default();

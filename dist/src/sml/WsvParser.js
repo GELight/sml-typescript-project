@@ -3,116 +3,94 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const StringBuilder_1 = __importDefault(require("./StringBuilder"));
-const WsvParserCharIterator_1 = __importDefault(require("./WsvParserCharIterator"));
+const WsvCharIterator_1 = __importDefault(require("./WsvCharIterator"));
+const WsvDocument_1 = __importDefault(require("./WsvDocument"));
+const WsvLine_1 = __importDefault(require("./WsvLine"));
+const WsvParserException_1 = __importDefault(require("./WsvParserException"));
 class WsvParser {
     constructor() {
-        this.result = [];
         // ...
     }
     parseLineByString(content) {
-        // const iterator: WsvCharIterator = new WsvCharIterator(content);
-        // ArrayList<String> values = new ArrayList<>();
-        // ArrayList<String> whitespaces = new ArrayList<>();
-        // WsvLine newLine = parseLine(iterator, values, whitespaces);
-        // if (iterator.tryReadChar('\n')) {
-        //     throw new WsvParserException(iterator, "Multiple WSV lines not allowed");
-        // } else if (!iterator.isEndOfText()) {
-        //     throw new WsvParserException(iterator, "WSV line not parsed completely");
-        // }
-        // return newLine;
+        const iterator = new WsvCharIterator_1.default(content);
+        const values = [];
+        const whitespaces = [];
+        const lineBreak = "\n".codePointAt(0);
+        const newLine = this.parseLine(iterator, values, whitespaces);
+        if (iterator.tryReadChar(lineBreak)) {
+            throw new WsvParserException_1.default("Multiple WSV lines not allowed");
+        }
+        else if (!iterator.isEndOfText()) {
+            throw new WsvParserException_1.default("WSV line not parsed completely");
+        }
+        return newLine;
     }
     parseDocument(content) {
-        this.lines = content.split("\n");
-        this.result = [];
-        for (const line of this.lines) {
-            const lineIndex = this.lines.indexOf(line);
-            this.result.push(this.parseLine(line, lineIndex));
-        }
-        return this.result;
-    }
-    parseLine(str, lineIndex) {
-        const iterator = new WsvParserCharIterator_1.default(str, lineIndex);
+        const document = new WsvDocument_1.default();
+        const iterator = new WsvCharIterator_1.default(content);
         const values = [];
-        const sb = new StringBuilder_1.default();
+        const whitespaces = [];
+        const lineBreak = "\n".codePointAt(0);
         while (true) {
-            this.skipWhitespace(iterator);
-            if (iterator.isEnd()) {
+            const newLine = this.parseLine(iterator, values, whitespaces);
+            document.addWsvLine(newLine);
+            if (iterator.isEndOfText()) {
                 break;
             }
-            if (iterator.is("#")) {
+            else if (!iterator.tryReadChar(lineBreak)) {
+                throw new WsvParserException_1.default("Invalid WSV document");
+            }
+        }
+        if (!iterator.isEndOfText()) {
+            throw new WsvParserException_1.default("WSV document not parsed completely");
+        }
+        return document;
+    }
+    parseLine(iterator, values, whitespaces) {
+        const doubleQuote = '"'.codePointAt(0);
+        const lineBreak = "\n".codePointAt(0);
+        const slash = "/".codePointAt(0);
+        const rhombus = "#".codePointAt(0);
+        const minus = "-".codePointAt(0);
+        values = [];
+        whitespaces = [];
+        let whitespace = iterator.readWhitespaceOrNull();
+        whitespaces.push(whitespace);
+        while (!iterator.isChar(lineBreak) && !iterator.isEndOfText()) {
+            let value = "";
+            if (iterator.isChar(rhombus)) {
                 break;
             }
-            let curValue = "";
-            if (iterator.is('"')) {
-                curValue = this.parseDoubleQuoteValue(iterator, sb);
+            else if (iterator.tryReadChar(doubleQuote)) {
+                value = iterator.readString();
             }
             else {
-                curValue = this.parseValue(iterator);
-                if (curValue === "-") {
-                    curValue = null;
+                value = iterator.readValue();
+                if (value === "-") {
+                    value = null;
                 }
             }
-            values.push(curValue);
-        }
-        return [...values];
-    }
-    parseDoubleQuoteValue(iterator, sb) {
-        sb.clear();
-        while (true) {
-            if (!iterator.next()) {
-                throw iterator.getException("String not closed");
-            }
-            if (iterator.is('"')) {
-                if (!iterator.next()) {
-                    break;
-                }
-                if (iterator.is('"')) {
-                    sb.append('"');
-                }
-                else if (iterator.is("/")) {
-                    if (!(iterator.next() && iterator.is('"'))) {
-                        throw iterator.getException("Invalid line break");
-                    }
-                    sb.append("\n");
-                }
-                else if (iterator.isWhitespace() || iterator.is("#")) {
-                    break;
-                }
-                else {
-                    throw iterator.getException("Invalid character after string");
-                }
-            }
-            else {
-                sb.appendCodePoint(iterator.get());
-            }
-        }
-        return sb.toString();
-    }
-    parseValue(iterator) {
-        const startIndex = iterator.getIndex();
-        while (true) {
-            if (!iterator.next()) {
+            values.push(value);
+            whitespace = iterator.readWhitespaceOrNull();
+            if (whitespace == null) {
                 break;
             }
-            if (iterator.isWhitespace() || iterator.is("#")) {
-                break;
-            }
-            else if (iterator.is('"')) {
-                throw new Error("Invalid double quote");
+            whitespaces.push(whitespace);
+        }
+        let comment = "";
+        if (iterator.tryReadChar(rhombus)) {
+            comment = iterator.readCommentText();
+            if (whitespace == null) {
+                whitespaces.push(null);
             }
         }
-        return iterator.getByIndex(startIndex);
-    }
-    skipWhitespace(iterator) {
-        if (iterator.isEnd()) {
-            return;
-        }
-        do {
-            if (!iterator.isWhitespace()) {
-                break;
-            }
-        } while (iterator.next());
+        let valueArray = [`${values.length}`];
+        let whitespaceArray = [`${whitespaces.length}`];
+        valueArray = [...valueArray, ...values];
+        whitespaceArray = [...whitespaceArray, ...whitespaces];
+        const newLine = new WsvLine_1.default();
+        newLine.set(valueArray, whitespaceArray, comment);
+        return newLine;
     }
 }
 exports.default = WsvParser;

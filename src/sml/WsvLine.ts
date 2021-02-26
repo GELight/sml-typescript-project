@@ -70,10 +70,11 @@ export default class WsvLine {
         return this.comment;
     }
 
-    public set(values: string[], whitespaces: string[], comment: string): void {
+    public set(values: string[], whitespaces: string[], comment: string): WsvLine {
         this.values = values;
         this.whitespaces = whitespaces;
         this.comment = comment;
+        return this;
     }
 
     public toString(): string {

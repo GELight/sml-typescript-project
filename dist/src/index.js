@@ -1,4 +1,3 @@
-"use strict";
 // export { default as ReliableTxtDocument } from "./sml/ReliableTxtDocument";
 // export { default as ReliableTxtDocumentServer } from "./sml/ReliableTxtDocumentServer";
 // export { default as ReliableTxtEncoding } from "./sml/ReliableTxtEncoding";
@@ -8,21 +7,17 @@
 // export { default as WsvLine } from "./sml/WsvLine";
 // export { default as WsvParser } from "./sml/WsvParser";
 // export { default as WsvSerializer } from "./sml/WsvSerializer";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 // import ReliableTxtDocument from "./sml/ReliableTxtDocument";
 // import ReliableTxtDocument from "./sml/ReliableTxtDocumentServer";
 // import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
 // import ReliableTxtFile from "./sml/ReliableTxtFile";
-const WsvCharIterator_1 = __importDefault(require("./sml/WsvCharIterator"));
+// import WsvCharIterator from "./sml/WsvCharIterator";
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvDocument from "./sml/WsvDocumentServer";
 // import WsvLine from "./sml/WsvLine";
 // import WsvParser from "./sml/WsvParser";
 // import WsvSerializer from "./sml/WsvSerializer";
-const wsvCharIterator = new WsvCharIterator_1.default("Abc");
+// const wsvCharIterator = new WsvCharIterator("Abc");
 // console.log("---- Parser -----------------------------------");
 // console.log("");
 // const parsedLines = new WsvParser().parseDocument([

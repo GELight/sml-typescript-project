@@ -5,8 +5,7 @@ import WsvSerializer from "./WsvSerializer";
 
 export default class WsvDocument {
 
-    private lines: WsvLine[] = [];
-    private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
+    public lines: WsvLine[] = [];
 
     constructor(...args: string[]) {
         for (const lineStr of args) {
@@ -16,15 +15,6 @@ export default class WsvDocument {
             this.lines.push(newLine);
         }
         return this;
-    }
-
-    public setEncoding(encoding: ReliableTxtEncoding): WsvDocument {
-        this.encoding = encoding;
-        return this;
-    }
-
-    public getEncoding(): ReliableTxtEncoding {
-        return this.encoding;
     }
 
     public addWsvLine(...args: WsvLine[]): WsvLine[] {
@@ -43,25 +33,33 @@ export default class WsvDocument {
         return this.getLines();
     }
 
+    public addWsvLineBySet(values: string[], whitespaces: string[], comment: string): WsvDocument {
+        this.addWsvLine(new WsvLine().set(values, whitespaces, comment));
+        return this;
+    }
+
     public getLines(): WsvLine[] {
         return this.lines;
     }
 
-    public toString() {
-        const serializedValues: string[] = [];
-        for (const item of this.getLines()) {
-            serializedValues.push(new WsvSerializer().serializeLine(item.getValues()));
-        }
-        return serializedValues.join("\n");
+    public getLine(index: number): WsvLine {
+        return this.lines[index];
     }
 
-    public parse(content: string): WsvLine[] {
-        const lines = new WsvParser().parseDocument(content);
-        for (const line of lines) {
-            const newLine: WsvLine = new WsvLine(...line);
-            this.lines.push(newLine);
+    public toArray(): string[][] {
+        const array: string[][] = [];
+        for (let i = 0; i < this.lines.length; i++) {
+            array[i] = this.lines[i].getValues();
         }
-        return this.getLines();
+        return array;
+    }
+
+    public toString(): string {
+        return new WsvSerializer().serializeDocument(this);
+    }
+
+    public parse(content: string): WsvDocument {
+        return new WsvParser().parseDocument(content);
     }
 
 }

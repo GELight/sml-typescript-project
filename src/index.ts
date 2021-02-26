@@ -12,14 +12,14 @@
 // import ReliableTxtDocument from "./sml/ReliableTxtDocumentServer";
 // import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
 // import ReliableTxtFile from "./sml/ReliableTxtFile";
-import WsvCharIterator from "./sml/WsvCharIterator";
+// import WsvCharIterator from "./sml/WsvCharIterator";
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvDocument from "./sml/WsvDocumentServer";
 // import WsvLine from "./sml/WsvLine";
 // import WsvParser from "./sml/WsvParser";
 // import WsvSerializer from "./sml/WsvSerializer";
 
-const wsvCharIterator = new WsvCharIterator("Abc");
+// const wsvCharIterator = new WsvCharIterator("Abc");
 
 // console.log("---- Parser -----------------------------------");
 // console.log("");
