@@ -21,9 +21,9 @@ console.log(new WsvParserCharIterator(" ").readWhitespaceOrNull());
 console.log(new WsvParserCharIterator(" abc").readWhitespaceOrNull());
 console.log(new WsvParserCharIterator(" \n").readWhitespaceOrNull());
 console.log(new WsvParserCharIterator("abc\"").readString());
-console.log(new WsvParserCharIterator("abc\"\"\"").readString());
-console.log(new WsvParserCharIterator("abc\"/\"\"").readString());
-console.log(new WsvParserCharIterator("abc ").readValue());
+console.log(`_${new WsvParserCharIterator("abc\"\"\"").readString()}_`);
+console.log(`_${new WsvParserCharIterator("abc\"/\"\"").readString()}_`);
+console.log(`_${new WsvParserCharIterator("abc ").readValue()}_`);
 
 console.log(">>> WsvParser");
 console.log(WsvParser.parseLine("a b c"));
