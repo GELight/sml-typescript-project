@@ -35,33 +35,32 @@ npm run build
 * [ ] ReliableTxtStreamReader
 * [ ] ReliableTxtStreamWriter
 
-* [ ] SmlAttribute      ( leere Klasse )
-* [ ] SmlDocument       ( leere Klasse )
-* [ ] SmlElement        ( leere Klasse )
+* [ ] SmlAttribute
+* [ ] SmlDocument
+* [ ] SmlElement
 * [ ] SmlIllegalArgumentException
-* [ ] SmlNode           ( leere Klasse )
-* [ ] SmlNode           ( leere Klasse )
+* [ ] SmlNode
 * [ ] SmlParser
 * [ ] SmlParserException
-* [ ] SmlSerializer     ( teilweise umgesetzt )
+* [ ] SmlSerializer
 
-* [ ] StringBuilder
+* [x] StringBuilder
 * [x] StringUtil
 
 * [x] WsvChar
 * [ ] WsvCharIterator
 * [ ] WsvDocument
 * [ ] WsvDocumentServer
-* [ ] WsvLineIterator   ( teilweise umgesetzt )
+* [ ] WsvLineIterator
 * [ ] WsvLine
 * [ ] WsvDocument
 * [ ] WsvDocumentServer
-* [ ] WsvParser         ( teilweise umgesetzt )
-* [ ] WsvParserException
-* [ ] WsvSerializer     ( teilweise umgesetzt )
+* [ ] WsvParser             ( PARTIALLY APPROVED - still open 1 Method )
+* [x] WsvParserCharIterator
+* [x] WsvParserException
+* [ ] WsvSerializer
 * [ ] WsvStreamReader
 * [ ] WsvStreamWriter
-
 
 ## Test
 ```js
