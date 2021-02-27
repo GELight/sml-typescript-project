@@ -3,104 +3,78 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const StringBuilder_1 = __importDefault(require("./StringBuilder"));
+const StringUtil_1 = __importDefault(require("./StringUtil"));
+const WsvLine_1 = __importDefault(require("./WsvLine"));
 const WsvParserCharIterator_1 = __importDefault(require("./WsvParserCharIterator"));
+const WsvParserException_1 = __importDefault(require("./WsvParserException"));
+// PARTIALLY APPROVED
 class WsvParser {
-    constructor() {
-        this.result = [];
-        // ...
-    }
-    parseDocument(content) {
-        this.lines = content.split("\n");
-        this.result = [];
-        for (const line of this.lines) {
-            const lineIndex = this.lines.indexOf(line);
-            this.result.push(this.parseLine(line, lineIndex));
+    static parseLine(content) {
+        const iterator = new WsvParserCharIterator_1.default(content);
+        const newLine = WsvParser.parseLineWithIterator(iterator);
+        if (iterator.tryReadChar(StringUtil_1.default.lineBreak)) {
+            throw new WsvParserException_1.default(iterator, "Multiple WSV lines not allowed");
         }
-        return this.result;
+        else if (!iterator.isEndOfText()) {
+            throw new WsvParserException_1.default(iterator, "WSV line not parsed completely");
+        }
+        return newLine;
     }
-    parseLine(str, lineIndex) {
-        const iterator = new WsvParserCharIterator_1.default(str, lineIndex);
+    // public static parseDocument(content: string): WsvDocument {
+    //     const document: WsvDocument = new WsvDocument();
+    //     const iterator: WsvParserCharIterator = new WsvParserCharIterator(content);
+    //     const values: string[] = [];
+    //     const whitespaces: string[] = [];
+    //     const lineBreak = "\n".codePointAt(0);
+    //     while (true) {
+    //         const newLine: WsvLine = this.parseLine(iterator, values, whitespaces);
+    //         document.addWsvLine(newLine);
+    //         if (iterator.isEndOfText()) {
+    //             break;
+    //         } else if (!iterator.tryReadChar(lineBreak)) {
+    //             throw new WsvParserException("Invalid WSV document");
+    //         }
+    //     }
+    //     if (!iterator.isEndOfText()) {
+    //         throw new WsvParserException("WSV document not parsed completely");
+    //     }
+    //     return document;
+    // }
+    static parseLineWithIterator(iterator) {
         const values = [];
-        const sb = new StringBuilder_1.default();
-        while (true) {
-            this.skipWhitespace(iterator);
-            if (iterator.isEnd()) {
+        const whitespaces = [];
+        let whitespace = iterator.readWhitespaceOrNull();
+        whitespaces.push(whitespace);
+        while (!iterator.isChar(StringUtil_1.default.lineBreak) && !iterator.isEndOfText()) {
+            let value = "";
+            if (iterator.isChar(StringUtil_1.default.hash)) {
                 break;
             }
-            if (iterator.is("#")) {
-                break;
-            }
-            let curValue = "";
-            if (iterator.is('"')) {
-                curValue = this.parseDoubleQuoteValue(iterator, sb);
+            else if (iterator.tryReadChar(StringUtil_1.default.doubleQuote)) {
+                value = iterator.readString();
             }
             else {
-                curValue = this.parseValue(iterator);
-                if (curValue === "-") {
-                    curValue = null;
+                value = iterator.readValue();
+                if (value === "-") {
+                    value = null;
                 }
             }
-            values.push(curValue);
-        }
-        return [...values];
-    }
-    parseDoubleQuoteValue(iterator, sb) {
-        sb.clear();
-        while (true) {
-            if (!iterator.next()) {
-                throw iterator.getException("String not closed");
-            }
-            if (iterator.is('"')) {
-                if (!iterator.next()) {
-                    break;
-                }
-                if (iterator.is('"')) {
-                    sb.append('"');
-                }
-                else if (iterator.is("/")) {
-                    if (!(iterator.next() && iterator.is('"'))) {
-                        throw iterator.getException("Invalid line break");
-                    }
-                    sb.append("\n");
-                }
-                else if (iterator.isWhitespace() || iterator.is("#")) {
-                    break;
-                }
-                else {
-                    throw iterator.getException("Invalid character after string");
-                }
-            }
-            else {
-                sb.appendCodePoint(iterator.get());
-            }
-        }
-        return sb.toString();
-    }
-    parseValue(iterator) {
-        const startIndex = iterator.getIndex();
-        while (true) {
-            if (!iterator.next()) {
+            values.push(value);
+            whitespace = iterator.readWhitespaceOrNull();
+            if (whitespace == null) {
                 break;
             }
-            if (iterator.isWhitespace() || iterator.is("#")) {
-                break;
-            }
-            else if (iterator.is('"')) {
-                throw new Error("Invalid double quote");
+            whitespaces.push(whitespace);
+        }
+        let comment = "";
+        if (iterator.tryReadChar(StringUtil_1.default.hash)) {
+            comment = iterator.readCommentText();
+            if (whitespace == null) {
+                whitespaces.push(null);
             }
         }
-        return iterator.getByIndex(startIndex);
-    }
-    skipWhitespace(iterator) {
-        if (iterator.isEnd()) {
-            return;
-        }
-        do {
-            if (!iterator.isWhitespace()) {
-                break;
-            }
-        } while (iterator.next());
+        const newLine = new WsvLine_1.default().set(values, whitespaces, comment);
+        return newLine;
     }
 }
 exports.default = WsvParser;

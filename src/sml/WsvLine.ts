@@ -84,7 +84,8 @@ export default class WsvLine {
     }
 
     public parse(content: string): WsvLine {
-        return new WsvParser().parseLineByString(content);
+        // return new WsvParser().parseLineByString(content);
+        return null;
     }
 
 }

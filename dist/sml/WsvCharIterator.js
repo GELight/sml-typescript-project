@@ -4,20 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
+const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvChar_1 = __importDefault(require("./WsvChar"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
+// APPROVED
 class WsvCharIterator {
     constructor(text) {
         this.sb = new StringBuilder_1.default();
-        for (const codePoint of text) {
-            this.chars.push(codePoint.codePointAt(0));
-        }
+        this.chars = [];
+        this.index = 0;
+        this.chars = StringUtil_1.default.stringToCodePoints(text);
     }
     getText() {
-        const chars = this.chars.map((codePoint) => {
-            return String.fromCodePoint(codePoint);
-        });
-        return chars.join("");
+        return StringUtil_1.default.codePointsToString(this.chars);
     }
     getLineInfoString() {
         const lineInfo = this.getLineInfo();
@@ -27,7 +26,7 @@ class WsvCharIterator {
         let lineIndex = 0;
         let linePosition = 0;
         for (let i = 0; i < this.index; i++) {
-            if (String.fromCodePoint(this.chars[i]) === "\n") {
+            if (this.chars[i] === StringUtil_1.default.lineBreak) {
                 lineIndex++;
                 linePosition = 0;
             }
@@ -60,12 +59,12 @@ class WsvCharIterator {
             if (this.isEndOfText()) {
                 break;
             }
-            if (String.fromCodePoint(this.index) === "\n") {
+            if (this.chars[this.index] === StringUtil_1.default.lineBreak) {
                 break;
             }
             this.index++;
         }
-        return this.getText().substring(startIndex, (this.index - startIndex));
+        return StringUtil_1.default.getSubstr(this.chars, startIndex, this.index);
     }
     readWhitespaceOrNull() {
         const startIndex = this.index;
@@ -74,7 +73,7 @@ class WsvCharIterator {
                 break;
             }
             const c = this.chars[this.index];
-            if (String.fromCodePoint(c) === "\n") {
+            if (c === StringUtil_1.default.lineBreak) {
                 break;
             }
             if (!WsvChar_1.default.isWhitespace(c)) {
@@ -85,31 +84,28 @@ class WsvCharIterator {
         if (this.index === startIndex) {
             return null;
         }
-        return this.getText().substring(startIndex, (this.index - startIndex));
+        return StringUtil_1.default.getSubstr(this.chars, startIndex, this.index);
     }
     readString() {
         this.sb.clear();
-        const doubleQuote = '"'.codePointAt(0);
-        const lineBreak = "\n".codePointAt(0);
-        const slash = "/".codePointAt(0);
         while (true) {
             if (this.isEndOfText()) {
-                throw new WsvParserException_1.default("String not closed");
+                throw new WsvParserException_1.default(this, "String not closed");
             }
             const c = this.chars[this.index];
-            if (c === lineBreak) {
-                throw new WsvParserException_1.default("String not closed in starting line");
+            if (c === StringUtil_1.default.lineBreak) {
+                throw new WsvParserException_1.default(this, "String not closed in starting line");
             }
-            else if (c === doubleQuote) {
+            else if (c === StringUtil_1.default.doubleQuote) {
                 this.index++;
-                if (this.tryReadChar(doubleQuote)) {
-                    this.sb.appendCodePoint(doubleQuote);
+                if (this.tryReadChar(StringUtil_1.default.doubleQuote)) {
+                    this.sb.appendCodePoint(StringUtil_1.default.doubleQuote);
                 }
-                else if (this.tryReadChar(slash)) {
-                    if (!this.tryReadChar(doubleQuote)) {
-                        throw new WsvParserException_1.default("String expected after linebreak slash");
+                else if (this.tryReadChar(StringUtil_1.default.slash)) {
+                    if (!this.tryReadChar(StringUtil_1.default.doubleQuote)) {
+                        throw new WsvParserException_1.default(this, "String expected after linebreak slash");
                     }
-                    this.sb.appendCodePoint(lineBreak);
+                    this.sb.appendCodePoint(StringUtil_1.default.lineBreak);
                 }
                 else {
                     break;
@@ -124,24 +120,23 @@ class WsvCharIterator {
     }
     readValue() {
         const startIndex = this.index;
-        const rhombus = "#".codePointAt(0);
         while (true) {
             if (this.isEndOfText()) {
                 break;
             }
             const c = this.chars[this.index];
-            if (WsvChar_1.default.isWhitespace(c) || c === rhombus) {
+            if (WsvChar_1.default.isWhitespace(c) || c === StringUtil_1.default.hash) {
                 break;
             }
-            if (String.fromCodePoint(c) === '\"') {
-                throw new WsvParserException_1.default("String starting in value");
+            if (c === StringUtil_1.default.doubleQuote) {
+                throw new WsvParserException_1.default(this, "String starting in value");
             }
             this.index++;
         }
         if (this.index === startIndex) {
-            throw new WsvParserException_1.default("Invalid value");
+            throw new WsvParserException_1.default(this, "Invalid value");
         }
-        return this.getText().substring(startIndex, (this.index - startIndex));
+        return StringUtil_1.default.getSubstr(this.chars, startIndex, this.index);
     }
 }
 exports.default = WsvCharIterator;

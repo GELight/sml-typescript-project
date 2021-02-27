@@ -1,19 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// APPROVED
 class WsvParserException extends Error {
-    constructor(message, lineIndex, linePosition, ...params) {
-        super(...params);
+    constructor(iterator, message) {
+        super(`${message} ${iterator.getLineInfoString()}`);
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, WsvParserException);
         }
-        this.name = "WsvParserException";
-        this.message = `${message}:${lineIndex + 1}:${linePosition}`;
-        if (lineIndex) {
-            this.lineIndex = lineIndex;
-        }
-        if (linePosition) {
-            this.linePosition = linePosition;
-        }
+        const lineInfo = iterator.getLineInfo();
+        this.index = lineInfo[0];
+        this.lineIndex = lineInfo[1];
+        this.linePosition = lineInfo[2];
+        this.text = iterator.getText();
     }
 }
 exports.default = WsvParserException;

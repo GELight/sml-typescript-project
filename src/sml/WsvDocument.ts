@@ -8,13 +8,13 @@ export default class WsvDocument {
     public lines: WsvLine[] = [];
 
     constructor(...args: string[]) {
-        for (const lineStr of args) {
-            const lines = new WsvParser().parseDocument(lineStr);
-            const firstLine = lines[0];
-            const newLine: WsvLine = new WsvLine(...firstLine);
-            this.lines.push(newLine);
-        }
-        return this;
+        // for (const lineStr of args) {
+        //     const lines = new WsvParser().parseDocument(lineStr);
+        //     const firstLine = lines[0];
+        //     const newLine: WsvLine = new WsvLine(...firstLine);
+        //     this.lines.push(newLine);
+        // }
+        // return this;
     }
 
     public addWsvLine(...args: WsvLine[]): WsvLine[] {
@@ -59,7 +59,8 @@ export default class WsvDocument {
     }
 
     public parse(content: string): WsvDocument {
-        return new WsvParser().parseDocument(content);
+        // return new WsvParser().parseDocument(content);
+        return null;
     }
 
 }

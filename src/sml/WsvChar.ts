@@ -1,10 +1,8 @@
+
+// APPROVED
 export default class WsvChar {
 
-    constructor() {
-        // ...
-    }
-
-    public isWhitespace(c: number): boolean {
+    public static isWhitespace(c: number): boolean {
         return (c >= 0x09 && c <= 0x0D) ||
             c === 0x20 ||
             c === 0x85 ||
@@ -16,4 +14,5 @@ export default class WsvChar {
             c === 0x205F ||
             c === 0x3000;
     }
+
 }

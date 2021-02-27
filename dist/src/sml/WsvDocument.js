@@ -4,18 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvLine_1 = __importDefault(require("./WsvLine"));
-const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvDocument {
     constructor(...args) {
         this.lines = [];
-        for (const lineStr of args) {
-            const lines = new WsvParser_1.default().parseDocument(lineStr);
-            const firstLine = lines[0];
-            const newLine = new WsvLine_1.default(...firstLine);
-            this.lines.push(newLine);
-        }
-        return this;
+        // for (const lineStr of args) {
+        //     const lines = new WsvParser().parseDocument(lineStr);
+        //     const firstLine = lines[0];
+        //     const newLine: WsvLine = new WsvLine(...firstLine);
+        //     this.lines.push(newLine);
+        // }
+        // return this;
     }
     addWsvLine(...args) {
         for (const arg of args) {
@@ -52,7 +51,8 @@ class WsvDocument {
         return new WsvSerializer_1.default().serializeDocument(this);
     }
     parse(content) {
-        return new WsvParser_1.default().parseDocument(content);
+        // return new WsvParser().parseDocument(content);
+        return null;
     }
 }
 exports.default = WsvDocument;

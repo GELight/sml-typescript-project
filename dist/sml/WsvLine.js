@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlIllegalArgumentException_1 = __importDefault(require("./SmlIllegalArgumentException"));
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
-const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvLine {
     constructor(...args) {
@@ -27,9 +26,6 @@ class WsvLine {
     }
     setValues(...args) {
         this.values = args;
-    }
-    toString() {
-        return new WsvSerializer_1.default().serializeLine(this.getValues());
     }
     hasValues() {
         return this.values.length > 0;
@@ -66,14 +62,16 @@ class WsvLine {
         this.values = values;
         this.whitespaces = whitespaces;
         this.comment = comment;
+        return this;
     }
     toString() {
         const sb = new StringBuilder_1.default();
-        const serializedLine = new WsvSerializer_1.default.serializeLine(sb, this);
+        const serializedLine = new WsvSerializer_1.default().serializeLine(sb, this);
         return sb.toString();
     }
     parse(content) {
-        return new WsvParser_1.default().parseLine(content);
+        // return new WsvParser().parseLineByString(content);
+        return null;
     }
 }
 exports.default = WsvLine;

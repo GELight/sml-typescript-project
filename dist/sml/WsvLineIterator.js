@@ -4,12 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlParserException_1 = __importDefault(require("./SmlParserException"));
-const WsvParser_1 = __importDefault(require("./WsvParser"));
 class WsvLineIterator {
     constructor(content) {
         this.lines = [];
-        this.lines = new WsvParser_1.default().parseDocument(content);
-        this.detectEndKeyword();
+        // this.lines = new WsvParser().parseDocument(content);
+        // this.detectEndKeyword();
     }
     getEndKeyword() {
         return this.endKeyword;

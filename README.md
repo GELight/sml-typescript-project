@@ -46,8 +46,9 @@ npm run build
 * [ ] SmlSerializer     ( teilweise umgesetzt )
 
 * [ ] StringBuilder
+* [x] StringUtil
 
-* [ ] WsvChar
+* [x] WsvChar
 * [ ] WsvCharIterator
 * [ ] WsvDocument
 * [ ] WsvDocumentServer
@@ -56,7 +57,6 @@ npm run build
 * [ ] WsvDocument
 * [ ] WsvDocumentServer
 * [ ] WsvParser         ( teilweise umgesetzt )
-* [x] WsvParserCharIterator
 * [ ] WsvParserException
 * [ ] WsvSerializer     ( teilweise umgesetzt )
 * [ ] WsvStreamReader

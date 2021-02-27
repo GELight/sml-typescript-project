@@ -8,8 +8,8 @@ export default class WsvLineIterator {
     private index: number;
 
     constructor(content: string) {
-        this.lines = new WsvParser().parseDocument(content);
-        this.detectEndKeyword();
+        // this.lines = new WsvParser().parseDocument(content);
+        // this.detectEndKeyword();
     }
 
     public getEndKeyword(): string {

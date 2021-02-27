@@ -1,3 +1,6 @@
+import StringUtil from "./StringUtil";
+
+// APPROVED
 export default class StringBuilder {
 
     private codePoints: number[];
@@ -11,30 +14,20 @@ export default class StringBuilder {
     }
 
     public toString(): string {
-        const chars = this.codePoints.map((codePoint) => {
-            return String.fromCodePoint(codePoint);
-        });
-        return chars.join("");
+        return StringUtil.codePointsToString(this.codePoints);
     }
 
     public appendCodePoint(codePoint: number) {
         this.codePoints.push(codePoint);
     }
 
-    public append(str: string) {
-        this.codePoints.push(str.codePointAt(0));
+    public appendString(str: string) {
+        const codePointsArray: number[] = StringUtil.stringToCodePoints(str);
+        this.codePoints = [...this.codePoints, ...codePointsArray];
     }
 
     public getLength(): number {
         return this.codePoints.length;
     }
 
-    public setLength(from: number, until?: number): number {
-        if (from !== undefined && until !== undefined) {
-            this.codePoints = this.codePoints.slice(from, until);
-        } else {
-            this.codePoints = this.codePoints.slice(from);
-        }
-        return this.getLength();
-    }
 }

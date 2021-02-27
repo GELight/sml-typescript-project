@@ -16,6 +16,9 @@ class WsvDocumentServer extends WsvDocument_1.default {
         this.encoding = encoding;
         return this;
     }
+    getEncoding() {
+        return this.encoding;
+    }
     save(filePath) {
         new ReliableTxtFile_1.default(this.encoding).save(filePath, this.toString());
         return this;

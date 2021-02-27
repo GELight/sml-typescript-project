@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlIllegalArgumentException_1 = __importDefault(require("./SmlIllegalArgumentException"));
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
-const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvLine {
     constructor(...args) {
@@ -71,7 +70,8 @@ class WsvLine {
         return sb.toString();
     }
     parse(content) {
-        return new WsvParser_1.default().parseLineByString(content);
+        // return new WsvParser().parseLineByString(content);
+        return null;
     }
 }
 exports.default = WsvLine;
