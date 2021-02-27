@@ -25,7 +25,6 @@ class WsvDocumentServer extends WsvDocument_1.default {
     }
     load(filePath) {
         const content = new ReliableTxtFile_1.default(this.encoding).load(filePath);
-        const document = this.parse(content);
         return this.parse(content);
     }
 }

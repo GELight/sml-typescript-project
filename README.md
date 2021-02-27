@@ -27,10 +27,10 @@ npm run build
 
 ## Rework Status
 
-* [x] ReliableTxtDocument
-* [x] ReliableTxtDocumentServer
-* [x] ReliableTxtEncoding
-* [x] ReliableTxtFile
+* [ ] ReliableTxtDocument
+* [ ] ReliableTxtDocumentServer
+* [ ] ReliableTxtEncoding
+* [ ] ReliableTxtFile
 * [ ] ReliableTxtException
 * [ ] ReliableTxtStreamReader
 * [ ] ReliableTxtStreamWriter
@@ -38,26 +38,26 @@ npm run build
 * [ ] SmlAttribute      ( leere Klasse )
 * [ ] SmlDocument       ( leere Klasse )
 * [ ] SmlElement        ( leere Klasse )
-* [x] SmlIllegalArgumentException
+* [ ] SmlIllegalArgumentException
 * [ ] SmlNode           ( leere Klasse )
 * [ ] SmlNode           ( leere Klasse )
-* [x] SmlParser
-* [x] SmlParserException
+* [ ] SmlParser
+* [ ] SmlParserException
 * [ ] SmlSerializer     ( teilweise umgesetzt )
 
-* [x] StringBuilder
+* [ ] StringBuilder
 
-* [x] WsvChar
-* [x] WsvCharIterator
-* [x] WsvDocument
-* [x] WsvDocumentServer
-* [x] WsvLineIterator
-* [x] WsvLine
-* [x] WsvDocument
-* [x] WsvDocumentServer
-* [x] WsvParser
+* [ ] WsvChar
+* [ ] WsvCharIterator
+* [ ] WsvDocument
+* [ ] WsvDocumentServer
+* [ ] WsvLineIterator   ( teilweise umgesetzt )
+* [ ] WsvLine
+* [ ] WsvDocument
+* [ ] WsvDocumentServer
+* [ ] WsvParser         ( teilweise umgesetzt )
 * [x] WsvParserCharIterator
-* [x] WsvParserException
+* [ ] WsvParserException
 * [ ] WsvSerializer     ( teilweise umgesetzt )
 * [ ] WsvStreamReader
 * [ ] WsvStreamWriter

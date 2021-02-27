@@ -10,10 +10,10 @@ class WsvSerializer {
     }
     serializeLine(sb, line) {
         if (line.getWhitespaces().length > 0) {
-            serializeValuesWithWhitespace(sb, line);
+            this.serializeValuesWithWhitespace(sb, line);
         }
         else {
-            serializeValuesWithoutWhitespace(sb, line);
+            this.serializeValuesWithoutWhitespace(sb, line);
         }
         if (line.getComment() !== "") {
             sb.append("#");

@@ -13,11 +13,14 @@
 // import ReliableTxtEncoding from "./sml/ReliableTxtEncoding";
 // import ReliableTxtFile from "./sml/ReliableTxtFile";
 // import WsvCharIterator from "./sml/WsvCharIterator";
+import WsvChar from "./sml/WsvChar";
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvDocument from "./sml/WsvDocumentServer";
 // import WsvLine from "./sml/WsvLine";
 // import WsvParser from "./sml/WsvParser";
 // import WsvSerializer from "./sml/WsvSerializer";
+
+console.log(new WsvChar().isWhitespace("d".codePointAt(0)));
 
 // const wsvCharIterator = new WsvCharIterator("Abc");
 

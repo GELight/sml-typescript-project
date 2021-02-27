@@ -3,49 +3,49 @@ import WsvParserException from "./WsvParserException";
 
 export default class WsvParserCharIterator {
 
-    private chars: number[];
-    private index: number = 0;
-    private lineIndex: number = 0;
+    public static chars: number[];
+    public static index: number = 0;
+    public static lineIndex: number = 0;
 
-    constructor(str: string, lineIndex: number) {
-        this.chars = Array.from(str).map((v) => v.codePointAt(0));
-        this.lineIndex = lineIndex;
+    public static isEnd(): boolean {
+        return WsvParserCharIterator.index >= WsvParserCharIterator.chars.length;
     }
 
-    public isEnd(): boolean {
-        return this.index >= this.chars.length;
+    public static is(c: string): boolean {
+        return WsvParserCharIterator.chars[WsvParserCharIterator.index] === c.codePointAt(0);
     }
 
-    public is(c: string): boolean {
-        return this.chars[this.index] === c.codePointAt(0);
+    public static isWhitespace(): boolean {
+        return new WsvChar().isWhitespace(WsvParserCharIterator.chars[WsvParserCharIterator.index]);
     }
 
-    public isWhitespace(): boolean {
-        return new WsvChar().isWhitespace(this.chars[this.index]);
+    public static next(): boolean {
+        WsvParserCharIterator.index++;
+        return !WsvParserCharIterator.isEnd();
     }
 
-    public next(): boolean {
-        this.index++;
-        return !this.isEnd();
+    public static get(): number {
+        return WsvParserCharIterator.chars[WsvParserCharIterator.index];
     }
 
-    public get(): number {
-        return this.chars[this.index];
-    }
-
-    public getByIndex(index: number): string {
-        const len: number = this.index - index;
-        const chars = this.chars.map((c) => {
+    public static getByIndex(index: number): string {
+        const len: number = WsvParserCharIterator.index - index;
+        const chars = WsvParserCharIterator.chars.map((c) => {
             return String.fromCodePoint(c);
         }).join("");
         return `${chars.substr(index, len)}`;
     }
 
-    public getIndex(): number {
-        return this.index;
+    public static getIndex(): number {
+        return WsvParserCharIterator.index;
+    }
+
+    constructor(str: string, lineIndex: number) {
+        WsvParserCharIterator.chars = Array.from(str).map((v) => v.codePointAt(0));
+        WsvParserCharIterator.lineIndex = lineIndex;
     }
 
     public getException(message: string): WsvParserException {
-        return new WsvParserException(message, this.lineIndex, this.index);
+        return new WsvParserException(message, WsvParserCharIterator.lineIndex, WsvParserCharIterator.index);
     }
 }

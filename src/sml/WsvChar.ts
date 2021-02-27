@@ -1,5 +1,3 @@
-import { clear } from "console";
-
 export default class WsvChar {
 
     constructor() {

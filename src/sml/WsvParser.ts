@@ -1,4 +1,4 @@
-import WsvCharIterator from "./WsvCharIterator";
+import WsvParserCharIterator from "./WsvParserCharIterator";
 import WsvDocument from "./WsvDocument";
 import WsvLine from "./WsvLine";
 import WsvParserException from "./WsvParserException";
@@ -10,7 +10,7 @@ export default class WsvParser {
     }
 
     public parseLineByString(content: string): WsvLine {
-        const iterator: WsvCharIterator = new WsvCharIterator(content);
+        const iterator: WsvParserCharIterator = new WsvParserCharIterator(content);
         const values: string[] = [];
         const whitespaces: string[] = [];
 
@@ -29,7 +29,7 @@ export default class WsvParser {
     public parseDocument(content: string): WsvDocument {
         const document: WsvDocument = new WsvDocument();
 
-        const iterator: WsvCharIterator = new WsvCharIterator(content);
+        const iterator: WsvParserCharIterator = new WsvParserCharIterator(content);
         const values: string[] = [];
         const whitespaces: string[] = [];
         const lineBreak = "\n".codePointAt(0);
@@ -52,7 +52,7 @@ export default class WsvParser {
         return document;
     }
 
-    private parseLine(iterator: WsvCharIterator, values: string[], whitespaces: string[]): WsvLine {
+    private parseLine(iterator: WsvParserCharIterator, values: string[], whitespaces: string[]): WsvLine {
 
         const doubleQuote = '"'.codePointAt(0);
         const lineBreak = "\n".codePointAt(0);
@@ -103,6 +103,17 @@ export default class WsvParser {
         const newLine: WsvLine = new WsvLine();
         newLine.set(valueArray, whitespaceArray, comment);
         return newLine;
+    }
+
+    private skipWhitespace(iterator: WsvParserCharIterator): void {
+        if (iterator.isEnd()) {
+            return;
+        }
+        do {
+            if (!iterator.isWhitespace()) {
+                break;
+            }
+        } while (iterator.next());
     }
 
 }

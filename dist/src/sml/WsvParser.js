@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const WsvCharIterator_1 = __importDefault(require("./WsvCharIterator"));
+const WsvParserCharIterator_1 = __importDefault(require("./WsvParserCharIterator"));
 const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
@@ -12,7 +12,7 @@ class WsvParser {
         // ...
     }
     parseLineByString(content) {
-        const iterator = new WsvCharIterator_1.default(content);
+        const iterator = new WsvParserCharIterator_1.default(content);
         const values = [];
         const whitespaces = [];
         const lineBreak = "\n".codePointAt(0);
@@ -27,7 +27,7 @@ class WsvParser {
     }
     parseDocument(content) {
         const document = new WsvDocument_1.default();
-        const iterator = new WsvCharIterator_1.default(content);
+        const iterator = new WsvParserCharIterator_1.default(content);
         const values = [];
         const whitespaces = [];
         const lineBreak = "\n".codePointAt(0);
@@ -91,6 +91,16 @@ class WsvParser {
         const newLine = new WsvLine_1.default();
         newLine.set(valueArray, whitespaceArray, comment);
         return newLine;
+    }
+    skipWhitespace(iterator) {
+        if (iterator.isEnd()) {
+            return;
+        }
+        do {
+            if (!iterator.isWhitespace()) {
+                break;
+            }
+        } while (iterator.next());
     }
 }
 exports.default = WsvParser;

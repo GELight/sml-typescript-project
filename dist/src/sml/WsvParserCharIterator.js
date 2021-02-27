@@ -7,40 +7,40 @@ const WsvChar_1 = __importDefault(require("./WsvChar"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
 class WsvParserCharIterator {
     constructor(str, lineIndex) {
-        this.index = 0;
-        this.lineIndex = 0;
-        this.chars = Array.from(str).map((v) => v.codePointAt(0));
-        this.lineIndex = lineIndex;
+        WsvParserCharIterator.chars = Array.from(str).map((v) => v.codePointAt(0));
+        WsvParserCharIterator.lineIndex = lineIndex;
     }
-    isEnd() {
-        return this.index >= this.chars.length;
+    static isEnd() {
+        return WsvParserCharIterator.index >= WsvParserCharIterator.chars.length;
     }
-    is(c) {
-        return this.chars[this.index] === c.codePointAt(0);
+    static is(c) {
+        return WsvParserCharIterator.chars[WsvParserCharIterator.index] === c.codePointAt(0);
     }
-    isWhitespace() {
-        return new WsvChar_1.default().isWhitespace(this.chars[this.index]);
+    static isWhitespace() {
+        return new WsvChar_1.default().isWhitespace(WsvParserCharIterator.chars[WsvParserCharIterator.index]);
     }
-    next() {
-        this.index++;
-        return !this.isEnd();
+    static next() {
+        WsvParserCharIterator.index++;
+        return !WsvParserCharIterator.isEnd();
     }
-    get() {
-        return this.chars[this.index];
+    static get() {
+        return WsvParserCharIterator.chars[WsvParserCharIterator.index];
     }
-    getByIndex(index) {
-        const len = this.index - index;
-        const chars = this.chars.map((c) => {
+    static getByIndex(index) {
+        const len = WsvParserCharIterator.index - index;
+        const chars = WsvParserCharIterator.chars.map((c) => {
             return String.fromCodePoint(c);
         }).join("");
         return `${chars.substr(index, len)}`;
     }
-    getIndex() {
-        return this.index;
+    static getIndex() {
+        return WsvParserCharIterator.index;
     }
     getException(message) {
-        return new WsvParserException_1.default(message, this.lineIndex, this.index);
+        return new WsvParserException_1.default(message, WsvParserCharIterator.lineIndex, WsvParserCharIterator.index);
     }
 }
 exports.default = WsvParserCharIterator;
+WsvParserCharIterator.index = 0;
+WsvParserCharIterator.lineIndex = 0;
 //# sourceMappingURL=WsvParserCharIterator.js.map
