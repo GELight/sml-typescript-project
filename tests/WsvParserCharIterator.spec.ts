@@ -85,7 +85,7 @@ describe("WsvParserCharIterator", () => {
             // when
             const iterator = new WsvParserCharIterator("abc ");
             // then
-            expect(iterator.readString()).toThrow("String not closed (1, 5)");
+            expect(iterator.readString()).toThrowError("String not closed (1, 5)");
         });
 
 });
