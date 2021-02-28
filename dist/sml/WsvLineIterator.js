@@ -1,46 +1,20 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const SmlParserException_1 = __importDefault(require("./SmlParserException"));
 class WsvLineIterator {
-    constructor(content) {
-        this.lines = [];
-        // this.lines = new WsvParser().parseDocument(content);
-        // this.detectEndKeyword();
-    }
-    getEndKeyword() {
-        return this.endKeyword;
+    constructor() {
+        // ...
     }
     hasLine() {
-        return this.index < this.lines.length;
+        return false;
     }
     isEmptyLine() {
-        return this.hasLine() && (this.lines[this.index] == null || this.lines[this.index].length === 0);
+        return false;
     }
     getLine() {
-        const line = this.lines[this.index];
-        this.index++;
-        return line;
+        return null;
     }
-    getException(message) {
-        return new SmlParserException_1.default(message, this.index);
-    }
-    detectEndKeyword() {
-        let index = 0;
-        for (let i = this.lines.length - 1; i >= 0; i--) {
-            index = i;
-            const values = this.lines[i];
-            if (values.length === 1) {
-                this.endKeyword = values[0];
-                return;
-            }
-            else if (values.length > 1) {
-                break;
-            }
-        }
-        throw new SmlParserException_1.default("End keyword could not be detected", index);
+    getEndKeyword() {
+        return null;
     }
 }
 exports.default = WsvLineIterator;

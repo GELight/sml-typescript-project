@@ -39,7 +39,8 @@ npm run build
 * [ ] SmlDocument
 * [ ] SmlElement
 * [ ] SmlIllegalArgumentException
-* [ ] SmlNode
+* [x] SmlNamedNode
+* [x] SmlNode
 * [ ] SmlParser
 * [ ] SmlParserException
 * [ ] SmlSerializer
@@ -48,10 +49,6 @@ npm run build
 * [x] StringUtil
 
 * [x] WsvChar
-* [ ] WsvCharIterator
-* [ ] WsvDocument
-* [ ] WsvDocumentServer
-* [ ] WsvLineIterator
 * [x] WsvLine
 * [X] WsvDocument
 * [ ] WsvDocumentServer

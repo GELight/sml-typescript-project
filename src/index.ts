@@ -9,8 +9,9 @@
 // export { default as WsvSerializer } from "./sml/WsvSerializer";
 
 // import WsvParser from "./sml/WsvParser";
-import WsvDocument from "./sml/WsvDocument";
-import WsvSerializer from "./sml/WsvSerializer";
+// import WsvDocument from "./sml/WsvDocument";
+// import WsvSerializer from "./sml/WsvSerializer";
+import SmlParser from "./sml/SmlParser";
 
 // console.log(">>> WsvParser");
 // console.log(WsvParser.parseLine("a b c"));
@@ -18,11 +19,14 @@ import WsvSerializer from "./sml/WsvSerializer";
 // const parsedDocument = WsvParser.parseDocument("a b c #ein comment\n d  e");
 // console.log(parsedDocument.getLines());
 
-console.log(">>> WsvSerializer");
-console.log(WsvSerializer.containsSpecialChars("abc"));
-console.log(WsvSerializer.containsSpecialChars("ab c"));
+// console.log(">>> WsvDocument / WsvSerializer");
+// console.log(WsvSerializer.containsSpecialChars("abc"));
+// console.log(WsvSerializer.containsSpecialChars("ab c"));
 
-const documentString = "a b c #ein comment\n d  e";
-const document = WsvDocument.parse(documentString);
-console.log(document.toString());
-console.log((document.toString() === documentString));
+// const documentString = "a b c #ein comment\n d  e";
+// const document = WsvDocument.parse(documentString);
+// console.log(document.toString());
+// console.log((document.toString() === documentString));
+
+console.log(">>> SmlParser");
+console.log(SmlParser.parseDocument(""));

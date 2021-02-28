@@ -1,24 +1,26 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const SmlElement_1 = __importDefault(require("./SmlElement"));
 class SmlDocument {
-    constructor(node) {
+    constructor(rootElement) {
+        this.emptyNodesBefore = [];
+        this.emptyNodesAfter = [];
+        this.endKeyword = "End";
         // ...
     }
-    setEndKeyword(iterator) {
-        // ...
+    setEndKeyword(endKeyword) {
+        this.endKeyword = endKeyword;
     }
     getEndKeyword() {
-        return "";
+        return this.endKeyword;
     }
     getDefaultIndentation() {
         return "";
     }
     getRoot() {
-        return new SmlElement_1.default("muh");
+        return this.root;
+    }
+    setRoot(root) {
+        this.root = root;
     }
 }
 exports.default = SmlDocument;

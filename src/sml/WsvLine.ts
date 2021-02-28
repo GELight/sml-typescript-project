@@ -10,6 +10,22 @@ export default class WsvLine {
         return WsvParser.parseLine(content);
     }
 
+    public static validateWhitespaces(whitespaces: string[]): void {
+        if (whitespaces !== null) {
+            for (const whitespace of whitespaces) {
+                if (whitespace !== null && !StringUtil.isWhitespaceOrEmpty(whitespace)) {
+                    throw new SmlIllegalArgumentException("Whitespace value contains non whitespace character");
+                }
+            }
+        }
+    }
+
+    public static validateComment(comment: string): void {
+        if (comment !== null && comment.indexOf("\n")) {
+            throw new SmlIllegalArgumentException("Line break in comment is not allowed");
+        }
+    }
+
     private values: string[] = [];
     private whitespaces: string[];
     private comment: string = null;
@@ -45,18 +61,8 @@ export default class WsvLine {
     }
 
     public setWhitespaces(whitespaces: string[]): void {
-        this.validateWhitespaces(whitespaces);
+        WsvLine.validateWhitespaces(whitespaces);
         this.whitespaces = whitespaces;
-    }
-
-    public validateWhitespaces(whitespaces: string[]): void {
-        if (whitespaces !== null) {
-            for (const whitespace of whitespaces) {
-                if (whitespace !== null && !StringUtil.isWhitespaceOrEmpty(whitespace)) {
-                    throw new SmlIllegalArgumentException("Whitespace value contains non whitespace character");
-                }
-            }
-        }
     }
 
     public getWhitespaces(): string[] {
@@ -67,14 +73,8 @@ export default class WsvLine {
     }
 
     public setComment(comment: string): void {
-        this.validateComment(comment);
+        WsvLine.validateComment(comment);
         this.comment = comment;
-    }
-
-    public validateComment(comment: string): void {
-        if (comment !== null && comment.indexOf("\n")) {
-            throw new SmlIllegalArgumentException("Line break in comment is not allowed");
-        }
     }
 
     public getComment(): string {

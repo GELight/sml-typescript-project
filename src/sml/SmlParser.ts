@@ -1,82 +1,91 @@
 import SmlAttribute from "./SmlAttribute";
 import SmlDocument from "./SmlDocument";
 import SmlElement from "./SmlElement";
+import SmlEmptyNode from "./SmlEmptyNode";
 import SmlNode from "./SmlNode";
 import SmlParserException from "./SmlParserException";
+import StringUtil from "./StringUtil";
+import WsvDocument from "./WsvDocument";
+import WsvDocumentLineIterator from "./WsvDocumentLineIterator";
+import WsvLine from "./WsvLine";
 import WsvLineIterator from "./WsvLineIterator";
 
 export default class SmlParser {
 
-    constructor() {
-        // ...
+    public static parseDocument(content: string): SmlDocument {
+        const wsvDocument: WsvDocument = WsvDocument.parse(content);
+        const endKeyword: string = SmlParser.getEndKeyword(wsvDocument);
+        const iterator: WsvLineIterator = new WsvDocumentLineIterator(wsvDocument, endKeyword);
+
+        const document: SmlDocument = new SmlDocument();
+        document.setEndKeyword(endKeyword);
+
+        const rootElement: SmlElement = SmlParser.readRootElement(iterator, document.emptyNodesBefore);
+        document.setRoot(rootElement);
+
+        SmlParser.readElementContent(iterator, rootElement);
+
+        // readEmptyNodes(document.EmptyNodesAfter, iterator);
+        // return document;
+        return null;
     }
 
-    public parseDocument(content: string): SmlDocument {
-        const iterator: WsvLineIterator = new WsvLineIterator(content);
+    public static readRootElement(iterator: WsvLineIterator, emptyNodesBefore: SmlEmptyNode[]): SmlElement {
+        SmlParser.readEmptyNodes(emptyNodesBefore, iterator);
 
-        this.skipEmptyLines(iterator);
         if (!iterator.hasLine()) {
-            throw iterator.getException("Root element expected");
+            throw new SmlParserException("Root element expected");
         }
-
-        const node: SmlNode = this.readNode(iterator);
-        if (!(node instanceof SmlElement)) {
-            throw iterator.getException("Invalid root element start");
+        const rootStartLine: WsvLine = iterator.getLine();
+        if (!rootStartLine.hasValues() || rootStartLine.getValues().length !== 1 ||
+            StringUtil.equalsIgnoreCase(rootStartLine.getValues()[0], iterator.getEndKeyword())) {
+            throw new SmlParserException("Invalid root element start");
         }
-
-        this.skipEmptyLines(iterator);
-        if (iterator.hasLine()) {
-            throw iterator.getException("Only one root element allowed");
-        }
-
-        const document: SmlDocument = new SmlDocument(node);
-        document.setEndKeyword(iterator.getEndKeyword());
-        return document;
+        const rootElementName: string = rootStartLine.getValues()[0];
+        const rootElement: SmlElement = new SmlElement(rootElementName);
+        rootElement.setWhitespacesAndComment(rootStartLine.getWhitespaces(), rootStartLine.getComment());
+        return rootElement;
     }
 
-    private skipEmptyLines(iterator: WsvLineIterator): void {
-        while (iterator.isEmptyLine()) {
-            iterator.getLine();
-        }
-    }
-
-    private readNode(iterator: WsvLineIterator): SmlNode {
-        const line: string[] = iterator.getLine();
-
-        const name: string = line[0];
-        if (this.equalsIgnoreCase(name, iterator.getEndKeyword())) {
-            if (line.length > 1) {
-                throw iterator.getException("Attribute with end keyword name is not allowed");
-            }
-            return null;
-        }
-        if (line.length === 1) {
-            const element: SmlElement = new SmlElement(name);
-            this.readElementContent(iterator, element);
-            return element;
-        } else {
-            const values: string[] = line.slice(1, line.length);
-            const attribute: SmlAttribute = new SmlAttribute(name, values);
-            return attribute;
-        }
-    }
-
-    private equalsIgnoreCase(str1: string, str2: string): boolean {
-        return str1.toLowerCase() === str2.toLowerCase();
-    }
-
-    private readElementContent(iterator: WsvLineIterator, element: SmlElement): void {
+    private static readElementContent(iterator: WsvLineIterator, element: SmlElement) {
         while (true) {
             if (!iterator.hasLine()) {
                 throw new SmlParserException("Element not closed");
             }
-            this.skipEmptyLines(iterator);
-            const node: SmlNode = this.readNode(iterator);
+            const node: SmlNode = SmlParser.readNode(iterator, element);
             if (node == null) {
                 break;
             }
             element.add(node);
         }
+    }
+
+    private static readEmptyNodes(nodes: SmlEmptyNode[], iterator: WsvLineIterator): void {
+        while (iterator.isEmptyLine()) {
+            const emptyNode: SmlEmptyNode = SmlParser.readEmptyNode(iterator);
+            nodes.push(emptyNode);
+        }
+    }
+
+    private static readEmptyNode(iterator: WsvLineIterator): SmlEmptyNode {
+        const line: WsvLine = iterator.getLine();
+        const emptyNode: SmlEmptyNode = new SmlEmptyNode();
+        emptyNode.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+        return emptyNode;
+    }
+
+    private static getEndKeyword(wsvDocument: WsvDocument): string {
+        for (let i = wsvDocument.getLines().length - 1; i >= 0; i--) {
+            const values: string[] = wsvDocument.getLine(i).getValues();
+            if (values !== null) {
+                if (values.length === 1) {
+                    return values[0];
+                } else if (values.length > 1) {
+                    break;
+                }
+            }
+        }
+        throw new SmlParserException("End keyword could not be detected");
     }
 
 }

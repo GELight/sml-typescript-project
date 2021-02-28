@@ -34,6 +34,11 @@ class StringUtil {
         }
         return true;
     }
+    static equalsIgnoreCase(str1, str2) {
+        return typeof str1 === "string" && typeof str2 === "string" ?
+            str1.localeCompare(str2, undefined, { sensitivity: "accent" }) === 0
+            : str1 === str2;
+    }
 }
 exports.default = StringUtil;
 StringUtil.doubleQuote = '"'.codePointAt(0);

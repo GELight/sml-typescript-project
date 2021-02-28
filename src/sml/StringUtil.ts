@@ -41,4 +41,10 @@ export default class StringUtil {
         return true;
     }
 
+    public static equalsIgnoreCase(str1: string, str2: string): boolean {
+        return typeof str1 === "string" && typeof str2 === "string" ?
+            str1.localeCompare(str2, undefined, { sensitivity: "accent" }) === 0
+            : str1 === str2;
+    }
+
 }

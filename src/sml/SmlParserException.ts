@@ -3,7 +3,7 @@ export default class SmlParserException extends Error {
     public lineIndex: number;
     public linePosition: number;
 
-    constructor(message: string, lineIndex?: number, linePosition?: number, ...params: string[]) {
+    constructor(message: string, ...params: string[]) {
         super(...params);
 
         if (Error.captureStackTrace) {
@@ -11,13 +11,6 @@ export default class SmlParserException extends Error {
         }
 
         this.name = "SmlParserException";
-        this.message = `${message}:${lineIndex + 1}:${linePosition}`;
-
-        if (lineIndex) {
-            this.lineIndex = lineIndex;
-        }
-        if (linePosition) {
-            this.linePosition = linePosition;
-        }
+        this.message = `${message}`;
     }
 }

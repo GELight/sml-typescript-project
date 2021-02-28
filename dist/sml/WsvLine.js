@@ -22,6 +22,20 @@ class WsvLine {
     static parse(content) {
         return WsvParser_1.default.parseLine(content);
     }
+    static validateWhitespaces(whitespaces) {
+        if (whitespaces !== null) {
+            for (const whitespace of whitespaces) {
+                if (whitespace !== null && !StringUtil_1.default.isWhitespaceOrEmpty(whitespace)) {
+                    throw new SmlIllegalArgumentException_1.default("Whitespace value contains non whitespace character");
+                }
+            }
+        }
+    }
+    static validateComment(comment) {
+        if (comment !== null && comment.indexOf("\n")) {
+            throw new SmlIllegalArgumentException_1.default("Line break in comment is not allowed");
+        }
+    }
     addValue(value) {
         if (this.values === null) {
             this.values = [];
@@ -38,17 +52,8 @@ class WsvLine {
         return (this.values !== null && this.values.length > 0);
     }
     setWhitespaces(whitespaces) {
-        this.validateWhitespaces(whitespaces);
+        WsvLine.validateWhitespaces(whitespaces);
         this.whitespaces = whitespaces;
-    }
-    validateWhitespaces(whitespaces) {
-        if (whitespaces !== null) {
-            for (const whitespace of whitespaces) {
-                if (whitespace !== null && !StringUtil_1.default.isWhitespaceOrEmpty(whitespace)) {
-                    throw new SmlIllegalArgumentException_1.default("Whitespace value contains non whitespace character");
-                }
-            }
-        }
     }
     getWhitespaces() {
         if (this.whitespaces === null) {
@@ -57,13 +62,8 @@ class WsvLine {
         return [...this.whitespaces];
     }
     setComment(comment) {
-        this.validateComment(comment);
+        WsvLine.validateComment(comment);
         this.comment = comment;
-    }
-    validateComment(comment) {
-        if (comment !== null && comment.indexOf("\n")) {
-            throw new SmlIllegalArgumentException_1.default("Line break in comment is not allowed");
-        }
     }
     getComment() {
         return this.comment;
