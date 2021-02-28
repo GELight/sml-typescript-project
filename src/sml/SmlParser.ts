@@ -47,6 +47,42 @@ export default class SmlParser {
         return rootElement;
     }
 
+    // TODO: HIER GEHTS WEITER
+    // public static SmlNode readNode(WsvLineIterator iterator, SmlElement parentElement) throws IOException {
+    //     SmlNode node;
+    //     WsvLine line = iterator.getLine();
+    //     if (line.hasValues()) {
+    //         String name = line.Values[0];
+    //         if (name.equalsIgnoreCase(iterator.getEndKeyword())) {
+    //             if (line.Values.length > 1) {
+    //                 throw new SmlParserException("Attribute with end keyword name is not allowed");
+    //             }
+    //             parentElement.setEndWhitespacesAndComment(line.whitespaces, line.comment);
+    //             return null;
+    //         }
+    //         if (line.Values.length == 1) {
+    //             SmlElement childElement = new SmlElement(name);
+    //             childElement.setWhitespacesAndComment(line.whitespaces, line.comment);
+
+    //             readElementContent(iterator, childElement);
+
+    //             node = childElement;
+    //         } else {
+    //             String[] values = Arrays.copyOfRange(line.Values, 1, line.Values.length);
+    //             SmlAttribute childAttribute = new SmlAttribute(name, values);
+    //             childAttribute.setWhitespacesAndComment(line.whitespaces, line.comment);
+
+    //             node = childAttribute;
+    //         }
+    //     } else {
+    //         SmlEmptyNode emptyNode = new SmlEmptyNode();
+    //         emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
+
+    //         node = emptyNode;
+    //     }
+    //     return node;
+    // }
+
     private static readElementContent(iterator: WsvLineIterator, element: SmlElement) {
         while (true) {
             if (!iterator.hasLine()) {
