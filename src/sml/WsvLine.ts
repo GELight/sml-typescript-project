@@ -1,26 +1,34 @@
 import SmlIllegalArgumentException from "./SmlIllegalArgumentException";
 import StringBuilder from "./StringBuilder";
+import StringUtil from "./StringUtil";
 import WsvParser from "./WsvParser";
 import WsvSerializer from "./WsvSerializer";
 
 export default class WsvLine {
 
+    public static parse(content: string): WsvLine {
+        return WsvParser.parseLine(content);
+    }
+
     private values: string[] = [];
-    private whitespaces: string[] = [];
-    private comment: string = "";
+    private whitespaces: string[];
+    private comment: string = null;
 
     constructor(...args: string[]) {
         for (const arg of args) {
             this.addValue(arg);
         }
 
-        this.whitespaces = [];
-        this.comment = "";
+        this.whitespaces = null;
+        this.comment = null;
 
         return this;
     }
 
     public addValue(value: string) {
+        if (this.values === null) {
+            this.values = [];
+        }
         this.values.push(value);
     }
 
@@ -33,7 +41,7 @@ export default class WsvLine {
     }
 
     public hasValues(): boolean {
-        return this.values.length > 0;
+        return (this.values !== null && this.values.length > 0);
     }
 
     public setWhitespaces(whitespaces: string[]): void {
@@ -42,9 +50,9 @@ export default class WsvLine {
     }
 
     public validateWhitespaces(whitespaces: string[]): void {
-        if (whitespaces.length) {
+        if (whitespaces !== null) {
             for (const whitespace of whitespaces) {
-                if (whitespace !== null && whitespace !== "" && whitespace !== " ") {
+                if (whitespace !== null && !StringUtil.isWhitespaceOrEmpty(whitespace)) {
                     throw new SmlIllegalArgumentException("Whitespace value contains non whitespace character");
                 }
             }
@@ -52,6 +60,9 @@ export default class WsvLine {
     }
 
     public getWhitespaces(): string[] {
+        if (this.whitespaces === null) {
+            return null;
+        }
         return [...this.whitespaces];
     }
 
@@ -61,7 +72,7 @@ export default class WsvLine {
     }
 
     public validateComment(comment: string): void {
-        if ((this.comment.match(/\n/g) || []).length) {
+        if (comment !== null && comment.indexOf("\n")) {
             throw new SmlIllegalArgumentException("Line break in comment is not allowed");
         }
     }
@@ -79,13 +90,8 @@ export default class WsvLine {
 
     public toString(): string {
         const sb: StringBuilder = new StringBuilder();
-        const serializedLine = new WsvSerializer().serializeLine(sb, this);
+        const serializedLine = WsvSerializer.serializeLine(sb, this);
         return sb.toString();
-    }
-
-    public parse(content: string): WsvLine {
-        // return new WsvParser().parseLineByString(content);
-        return null;
     }
 
 }

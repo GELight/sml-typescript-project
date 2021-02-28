@@ -4,34 +4,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvLine_1 = __importDefault(require("./WsvLine"));
+const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
+// APPROVED
 class WsvDocument {
-    constructor(...args) {
+    constructor() {
         this.lines = [];
-        // for (const lineStr of args) {
-        //     const lines = new WsvParser().parseDocument(lineStr);
-        //     const firstLine = lines[0];
-        //     const newLine: WsvLine = new WsvLine(...firstLine);
-        //     this.lines.push(newLine);
-        // }
-        // return this;
+        // ...
     }
-    addWsvLine(...args) {
-        for (const arg of args) {
-            this.lines.push(arg);
+    static parse(content) {
+        return WsvParser_1.default.parseDocument(content);
+    }
+    addWsvLines(...lines) {
+        for (const line of lines) {
+            this.lines.push(line);
         }
-        return this.getLines();
+        return this;
     }
-    addWsvLineByValues(...args) {
+    addWsvLineByValues(...values) {
         const line = new WsvLine_1.default();
-        for (const arg of args) {
-            line.addValue(arg);
+        for (const value of values) {
+            line.addValue(value);
         }
-        this.lines.push(line);
-        return this.getLines();
+        return this.addWsvLines(line);
     }
     addWsvLineBySet(values, whitespaces, comment) {
-        this.addWsvLine(new WsvLine_1.default().set(values, whitespaces, comment));
+        this.addWsvLines(new WsvLine_1.default().set(values, whitespaces, comment));
         return this;
     }
     getLines() {
@@ -48,11 +46,7 @@ class WsvDocument {
         return array;
     }
     toString() {
-        return new WsvSerializer_1.default().serializeDocument(this);
-    }
-    parse(content) {
-        // return new WsvParser().parseDocument(content);
-        return null;
+        return WsvSerializer_1.default.serializeDocument(this);
     }
 }
 exports.default = WsvDocument;

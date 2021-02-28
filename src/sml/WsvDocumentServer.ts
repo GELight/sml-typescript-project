@@ -7,8 +7,8 @@ export default class WsvDocumentServer extends WsvDocument {
 
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
-    constructor(...args: string[]) {
-        super(...args);
+    constructor() {
+        super();
         return this;
     }
 
@@ -28,7 +28,7 @@ export default class WsvDocumentServer extends WsvDocument {
 
     public load(filePath: string): WsvDocument {
         const content: string = new ReliableTxtFile(this.encoding).load(filePath);
-        return this.parse(content);
+        return WsvDocument.parse(content);
     }
 
 }

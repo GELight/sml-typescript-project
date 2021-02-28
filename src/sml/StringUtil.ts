@@ -1,3 +1,4 @@
+import WsvChar from "./WsvChar";
 
 // APPROVED
 export default class StringUtil {
@@ -28,6 +29,16 @@ export default class StringUtil {
             return String.fromCodePoint(codePoint);
         });
         return chars.join("");
+    }
+
+    public static isWhitespaceOrEmpty(str: string): boolean {
+        const codePoints = StringUtil.stringToCodePoints(str);
+        for (const c of codePoints) {
+            if (!WsvChar.isWhitespace(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

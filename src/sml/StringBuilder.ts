@@ -3,7 +3,7 @@ import StringUtil from "./StringUtil";
 // APPROVED
 export default class StringBuilder {
 
-    private codePoints: number[];
+    private codePoints: number[] = [];
 
     constructor() {
         // ...

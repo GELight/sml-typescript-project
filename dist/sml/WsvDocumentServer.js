@@ -7,8 +7,8 @@ const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const ReliableTxtFile_1 = __importDefault(require("./ReliableTxtFile"));
 const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 class WsvDocumentServer extends WsvDocument_1.default {
-    constructor(...args) {
-        super(...args);
+    constructor() {
+        super();
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
         return this;
     }
@@ -25,7 +25,7 @@ class WsvDocumentServer extends WsvDocument_1.default {
     }
     load(filePath) {
         const content = new ReliableTxtFile_1.default(this.encoding).load(filePath);
-        return this.parse(content);
+        return WsvDocument_1.default.parse(content);
     }
 }
 exports.default = WsvDocumentServer;

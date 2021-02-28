@@ -7,6 +7,7 @@ const StringUtil_1 = __importDefault(require("./StringUtil"));
 // APPROVED
 class StringBuilder {
     constructor() {
+        this.codePoints = [];
         // ...
     }
     clear() {

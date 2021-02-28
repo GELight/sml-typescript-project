@@ -1,5 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const WsvChar_1 = __importDefault(require("./WsvChar"));
 // APPROVED
 class StringUtil {
     static getSubstr(chars, startIndex, len) {
@@ -20,6 +24,15 @@ class StringUtil {
             return String.fromCodePoint(codePoint);
         });
         return chars.join("");
+    }
+    static isWhitespaceOrEmpty(str) {
+        const codePoints = StringUtil.stringToCodePoints(str);
+        for (const c of codePoints) {
+            if (!WsvChar_1.default.isWhitespace(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 exports.default = StringUtil;

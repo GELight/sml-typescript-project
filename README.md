@@ -52,13 +52,13 @@ npm run build
 * [ ] WsvDocument
 * [ ] WsvDocumentServer
 * [ ] WsvLineIterator
-* [ ] WsvLine
-* [ ] WsvDocument
+* [x] WsvLine
+* [X] WsvDocument
 * [ ] WsvDocumentServer
-* [ ] WsvParser             ( PARTIALLY APPROVED - still open 1 Method )
+* [x] WsvParser
 * [x] WsvParserCharIterator
 * [x] WsvParserException
-* [ ] WsvSerializer
+* [x] WsvSerializer
 * [ ] WsvStreamReader
 * [ ] WsvStreamWriter
 

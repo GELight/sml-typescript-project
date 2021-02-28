@@ -5,20 +5,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlIllegalArgumentException_1 = __importDefault(require("./SmlIllegalArgumentException"));
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
+const StringUtil_1 = __importDefault(require("./StringUtil"));
+const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
 class WsvLine {
     constructor(...args) {
         this.values = [];
-        this.whitespaces = [];
-        this.comment = "";
+        this.comment = null;
         for (const arg of args) {
             this.addValue(arg);
         }
-        this.whitespaces = [];
-        this.comment = "";
+        this.whitespaces = null;
+        this.comment = null;
         return this;
     }
+    static parse(content) {
+        return WsvParser_1.default.parseLine(content);
+    }
     addValue(value) {
+        if (this.values === null) {
+            this.values = [];
+        }
         this.values.push(value);
     }
     getValues() {
@@ -28,22 +35,25 @@ class WsvLine {
         this.values = args;
     }
     hasValues() {
-        return this.values.length > 0;
+        return (this.values !== null && this.values.length > 0);
     }
     setWhitespaces(whitespaces) {
         this.validateWhitespaces(whitespaces);
         this.whitespaces = whitespaces;
     }
     validateWhitespaces(whitespaces) {
-        if (whitespaces.length) {
+        if (whitespaces !== null) {
             for (const whitespace of whitespaces) {
-                if (whitespace !== null && whitespace !== "" && whitespace !== " ") {
+                if (whitespace !== null && !StringUtil_1.default.isWhitespaceOrEmpty(whitespace)) {
                     throw new SmlIllegalArgumentException_1.default("Whitespace value contains non whitespace character");
                 }
             }
         }
     }
     getWhitespaces() {
+        if (this.whitespaces === null) {
+            return null;
+        }
         return [...this.whitespaces];
     }
     setComment(comment) {
@@ -51,7 +61,7 @@ class WsvLine {
         this.comment = comment;
     }
     validateComment(comment) {
-        if ((this.comment.match(/\n/g) || []).length) {
+        if (comment !== null && comment.indexOf("\n")) {
             throw new SmlIllegalArgumentException_1.default("Line break in comment is not allowed");
         }
     }
@@ -66,12 +76,8 @@ class WsvLine {
     }
     toString() {
         const sb = new StringBuilder_1.default();
-        const serializedLine = new WsvSerializer_1.default().serializeLine(sb, this);
+        const serializedLine = WsvSerializer_1.default.serializeLine(sb, this);
         return sb.toString();
-    }
-    parse(content) {
-        // return new WsvParser().parseLineByString(content);
-        return null;
     }
 }
 exports.default = WsvLine;
