@@ -1,3 +1,4 @@
+import StringUtil from "../src/sml/StringUtil";
 import WsvParserCharIterator from "../src/sml/WsvParserCharIterator";
 import WsvParserException from "../src/sml/WsvParserException";
 
@@ -10,7 +11,7 @@ describe("WsvParserCharIterator", () => {
         ["Lorem ipsum/dolor sit amet", "Lorem ipsum/dolor sit amet"],
         ["Lorem ipsum\ndolor sit amet", "Lorem ipsum\ndolor sit amet"],
         [`Lorem ipsum "dolor sit amet`, `Lorem ipsum "dolor sit amet`]
-    ])("getText() - Iterator with text %p will returns %p by calling this method",
+    ])("WsvParserCharIterator(%p).getText() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
@@ -22,7 +23,7 @@ describe("WsvParserCharIterator", () => {
         ["Lorem ipsum dolor sit amet", "(1, 1)"],
         [`Lorem ipsum\ndolor sit amet`, "(1, 1)"],
         [`Lorem ipsum dolor\n\n\nsit amet`, "(1, 1)"]
-    ])("getLineInfoString() - Iterator with text %p will returns %p by calling this method",
+    ])("WsvParserCharIterator(%p).getLineInfoString() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
@@ -34,7 +35,7 @@ describe("WsvParserCharIterator", () => {
         ["Lorem ipsum\ndolor sit amet", "Lorem ipsum"],
         ["Lorem ipsum # dolor sit amet", "Lorem ipsum # dolor sit amet"],
         ["Lorem ipsum \"dolor sit amet", "Lorem ipsum \"dolor sit amet"]
-    ])("readCommentText() - Iterator with text %p will returns %p by calling this method",
+    ])("WsvParserCharIterator(%p).readCommentText() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
@@ -44,11 +45,24 @@ describe("WsvParserCharIterator", () => {
 
     it.each([
         ["Lorem ipsum dolor sit amet", [0, 0, 0]],
-        ["Lorem ipsum\ndolor sit amet", [0, 0, 0]]
-    ])("getLineInfo() - Iterator with text %p will returns %p by calling this method",
+        ["Lorem ipsum\ndolor sit amet", [0, 0, 0]],
+        ["Lorem ipsum\n/\ndolor sit amet", [0, 0, 0]]
+    ])("WsvParserCharIterator(%p).getLineInfo() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
+            // then
+            expect(iterator.getLineInfo()).toStrictEqual(expected);
+        });
+
+    it.each([
+        ["\nLorem ipsum dolor sit amet", [6, 1, 5]]
+    ])("WsvParserCharIterator(%p).getLineInfo() - returns %p for second line",
+        (text, expected) => {
+            // when
+            const iterator = new WsvParserCharIterator(text);
+            iterator.tryReadChar(StringUtil.lineBreak);
+            iterator.readValue();
             // then
             expect(iterator.getLineInfo()).toStrictEqual(expected);
         });
@@ -58,7 +72,7 @@ describe("WsvParserCharIterator", () => {
         [" ", " "],
         [" abc", " "],
         [" \n", " "]
-    ])("readWhitespaceOrNull() - Iterator with text %p will returns %p by calling this method",
+    ])("WsvParserCharIterator(%p).readWhitespaceOrNull() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
@@ -69,9 +83,8 @@ describe("WsvParserCharIterator", () => {
     it.each([
         ["abc\"", "abc"],
         ["abc\"\"\"", `abc"`],
-        ["abc\"/\"\"", `abc\n`],
-        ["abc ", "abc"]
-    ])("readString() - Iterator with text %p will returns %p by calling this method",
+        ["abc\"/\"\"", `abc\n`]
+    ])("WsvParserCharIterator(%p).readString() - returns %p",
         (text, expected) => {
             // when
             const iterator = new WsvParserCharIterator(text);
@@ -79,13 +92,74 @@ describe("WsvParserCharIterator", () => {
             expect(iterator.readString()).toBe(expected);
         });
 
-
-    it(`readString() - Iterator with text "abc " will throw a new WsvParserException "String not closed (1, 5)"`,
+    it(`WsvParserCharIterator("abc ").readString() - throw a WsvParserException "String not closed"`,
         () => {
             // when
             const iterator = new WsvParserCharIterator("abc ");
             // then
-            expect(iterator.readString()).toThrowError("String not closed (1, 5)");
+            try {
+                iterator.readString();
+            } catch (e) {
+                expect(e.message).toBe("String not closed (1, 5)");
+            }
         });
 
+    it(`WsvParserCharIterator("abc\nxyz").readString() - throw a WsvParserException "String not closed in starting line"`,
+        () => {
+            // when
+            const iterator = new WsvParserCharIterator("abc\nxyz");
+            // then
+            try {
+                iterator.readString();
+            } catch (e) {
+                expect(e.message).toBe("String not closed in starting line (1, 4)");
+            }
+        });
+
+    it(`WsvParserCharIterator("abc"/a").readString() - throw a WsvParserException "String expected after linebreak slash"`,
+        () => {
+            // when
+            const iterator = new WsvParserCharIterator(`abc"/a`);
+            // then
+            try {
+                iterator.readString();
+            } catch (e) {
+                expect(e.message).toBe("String expected after linebreak slash (1, 6)");
+            }
+        });
+
+    it.each([
+        ["abc ", "abc"],
+        ["a", "a"]
+    ])("WsvParserCharIterator(%p).readValue() - returns %p",
+        (text, expected) => {
+            // when
+            const iterator = new WsvParserCharIterator(text);
+            // then
+            expect(iterator.readValue()).toBe(expected);
+        });
+
+    it("WsvParserCharIterator().readValue() - returns %p",
+        () => {
+            // when
+            const iterator = new WsvParserCharIterator("abc\"");
+            // then
+            try {
+                iterator.readValue();
+            } catch (e) {
+                expect(e.message).toBe("String starting in value (1, 4)");
+            }
+        });
+
+    it("WsvParserCharIterator().readValue() - returns %p",
+        () => {
+            // when
+            const iterator = new WsvParserCharIterator("");
+            // then
+            try {
+                iterator.readValue();
+            } catch (e) {
+                expect(e.message).toBe("Invalid value (1, 1)");
+            }
+        });
 });
