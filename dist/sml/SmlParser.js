@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const SmlAttribute_1 = __importDefault(require("./SmlAttribute"));
 const SmlDocument_1 = __importDefault(require("./SmlDocument"));
 const SmlElement_1 = __importDefault(require("./SmlElement"));
 const SmlEmptyNode_1 = __importDefault(require("./SmlEmptyNode"));
@@ -38,6 +39,40 @@ class SmlParser {
         const rootElement = new SmlElement_1.default(rootElementName);
         rootElement.setWhitespacesAndComment(rootStartLine.getWhitespaces(), rootStartLine.getComment());
         return rootElement;
+    }
+    // TODO: HIER GEHTS WEITER
+    static readNode(iterator, parentElement) {
+        let node;
+        const line = iterator.getLine();
+        if (line.hasValues()) {
+            const name = line.getValues()[0];
+            if (StringUtil_1.default.equalsIgnoreCase(name, iterator.getEndKeyword())) {
+                if (line.getValues().length > 1) {
+                    throw new SmlParserException_1.default("Attribute with end keyword name is not allowed");
+                }
+                parentElement.setEndWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                return null;
+            }
+            if (line.getValues().length === 1) {
+                const childElement = new SmlElement_1.default(name);
+                childElement.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                this.readElementContent(iterator, childElement);
+                node = childElement;
+            }
+            else {
+                // const values: string[] = Arrays.copyOfRange(line.getValues(), 1, line.getValues().length);
+                const childAttribute = new SmlAttribute_1.default(name, values);
+                childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                node = childAttribute;
+            }
+        }
+        else {
+            SmlEmptyNode_1.default;
+            emptyNode = new SmlEmptyNode_1.default();
+            emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
+            node = emptyNode;
+        }
+        return node;
     }
     static readElementContent(iterator, element) {
         while (true) {

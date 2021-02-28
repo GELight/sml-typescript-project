@@ -48,40 +48,40 @@ export default class SmlParser {
     }
 
     // TODO: HIER GEHTS WEITER
-    // public static SmlNode readNode(WsvLineIterator iterator, SmlElement parentElement) throws IOException {
-    //     SmlNode node;
-    //     WsvLine line = iterator.getLine();
-    //     if (line.hasValues()) {
-    //         String name = line.Values[0];
-    //         if (name.equalsIgnoreCase(iterator.getEndKeyword())) {
-    //             if (line.Values.length > 1) {
-    //                 throw new SmlParserException("Attribute with end keyword name is not allowed");
-    //             }
-    //             parentElement.setEndWhitespacesAndComment(line.whitespaces, line.comment);
-    //             return null;
-    //         }
-    //         if (line.Values.length == 1) {
-    //             SmlElement childElement = new SmlElement(name);
-    //             childElement.setWhitespacesAndComment(line.whitespaces, line.comment);
+    public static readNode(iterator: WsvLineIterator, parentElement: SmlElement): SmlNode {
+        let node: SmlNode;
+        const line: WsvLine = iterator.getLine();
+        if (line.hasValues()) {
+            const name: string = line.getValues()[0];
+            if (StringUtil.equalsIgnoreCase(name, iterator.getEndKeyword())) {
+                if (line.getValues().length > 1) {
+                    throw new SmlParserException("Attribute with end keyword name is not allowed");
+                }
+                parentElement.setEndWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                return null;
+            }
+            if (line.getValues().length === 1) {
+                const childElement: SmlElement = new SmlElement(name);
+                childElement.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
 
-    //             readElementContent(iterator, childElement);
+                this.readElementContent(iterator, childElement);
 
-    //             node = childElement;
-    //         } else {
-    //             String[] values = Arrays.copyOfRange(line.Values, 1, line.Values.length);
-    //             SmlAttribute childAttribute = new SmlAttribute(name, values);
-    //             childAttribute.setWhitespacesAndComment(line.whitespaces, line.comment);
+                node = childElement;
+            } else {
+                // const values: string[] = Arrays.copyOfRange(line.getValues(), 1, line.getValues().length);
+                const childAttribute: SmlAttribute = new SmlAttribute(name, values);
+                childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
 
-    //             node = childAttribute;
-    //         }
-    //     } else {
-    //         SmlEmptyNode emptyNode = new SmlEmptyNode();
-    //         emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
+                node = childAttribute;
+            }
+        } else {
+            SmlEmptyNode emptyNode = new SmlEmptyNode();
+            emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
 
-    //         node = emptyNode;
-    //     }
-    //     return node;
-    // }
+            node = emptyNode;
+        }
+        return node;
+    }
 
     private static readElementContent(iterator: WsvLineIterator, element: SmlElement) {
         while (true) {
