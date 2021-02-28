@@ -68,17 +68,18 @@ export default class SmlParser {
 
                 node = childElement;
             } else {
+                // TODO Weiter machen :)
                 // const values: string[] = Arrays.copyOfRange(line.getValues(), 1, line.getValues().length);
-                const childAttribute: SmlAttribute = new SmlAttribute(name, values);
-                childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                // const childAttribute: SmlAttribute = new SmlAttribute(name, values);
+                // childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
 
-                node = childAttribute;
+                // node = childAttribute;
             }
         } else {
-            SmlEmptyNode emptyNode = new SmlEmptyNode();
-            emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
+            // SmlEmptyNode emptyNode = new SmlEmptyNode();
+            // emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
 
-            node = emptyNode;
+            // node = emptyNode;
         }
         return node;
     }
