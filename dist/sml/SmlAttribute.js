@@ -4,9 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlNamedNode_1 = __importDefault(require("./SmlNamedNode"));
+const SmlSerializer_1 = __importDefault(require("./SmlSerializer"));
 class SmlAttribute extends SmlNamedNode_1.default {
     constructor(name, values) {
         super(name);
+        this.values = [];
+        this.setValues(...values);
     }
     setValues(...values) {
         if (values === null || values.length === 0) {
@@ -24,11 +27,10 @@ class SmlAttribute extends SmlNamedNode_1.default {
         this.values = [value];
     }
     toString() {
-        // return SmlSerializer.serializeAttribute(this);
-        return null;
+        return SmlSerializer_1.default.serializeAttribute(this);
     }
     toWsvLines(document, level, defaultIndentation, endKeyword) {
-        // SmlSerializer.serializeAttribute(this, document, level, defaultIndentation);
+        SmlSerializer_1.default.serializeAttributeInternal(this, document, level, defaultIndentation);
     }
 }
 exports.default = SmlAttribute;

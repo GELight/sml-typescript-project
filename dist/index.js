@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // import WsvParser from "./sml/WsvParser";
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvSerializer from "./sml/WsvSerializer";
+const SmlDocument_1 = __importDefault(require("./sml/SmlDocument"));
 const SmlParser_1 = __importDefault(require("./sml/SmlParser"));
 // console.log(">>> WsvParser");
 // console.log(WsvParser.parseLine("a b c"));
@@ -29,5 +30,8 @@ const SmlParser_1 = __importDefault(require("./sml/SmlParser"));
 // console.log(document.toString());
 // console.log((document.toString() === documentString));
 console.log(">>> SmlParser");
-console.log(SmlParser_1.default.parseDocument(""));
+console.log(SmlParser_1.default.parseDocument("The\nEnd"));
+console.log(SmlParser_1.default.parseDocument("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd"));
+const document = SmlDocument_1.default.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
+console.log(document.toString());
 //# sourceMappingURL=index.js.map

@@ -11,6 +11,7 @@
 // import WsvParser from "./sml/WsvParser";
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvSerializer from "./sml/WsvSerializer";
+import SmlDocument from "./sml/SmlDocument";
 import SmlParser from "./sml/SmlParser";
 
 // console.log(">>> WsvParser");
@@ -29,4 +30,7 @@ import SmlParser from "./sml/SmlParser";
 // console.log((document.toString() === documentString));
 
 console.log(">>> SmlParser");
-console.log(SmlParser.parseDocument(""));
+console.log(SmlParser.parseDocument("The\nEnd"));
+console.log(SmlParser.parseDocument("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd"));
+const document = SmlDocument.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
+console.log(document.toString());

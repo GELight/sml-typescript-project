@@ -1,16 +1,26 @@
 import SmlElement from "./SmlElement";
 import SmlEmptyNode from "./SmlEmptyNode";
+import SmlParser from "./SmlParser";
+import SmlSerializer from "./SmlSerializer";
+import StringUtil from "./StringUtil";
 
 export default class SmlDocument {
+
+    public static parse(content: string): SmlDocument {
+        return SmlParser.parseDocument(content);
+    }
 
     public emptyNodesBefore: SmlEmptyNode[] = [];
     public emptyNodesAfter: SmlEmptyNode[] = [];
 
     private root: SmlElement;
     private endKeyword: string = "End";
+    private defaultIndentation: string = null;
 
     constructor(rootElement?: SmlElement) {
-        // ...
+        if (rootElement) {
+            this.root = rootElement;
+        }
     }
 
     public setEndKeyword(endKeyword: string): void {
@@ -21,8 +31,15 @@ export default class SmlDocument {
         return this.endKeyword;
     }
 
+    public setDefaultIndentation(defaultIndentation: string): void {
+        if (!StringUtil.isWhitespaceOrEmpty(defaultIndentation)) {
+            throw Error("Invalid indentation");
+        }
+        this.defaultIndentation = defaultIndentation;
+    }
+
     public getDefaultIndentation(): string {
-        return "";
+        return this.defaultIndentation;
     }
 
     public getRoot(): SmlElement {
@@ -31,6 +48,10 @@ export default class SmlDocument {
 
     public setRoot(root: SmlElement): void {
         this.root = root;
+    }
+
+    public toString(): string {
+        return SmlSerializer.serializeDocument(this);
     }
 
 }

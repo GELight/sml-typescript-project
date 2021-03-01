@@ -1,12 +1,14 @@
 import SmlNamedNode from "./SmlNamedNode";
+import SmlSerializer from "./SmlSerializer";
 import WsvDocument from "./WsvDocument";
 
 export default class SmlAttribute extends SmlNamedNode {
 
-    private values: string[];
+    private values: string[] = [];
 
-    constructor(name: string, values: any[]) {
+    constructor(name: string, values: string[]) {
         super(name);
+        this.setValues(...values);
     }
 
     public setValues(...values: string[]): void {
@@ -29,12 +31,11 @@ export default class SmlAttribute extends SmlNamedNode {
     }
 
     public toString(): string {
-        // return SmlSerializer.serializeAttribute(this);
-        return null;
+        return SmlSerializer.serializeAttribute(this);
     }
 
     public toWsvLines(document: WsvDocument, level: number, defaultIndentation: string, endKeyword: string): void {
-        // SmlSerializer.serializeAttribute(this, document, level, defaultIndentation);
+        SmlSerializer.serializeAttributeInternal(this, document, level, defaultIndentation);
     }
 
 }

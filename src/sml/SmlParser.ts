@@ -10,6 +10,7 @@ import WsvDocumentLineIterator from "./WsvDocumentLineIterator";
 import WsvLine from "./WsvLine";
 import WsvLineIterator from "./WsvLineIterator";
 
+// APPROVED
 export default class SmlParser {
 
     public static parseDocument(content: string): SmlDocument {
@@ -25,9 +26,8 @@ export default class SmlParser {
 
         SmlParser.readElementContent(iterator, rootElement);
 
-        // readEmptyNodes(document.EmptyNodesAfter, iterator);
-        // return document;
-        return null;
+        SmlParser.readEmptyNodes(document.emptyNodesAfter, iterator);
+        return document;
     }
 
     public static readRootElement(iterator: WsvLineIterator, emptyNodesBefore: SmlEmptyNode[]): SmlElement {
@@ -47,7 +47,6 @@ export default class SmlParser {
         return rootElement;
     }
 
-    // TODO: HIER GEHTS WEITER
     public static readNode(iterator: WsvLineIterator, parentElement: SmlElement): SmlNode {
         let node: SmlNode;
         const line: WsvLine = iterator.getLine();
@@ -68,18 +67,17 @@ export default class SmlParser {
 
                 node = childElement;
             } else {
-                // TODO Weiter machen :)
-                // const values: string[] = Arrays.copyOfRange(line.getValues(), 1, line.getValues().length);
-                // const childAttribute: SmlAttribute = new SmlAttribute(name, values);
-                // childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
+                const values: string[] = line.getValues().slice(1);
+                const childAttribute: SmlAttribute = new SmlAttribute(name, values);
+                childAttribute.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
 
-                // node = childAttribute;
+                node = childAttribute;
             }
         } else {
-            // SmlEmptyNode emptyNode = new SmlEmptyNode();
-            // emptyNode.setWhitespacesAndComment(line.whitespaces, line.comment);
+            const emptyNode: SmlEmptyNode = new SmlEmptyNode();
+            emptyNode.setWhitespacesAndComment(line.getWhitespaces(), line.getComment());
 
-            // node = emptyNode;
+            node = emptyNode;
         }
         return node;
     }

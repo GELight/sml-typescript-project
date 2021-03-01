@@ -1,5 +1,7 @@
 import SmlNamedNode from "./SmlNamedNode";
 import SmlNode from "./SmlNode";
+import SmlSerializer from "./SmlSerializer";
+import WsvDocument from "./WsvDocument";
 import WsvLine from "./WsvLine";
 
 export default class SmlElement extends SmlNamedNode {
@@ -39,6 +41,14 @@ export default class SmlElement extends SmlNamedNode {
     public add(node: SmlNode): SmlNode {
         this.nodes.push(node);
         return node;
+    }
+
+    public toString(): string {
+        return SmlSerializer.serializeElement(this);
+    }
+
+    public toWsvLines(document: WsvDocument, level: number, defaultIndentation: string, endKeyword: string): void {
+        SmlSerializer.serializeElementInternal(this, document, level, defaultIndentation, endKeyword);
     }
 
 }
