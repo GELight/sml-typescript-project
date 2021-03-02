@@ -41,9 +41,10 @@ npm run build
 * [ ] SmlIllegalArgumentException
 * [x] SmlNamedNode
 * [x] SmlNode
+* [x] SmlEmptyNode
 * [ ] SmlParser
 * [ ] SmlParserException
-* [ ] SmlSerializer
+* [x] SmlSerializer
 
 * [x] StringBuilder
 * [x] StringUtil
