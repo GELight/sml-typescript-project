@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// APPROVED
 class WsvChar {
     static isWhitespace(c) {
         return (c >= 0x09 && c <= 0x0D) ||

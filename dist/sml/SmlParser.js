@@ -11,7 +11,6 @@ const SmlParserException_1 = __importDefault(require("./SmlParserException"));
 const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 const WsvDocumentLineIterator_1 = __importDefault(require("./WsvDocumentLineIterator"));
-// APPROVED
 class SmlParser {
     static parseDocument(content) {
         const wsvDocument = WsvDocument_1.default.parse(content);

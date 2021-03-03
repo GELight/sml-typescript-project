@@ -73,12 +73,11 @@ export default class SmlElement extends SmlNamedNode {
     }
 
     public getAttribute(name: string): SmlAttribute {
-        // const attribute: SmlAttribute[] = this.nodes
-        //     .filter((node) => node instanceof SmlAttribute)
-        //     .map((node) => node as SmlAttribute)
-        //     .filter((attribute) => attribute.hasName(name));
-        // return attribute;
-        return null;
+        return this.nodes
+            .filter((node) => node instanceof SmlAttribute)
+            .map((node) => node as SmlAttribute)
+            .filter((attr) => attr.hasName(name))
+            .shift() || null;
     }
 
     public getAttributes(name?: string): SmlAttribute[] {
@@ -105,12 +104,11 @@ export default class SmlElement extends SmlNamedNode {
     }
 
     public getElement(name: string): SmlElement {
-        // const element: SmlElement[] = this.nodes
-        //     .filter((node) => node instanceof SmlElement)
-        //     .map((node) => node as SmlElement)
-        //     .filter((element) => element.hasName(name));
-        // return element;
-        return null;
+        return this.nodes
+            .filter((node) => node instanceof SmlElement)
+            .map((node) => node as SmlElement)
+            .filter((attr) => attr.hasName(name))
+            .shift() || null;
     }
 
     public getElements(name?: string): SmlElement[] {

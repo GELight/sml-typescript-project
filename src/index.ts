@@ -8,8 +8,8 @@
 // export { default as WsvParser } from "./sml/WsvParser";
 // export { default as WsvSerializer } from "./sml/WsvSerializer";
 
-
-
+// ------------------
+//
 // import WsvParser from "./sml/WsvParser";
 
 // console.log(">>> WsvParser");
@@ -18,8 +18,8 @@
 // const parsedDocument = WsvParser.parseDocument("a b c #ein comment\n d  e");
 // console.log(parsedDocument.getLines());
 
-
-
+// ------------------
+//
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvSerializer from "./sml/WsvSerializer";
 
@@ -32,8 +32,8 @@
 // console.log(document.toString());
 // console.log((document.toString() === documentString));
 
-
-
+// ------------------
+//
 // import SmlDocument from "./sml/SmlDocument";
 // import SmlParser from "./sml/SmlParser";
 
@@ -43,10 +43,10 @@
 // const document = SmlDocument.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
 // console.log(document.toString());
 
-import SmlAttribute from "./sml/SmlAttribute";
-console.log(">>> SmlAttribute");
+// ------------------
+//
+// import SmlElement from "./sml/SmlElement";
+// console.log(">>> SmlElement");
 
-console.log(new SmlAttribute("muh", ["test1", "test2"]).getValues());
-console.log(new SmlAttribute("muh", [1, 2, 3, 4, 5]).getValues());
-console.log(new SmlAttribute("muh", [1.23, 2.3, 3.45, 4.6786, 5.6785334]).getValues());
-console.log(new SmlAttribute("muh", [true, false, true, true]).getValues());
+// console.log(new SmlElement("sml-element1").getAttribute("test"));
+// console.log(new SmlElement("sml-element2").getElement("test"));

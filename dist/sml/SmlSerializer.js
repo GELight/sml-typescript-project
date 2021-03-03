@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvDocument_1 = __importDefault(require("./WsvDocument"));
-// APPROVED
 class SmlSerializer {
     static serializeDocument(document) {
         const wsvDocument = new WsvDocument_1.default();

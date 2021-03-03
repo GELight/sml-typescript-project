@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// APPROVED
 class WsvParserException extends Error {
     constructor(iterator, message) {
         super(`${message} ${iterator.getLineInfoString()}`);

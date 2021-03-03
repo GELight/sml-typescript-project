@@ -7,7 +7,6 @@ const StringBuilder_1 = __importDefault(require("./StringBuilder"));
 const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvChar_1 = __importDefault(require("./WsvChar"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
-// APPROVED
 class WsvParserCharIterator {
     constructor(text) {
         this.sb = new StringBuilder_1.default();

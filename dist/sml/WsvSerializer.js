@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
 const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvChar_1 = __importDefault(require("./WsvChar"));
-// APPROVED
 class WsvSerializer {
     static containsSpecialChars(value) {
         const codePoints = StringUtil_1.default.stringToCodePoints(value);

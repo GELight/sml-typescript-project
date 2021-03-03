@@ -8,7 +8,6 @@ const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 const WsvParserCharIterator_1 = __importDefault(require("./WsvParserCharIterator"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
-// APPROVED
 class WsvParser {
     static parseLine(content) {
         const iterator = new WsvParserCharIterator_1.default(content);

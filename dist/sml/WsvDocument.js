@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 const WsvParser_1 = __importDefault(require("./WsvParser"));
 const WsvSerializer_1 = __importDefault(require("./WsvSerializer"));
-// APPROVED
 class WsvDocument {
     constructor() {
         this.lines = [];

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const SmlNamedNode_1 = __importDefault(require("./SmlNamedNode"));
 const SmlSerializer_1 = __importDefault(require("./SmlSerializer"));
 class SmlAttribute extends SmlNamedNode_1.default {
-    // TODO Weiter gehts...!!!
     constructor(name, values) {
         super(name);
         this.values = [];
@@ -20,7 +19,6 @@ class SmlAttribute extends SmlNamedNode_1.default {
     }
     getValues(offset) {
         if (offset) {
-            // return (String[]) Arrays.stream(values).skip(offset).toArray();
             return this.values.slice(offset);
         }
         else {
@@ -29,7 +27,6 @@ class SmlAttribute extends SmlNamedNode_1.default {
     }
     getNumberValues(offset) {
         if (offset) {
-            // return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
             return this.values.slice(offset).map(Number);
         }
         else {
@@ -37,7 +34,10 @@ class SmlAttribute extends SmlNamedNode_1.default {
         }
     }
     getString(index) {
-        return this.values[index];
+        if (index) {
+            return this.values[index];
+        }
+        return this.values[0];
     }
     setString(value) {
         this.values = [value];

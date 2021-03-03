@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvChar_1 = __importDefault(require("./WsvChar"));
-// APPROVED
 class StringUtil {
     static getSubstr(chars, startIndex, len) {
         const sub = chars.slice(startIndex, (startIndex + len));

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const WsvLine_1 = __importDefault(require("./WsvLine"));
-// APPROVED
 class SmlNode {
     constructor() {
         this.whitespaces = null;
@@ -30,7 +29,12 @@ class SmlNode {
         this.comment = comment;
     }
     toWsvLines(document, level, defaultIndentation, endKeyword) {
-        // ...
+        /**
+         * TODO Argument of type 'this' is not assignable to parameter of type 'SmlElement'.
+         * Type 'SmlNode' is missing the following properties from type 'SmlElement':
+         * nodes, endWhitespaces, endComment, setEndWhitespaces, and 18 more.
+         */
+        // SmlSerializer.serializeElementInternal(this, document, level, defaultIndentation, endKeyword);
     }
 }
 exports.default = SmlNode;

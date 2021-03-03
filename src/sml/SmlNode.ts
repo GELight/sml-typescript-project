@@ -1,3 +1,4 @@
+import SmlSerializer from "./SmlSerializer";
 import WsvDocument from "./WsvDocument";
 import WsvLine from "./WsvLine";
 
@@ -34,7 +35,12 @@ export default class SmlNode {
     }
 
     public toWsvLines(document: WsvDocument, level: number, defaultIndentation: string, endKeyword: string): void {
-        // ...
+    /**
+     * TODO Argument of type 'this' is not assignable to parameter of type 'SmlElement'.
+     * Type 'SmlNode' is missing the following properties from type 'SmlElement':
+     * nodes, endWhitespaces, endComment, setEndWhitespaces, and 18 more.
+     */
+        // SmlSerializer.serializeElementInternal(this, document, level, defaultIndentation, endKeyword);
     }
 
 }

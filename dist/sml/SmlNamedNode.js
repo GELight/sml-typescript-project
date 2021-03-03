@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlNode_1 = __importDefault(require("./SmlNode"));
 const StringUtil_1 = __importDefault(require("./StringUtil"));
-// APPROVED
 class SmlNamedNode extends SmlNode_1.default {
     constructor(name) {
         super();

@@ -1,4 +1,3 @@
-"use strict";
 // export { default as ReliableTxtDocument } from "./sml/ReliableTxtDocument";
 // export { default as ReliableTxtDocumentServer } from "./sml/ReliableTxtDocumentServer";
 // export { default as ReliableTxtEncoding } from "./sml/ReliableTxtEncoding";
@@ -8,16 +7,16 @@
 // export { default as WsvLine } from "./sml/WsvLine";
 // export { default as WsvParser } from "./sml/WsvParser";
 // export { default as WsvSerializer } from "./sml/WsvSerializer";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+// ------------------
+//
 // import WsvParser from "./sml/WsvParser";
 // console.log(">>> WsvParser");
 // console.log(WsvParser.parseLine("a b c"));
 // console.log(WsvParser.parseLine("a b c #ein comment"));
 // const parsedDocument = WsvParser.parseDocument("a b c #ein comment\n d  e");
 // console.log(parsedDocument.getLines());
+// ------------------
+//
 // import WsvDocument from "./sml/WsvDocument";
 // import WsvSerializer from "./sml/WsvSerializer";
 // console.log(">>> WsvDocument / WsvSerializer");
@@ -27,6 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // const document = WsvDocument.parse(documentString);
 // console.log(document.toString());
 // console.log((document.toString() === documentString));
+// ------------------
+//
 // import SmlDocument from "./sml/SmlDocument";
 // import SmlParser from "./sml/SmlParser";
 // console.log(">>> SmlParser");
@@ -34,10 +35,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // console.log(SmlParser.parseDocument("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd"));
 // const document = SmlDocument.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
 // console.log(document.toString());
-const SmlAttribute_1 = __importDefault(require("./sml/SmlAttribute"));
-console.log(">>> SmlAttribute");
-console.log(new SmlAttribute_1.default("muh", ["test1", "test2"]).getValues());
-console.log(new SmlAttribute_1.default("muh", [1, 2, 3, 4, 5]).getValues());
-console.log(new SmlAttribute_1.default("muh", [1.23, 2.3, 3.45, 4.6786, 5.6785334]).getValues());
-console.log(new SmlAttribute_1.default("muh", [true, false, true, true]).getValues());
+// ------------------
+//
+// import SmlElement from "./sml/SmlElement";
+// console.log(">>> SmlElement");
+// console.log(new SmlElement("sml-element1").getAttribute("test"));
+// console.log(new SmlElement("sml-element2").getElement("test"));
 //# sourceMappingURL=index.js.map

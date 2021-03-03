@@ -39,9 +39,9 @@ npm run build
 * [x] SmlDocument
 * [ ] * SmlDocumentServer
 * [ ] * SmlElement
-* [ ] SmlIllegalArgumentException
+* [x] SmlIllegalArgumentException
 * [x] SmlNamedNode
-* [x] SmlNode
+* [x] SmlNode (method "toWsvLines" not implemented yet)
 * [x] SmlEmptyNode
 * [x] SmlParser
 * [ ] * SmlParserException
