@@ -3,7 +3,6 @@ import StringUtil from "./StringUtil";
 import WsvChar from "./WsvChar";
 import WsvParserException from "./WsvParserException";
 
-// APPROVED
 export default class WsvParserCharIterator {
 
     private sb: StringBuilder = new StringBuilder();

@@ -1,5 +1,4 @@
 
-// APPROVED
 export default class WsvChar {
 
     public static isWhitespace(c: number): boolean {

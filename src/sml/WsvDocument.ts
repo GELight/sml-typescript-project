@@ -2,7 +2,6 @@ import WsvLine from "./WsvLine";
 import WsvParser from "./WsvParser";
 import WsvSerializer from "./WsvSerializer";
 
-// APPROVED
 export default class WsvDocument {
 
     public static parse(content: string): WsvDocument {

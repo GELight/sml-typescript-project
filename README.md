@@ -27,24 +27,24 @@ npm run build
 
 ## Rework Status
 
-* [ ] ReliableTxtDocument
-* [?] * ReliableTxtDocumentServer
-* [ ] ReliableTxtEncoding
-* [ ] ReliableTxtFile
-* [ ] ReliableTxtException
+* [ ] * ReliableTxtDocument
+* [ ] * ReliableTxtDocumentServer
+* [ ] * ReliableTxtEncoding
+* [x] ReliableTxtFile
+* [ ] * ReliableTxtException
 * [ ] ReliableTxtStreamReader
 * [ ] ReliableTxtStreamWriter
 
-* [ ] SmlAttribute
-* [ ] SmlDocument
-* [?] * SmlDocumentServer
-* [ ] SmlElement
+* [ ] * SmlAttribute
+* [x] SmlDocument
+* [ ] * SmlDocumentServer
+* [ ] * SmlElement
 * [ ] SmlIllegalArgumentException
 * [x] SmlNamedNode
 * [x] SmlNode
 * [x] SmlEmptyNode
-* [ ] SmlParser
-* [ ] SmlParserException
+* [x] SmlParser
+* [ ] * SmlParserException
 * [x] SmlSerializer
 
 * [x] StringBuilder
@@ -53,12 +53,14 @@ npm run build
 * [x] WsvChar
 * [x] WsvLine
 * [X] WsvDocument
-* [?] * WsvDocumentServer
+* [ ] * WsvDocumentLineIterator
+* [ ] * WsvDocumentServer
 * [x] WsvParser
 * [x] WsvParserCharIterator
 * [x] WsvParserException
 * [x] WsvSerializer
 * [ ] WsvStreamReader
+* [ ] WsvStreamLineIterator
 * [ ] WsvStreamWriter
 
 ## Test

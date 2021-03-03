@@ -4,7 +4,6 @@ import WsvLine from "./WsvLine";
 import WsvParserCharIterator from "./WsvParserCharIterator";
 import WsvParserException from "./WsvParserException";
 
-// APPROVED
 export default class WsvParser {
 
     public static parseLine(content: string): WsvLine {

@@ -1,6 +1,5 @@
 import WsvChar from "./WsvChar";
 
-// APPROVED
 export default class StringUtil {
 
     public static doubleQuote = '"'.codePointAt(0);

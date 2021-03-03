@@ -2,7 +2,6 @@ import SmlNode from "./SmlNode";
 import SmlSerializer from "./SmlSerializer";
 import WsvDocument from "./WsvDocument";
 
-// APPROVED
 export default class SmlEmptyNode extends SmlNode {
 
     constructor() {

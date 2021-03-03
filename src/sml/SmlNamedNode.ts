@@ -1,7 +1,6 @@
 import SmlNode from "./SmlNode";
 import StringUtil from "./StringUtil";
 
-// APPROVED
 export default class SmlNamedNode extends SmlNode {
 
     public name: string;

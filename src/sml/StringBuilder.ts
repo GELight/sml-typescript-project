@@ -1,6 +1,5 @@
 import StringUtil from "./StringUtil";
 
-// APPROVED
 export default class StringBuilder {
 
     private codePoints: number[] = [];

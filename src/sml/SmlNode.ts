@@ -1,7 +1,6 @@
 import WsvDocument from "./WsvDocument";
 import WsvLine from "./WsvLine";
 
-// APPROVED
 export default class SmlNode {
 
     private whitespaces: string[] = null;

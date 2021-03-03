@@ -10,7 +10,6 @@ import WsvDocumentLineIterator from "./WsvDocumentLineIterator";
 import WsvLine from "./WsvLine";
 import WsvLineIterator from "./WsvLineIterator";
 
-// APPROVED
 export default class SmlParser {
 
     public static parseDocument(content: string): SmlDocument {

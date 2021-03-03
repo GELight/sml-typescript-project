@@ -4,7 +4,6 @@ import SmlElement from "./SmlElement";
 import SmlEmptyNode from "./SmlEmptyNode";
 import WsvDocument from "./WsvDocument";
 
-// APPROVED
 export default class SmlSerializer {
 
     public static serializeDocument(document: SmlDocument): string {

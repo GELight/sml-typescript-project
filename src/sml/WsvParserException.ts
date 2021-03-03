@@ -1,6 +1,5 @@
 import WsvParserCharIterator from "./WsvParserCharIterator";
 
-// APPROVED
 export default class WsvParserException extends Error {
 
     public text: string;

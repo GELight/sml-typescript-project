@@ -7,7 +7,6 @@ export default class SmlAttribute extends SmlNamedNode {
 
     private values: string[] = [];
 
-    // TODO Weiter gehts...!!!
     constructor(name: string, values: any[]) {
         super(name);
         this.setValues(...values.map(String) as string[]);
@@ -22,7 +21,6 @@ export default class SmlAttribute extends SmlNamedNode {
 
     public getValues(offset?: number): string[] {
         if (offset) {
-            // return (String[]) Arrays.stream(values).skip(offset).toArray();
             return this.values.slice(offset);
         } else {
             return this.values;
@@ -31,7 +29,6 @@ export default class SmlAttribute extends SmlNamedNode {
 
     public getNumberValues(offset?: number): number[] {
         if (offset) {
-            // return Arrays.stream(values).mapToInt(Integer::parseInt).toArray();
             return this.values.slice(offset).map(Number);
         } else {
             return this.values.map(Number);

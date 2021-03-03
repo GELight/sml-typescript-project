@@ -4,7 +4,6 @@ import WsvChar from "./WsvChar";
 import WsvDocument from "./WsvDocument";
 import WsvLine from "./WsvLine";
 
-// APPROVED
 export default class WsvSerializer {
 
     public static containsSpecialChars(value: string): boolean {
