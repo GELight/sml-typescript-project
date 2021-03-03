@@ -44,7 +44,7 @@ npm run build
 * [x] SmlNode (method "toWsvLines" not implemented yet)
 * [x] SmlEmptyNode
 * [x] SmlParser
-* [ ] * SmlParserException
+* [ ] SmlParserException (line number not implemented)
 * [x] SmlSerializer
 
 * [x] StringBuilder
@@ -53,8 +53,9 @@ npm run build
 * [x] WsvChar
 * [x] WsvLine
 * [X] WsvDocument
-* [ ] * WsvDocumentLineIterator
+* [x] WsvDocumentLineIterator
 * [ ] * WsvDocumentServer
+* [x] WsvLineIterator
 * [x] WsvParser
 * [x] WsvParserCharIterator
 * [x] WsvParserException

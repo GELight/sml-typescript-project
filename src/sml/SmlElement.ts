@@ -73,11 +73,16 @@ export default class SmlElement extends SmlNamedNode {
     }
 
     public getAttribute(name: string): SmlAttribute {
-        return this.nodes
+        const result = this.nodes
             .filter((node) => node instanceof SmlAttribute)
             .map((node) => node as SmlAttribute)
             .filter((attr) => attr.hasName(name))
-            .shift() || null;
+            .shift();
+
+        if (!result) {
+            throw Error(`No attribute with name '${name}'`);
+        }
+        return result;
     }
 
     public getAttributes(name?: string): SmlAttribute[] {
@@ -104,11 +109,16 @@ export default class SmlElement extends SmlNamedNode {
     }
 
     public getElement(name: string): SmlElement {
-        return this.nodes
+        const result = this.nodes
             .filter((node) => node instanceof SmlElement)
             .map((node) => node as SmlElement)
             .filter((attr) => attr.hasName(name))
-            .shift() || null;
+            .shift();
+
+        if (!result) {
+            throw Error(`No element with name '${name}'`);
+        }
+        return result;
     }
 
     public getElements(name?: string): SmlElement[] {
@@ -126,12 +136,24 @@ export default class SmlElement extends SmlNamedNode {
         return elements;
     }
 
+    public getBoolean(attributeName: string): boolean {
+        return Boolean(this.getAttribute(attributeName).getString());
+    }
+
+    public getNumber(attributeName: string): number {
+        return Number(this.getAttribute(attributeName).getString());
+    }
+
     public getString(attributeName: string): string {
         return this.getAttribute(attributeName).getString();
     }
 
     public getStringValues(attributeName: string): string[] {
         return this.getAttribute(attributeName).getValues();
+    }
+
+    public getNumberValues(attributeName: string): number[] {
+        return this.getAttribute(attributeName).getValues().map(Number) as number[];
     }
 
     public toString(): string {
