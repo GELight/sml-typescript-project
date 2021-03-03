@@ -38,8 +38,11 @@ export default class SmlAttribute extends SmlNamedNode {
         }
     }
 
-    public getString(index: number): string {
-        return this.values[index];
+    public getString(index?: number): string {
+        if (index) {
+            return this.values[index];
+        }
+        return this.values[0];
     }
 
     public setString(value: string): void {

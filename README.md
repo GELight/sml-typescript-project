@@ -28,7 +28,7 @@ npm run build
 ## Rework Status
 
 * [ ] ReliableTxtDocument
-* [ ] ReliableTxtDocumentServer
+* [?] * ReliableTxtDocumentServer
 * [ ] ReliableTxtEncoding
 * [ ] ReliableTxtFile
 * [ ] ReliableTxtException
@@ -37,6 +37,7 @@ npm run build
 
 * [ ] SmlAttribute
 * [ ] SmlDocument
+* [?] * SmlDocumentServer
 * [ ] SmlElement
 * [ ] SmlIllegalArgumentException
 * [x] SmlNamedNode
@@ -52,7 +53,7 @@ npm run build
 * [x] WsvChar
 * [x] WsvLine
 * [X] WsvDocument
-* [ ] WsvDocumentServer
+* [?] * WsvDocumentServer
 * [x] WsvParser
 * [x] WsvParserCharIterator
 * [x] WsvParserException

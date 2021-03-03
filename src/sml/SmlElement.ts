@@ -1,3 +1,5 @@
+import SmlAttribute from "./SmlAttribute";
+import SmlEmptyNode from "./SmlEmptyNode";
 import SmlNamedNode from "./SmlNamedNode";
 import SmlNode from "./SmlNode";
 import SmlSerializer from "./SmlSerializer";
@@ -41,6 +43,97 @@ export default class SmlElement extends SmlNamedNode {
     public add(node: SmlNode): SmlNode {
         this.nodes.push(node);
         return node;
+    }
+
+    public addAttribute(name: string, values: any[]): SmlAttribute {
+        const stringValues = values.map(String) as string[];
+        const attribute: SmlAttribute = new SmlAttribute(name, stringValues);
+        this.add(attribute);
+        return attribute;
+    }
+
+    public addElement(name: string): SmlElement {
+        const element: SmlElement = new SmlElement(name);
+        this.add(element);
+        return element;
+    }
+
+    public addEmptyNode(): SmlEmptyNode {
+        const emptyNode: SmlEmptyNode = new SmlEmptyNode();
+        this.add(emptyNode);
+        return emptyNode;
+    }
+
+    public hasAttribute(name: string): boolean {
+        return this.nodes
+            .filter((node) => node instanceof SmlAttribute)
+            .map((node) => node as SmlAttribute)
+            .filter((attribute) => attribute.hasName(name))
+            .length > 0;
+    }
+
+    public getAttribute(name: string): SmlAttribute {
+        // const attribute: SmlAttribute[] = this.nodes
+        //     .filter((node) => node instanceof SmlAttribute)
+        //     .map((node) => node as SmlAttribute)
+        //     .filter((attribute) => attribute.hasName(name));
+        // return attribute;
+        return null;
+    }
+
+    public getAttributes(name?: string): SmlAttribute[] {
+        let attributes: SmlAttribute[] = [];
+        if (!name) {
+            attributes = this.nodes
+                .filter((node) => node instanceof SmlAttribute)
+                .map((node) => node as SmlAttribute);
+        } else {
+            attributes = this.nodes
+                .filter((node) => node instanceof SmlAttribute)
+                .map((node) => node as SmlAttribute)
+                .filter((attribute) => attribute.hasName(name));
+        }
+        return attributes;
+    }
+
+    public hasElement(name: string): boolean {
+        return this.nodes
+            .filter((node) => node instanceof SmlElement)
+            .map((node) => node as SmlElement)
+            .filter((element) => element.hasName(name))
+            .length > 0;
+    }
+
+    public getElement(name: string): SmlElement {
+        // const element: SmlElement[] = this.nodes
+        //     .filter((node) => node instanceof SmlElement)
+        //     .map((node) => node as SmlElement)
+        //     .filter((element) => element.hasName(name));
+        // return element;
+        return null;
+    }
+
+    public getElements(name?: string): SmlElement[] {
+        let elements: SmlElement[] = [];
+        if (!name) {
+            elements = this.nodes
+                .filter((node) => node instanceof SmlElement)
+                .map((node) => node as SmlElement);
+        } else {
+            elements = this.nodes
+                .filter((node) => node instanceof SmlElement)
+                .map((node) => node as SmlElement)
+                .filter((attribute) => attribute.hasName(name));
+        }
+        return elements;
+    }
+
+    public getString(attributeName: string): string {
+        return this.getAttribute(attributeName).getString();
+    }
+
+    public getStringValues(attributeName: string): string[] {
+        return this.getAttribute(attributeName).getValues();
     }
 
     public toString(): string {
