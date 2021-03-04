@@ -1,4 +1,3 @@
-import SmlIllegalArgumentException from "./SmlIllegalArgumentException";
 import StringBuilder from "./StringBuilder";
 import StringUtil from "./StringUtil";
 import WsvParser from "./WsvParser";
@@ -14,7 +13,7 @@ export default class WsvLine {
         if (whitespaces !== null) {
             for (const whitespace of whitespaces) {
                 if (whitespace !== null && !StringUtil.isWhitespaceOrEmpty(whitespace)) {
-                    throw new SmlIllegalArgumentException("Whitespace value contains non whitespace character");
+                    throw new Error("Whitespace value contains non whitespace character");
                 }
             }
         }
@@ -22,7 +21,7 @@ export default class WsvLine {
 
     public static validateComment(comment: string): void {
         if (comment !== null && comment.indexOf("\n")) {
-            throw new SmlIllegalArgumentException("Line break in comment is not allowed");
+            throw new Error("Line break in comment is not allowed");
         }
     }
 

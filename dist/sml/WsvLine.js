@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const SmlIllegalArgumentException_1 = __importDefault(require("./SmlIllegalArgumentException"));
 const StringBuilder_1 = __importDefault(require("./StringBuilder"));
 const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvParser_1 = __importDefault(require("./WsvParser"));
@@ -26,14 +25,14 @@ class WsvLine {
         if (whitespaces !== null) {
             for (const whitespace of whitespaces) {
                 if (whitespace !== null && !StringUtil_1.default.isWhitespaceOrEmpty(whitespace)) {
-                    throw new SmlIllegalArgumentException_1.default("Whitespace value contains non whitespace character");
+                    throw new Error("Whitespace value contains non whitespace character");
                 }
             }
         }
     }
     static validateComment(comment) {
         if (comment !== null && comment.indexOf("\n")) {
-            throw new SmlIllegalArgumentException_1.default("Line break in comment is not allowed");
+            throw new Error("Line break in comment is not allowed");
         }
     }
     addValue(value) {

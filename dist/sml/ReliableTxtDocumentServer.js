@@ -8,7 +8,7 @@ const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const ReliableTxtFile_1 = __importDefault(require("./ReliableTxtFile"));
 class ReliableTxtDocumentServer extends ReliableTxtDocument_1.default {
     constructor(...args) {
-        super(args);
+        super(...args);
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
         return this;
     }

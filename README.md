@@ -27,24 +27,24 @@ npm run build
 
 ## Rework Status
 
-* [ ] * ReliableTxtDocument
-* [ ] * ReliableTxtDocumentServer
-* [ ] * ReliableTxtEncoding
+* [x] ReliableTxtDocument
+* [x] ReliableTxtDocumentServer
+* [x] ReliableTxtEncoding
 * [x] ReliableTxtFile
-* [ ] * ReliableTxtException
+* [X] ReliableTxtException
 * [ ] ReliableTxtStreamReader
 * [ ] ReliableTxtStreamWriter
 
-* [ ] * SmlAttribute
+* [x] SmlAttribute
 * [x] SmlDocument
 * [ ] * SmlDocumentServer
-* [ ] * SmlElement
+* [x] SmlElement
 * [x] SmlIllegalArgumentException
 * [x] SmlNamedNode
 * [x] SmlNode (method "toWsvLines" not implemented yet)
 * [x] SmlEmptyNode
 * [x] SmlParser
-* [ ] SmlParserException (line number not implemented)
+* [/] SmlParserException (line number not implemented)
 * [x] SmlSerializer
 
 * [x] StringBuilder

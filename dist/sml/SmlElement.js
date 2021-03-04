@@ -130,7 +130,7 @@ class SmlElement extends SmlNamedNode_1.default {
         return this.getAttribute(attributeName).getValues();
     }
     getNumberValues(attributeName) {
-        return this.getAttribute(attributeName).getValues().map(Number);
+        return this.getAttribute(attributeName).getNumberValues();
     }
     toString() {
         return SmlSerializer_1.default.serializeElement(this);

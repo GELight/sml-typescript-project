@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const StringUtil_1 = __importDefault(require("./StringUtil"));
 class ReliableTxtDocument {
-    constructor(args) {
+    constructor(...args) {
         this.text = "";
         this.text = args.join("\n");
         return this;
     }
     static join(lines) {
-        return new ReliableTxtDocument(lines).toString();
+        return new ReliableTxtDocument(...lines).toString();
     }
     setText(text) {
         if (text !== null) {
@@ -29,7 +29,7 @@ class ReliableTxtDocument {
     getTextAsCodePoints() {
         return StringUtil_1.default.stringToCodePoints(this.text);
     }
-    setLines(lines) {
+    setLines(...lines) {
         this.text = lines.join("\n");
     }
     getLines() {

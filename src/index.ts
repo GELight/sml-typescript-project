@@ -55,8 +55,35 @@
 
 // ------------------
 //
+// import { connected } from "process";
+// import SmlAttribute from "./sml/SmlAttribute";
+// import SmlDocument from "./sml/SmlDocument";
 // import SmlElement from "./sml/SmlElement";
 // console.log(">>> SmlElement");
 
-// console.log(new SmlElement("sml-element").getAttribute("test"));
-// console.log(new SmlElement("sml-element").getAttribute("test"));
+// const attr = new SmlAttribute("test", ["123", "34432"]);
+// const element = new SmlElement("elm-name");
+// element.add(attr);
+// console.log(element);
+// const doc = SmlDocument.parse(`
+// Mario
+//     Farbe RGB 255 0 0
+//     Group1
+//         Farbe RGBA 255 123 54 0.8
+//     End
+// End
+// `);
+// const values = doc.getRoot().getElement("Group1").getAttribute("Farbe").getValues(1);
+// console.log(values);
+// console.log(`background: rgba(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]});`);
+
+// // ------------------
+// //
+import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
+import ReliableTxtFile from "./sml/ReliableTxtFile";
+import StringUtil from "./sml/StringUtil";
+console.log(">>> ReliableTxtFile");
+
+// new ReliableTxtDocumentServer("ab").save("ReliableTxtDocumentServer-TEST.txt");
+const file = new ReliableTxtFile().load("ReliableTxtDocumentServer-TEST.txt");
+console.log(StringUtil.stringToCodePoints(file));

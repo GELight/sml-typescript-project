@@ -3,12 +3,12 @@ import StringUtil from "./StringUtil";
 export default class ReliableTxtDocument {
 
     public static join(lines: string[]): string {
-        return new ReliableTxtDocument(lines).toString();
+        return new ReliableTxtDocument(...lines).toString();
     }
 
     public text: string = "";
 
-    constructor(args: string[]) {
+    constructor(...args: string[]) {
         this.text = args.join("\n");
         return this;
     }
@@ -33,7 +33,7 @@ export default class ReliableTxtDocument {
         return StringUtil.stringToCodePoints(this.text);
     }
 
-    public setLines(lines: string[]): void {
+    public setLines(...lines: string[]): void {
         this.text = lines.join("\n");
     }
 

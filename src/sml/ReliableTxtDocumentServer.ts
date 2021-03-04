@@ -7,7 +7,7 @@ export default class ReliableTxtDocumentServer extends ReliableTxtDocument {
     public encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
     constructor(...args: string[]) {
-        super(args);
+        super(...args);
         return this;
     }
 

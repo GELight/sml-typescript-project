@@ -1,7 +1,26 @@
 import { readFileSync, writeFileSync } from "fs";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
+import ReliableTxtException from "./ReliableTxtException";
 
 export default class ReliableTxtFile {
+
+    private static getEncodingFromBuffer(buffer: Buffer): ReliableTxtEncoding {
+        if (buffer.length < 2) {
+            return null;
+        }
+        const byte1: number = buffer.readInt8(0);
+        const byte2: number = buffer.readInt8(1);
+
+        if (byte1 === -1 && byte2 === -2) {
+            return ReliableTxtEncoding.UTF16_REVERSED;
+        } else if (byte1 === -17 && byte2 === -69) {
+            if (buffer.length >= 3 && buffer.readInt8(2) === -65) {
+                return ReliableTxtEncoding.UTF8;
+            }
+        }
+
+        return null;
+    }
 
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
@@ -13,17 +32,25 @@ export default class ReliableTxtFile {
     public save(filePath: string, content: string, encoding?: ReliableTxtEncoding): ReliableTxtFile {
         this.setEncoding(encoding);
         try {
-            writeFileSync(filePath, content, this.encoding);
+            writeFileSync(filePath, "\ufeff" + content, this.encoding);
         } catch (e) {
             console.error(e);
         }
         return this;
     }
 
-    public load(filePath: string, encoding?: ReliableTxtEncoding): string {
-        this.setEncoding(encoding);
+    public load(filePath: string): string {
         try {
-            return readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString();
+            const fileBuffer: Buffer = readFileSync(filePath, Object.assign({ flag: "r" }));
+            const detectedEncoding = ReliableTxtFile.getEncodingFromBuffer(fileBuffer);
+            if (detectedEncoding === null) {
+                throw new ReliableTxtException("Document does not have a ReliableTXT preamble");
+            }
+            this.setEncoding(detectedEncoding);
+            const fileContent: string = readFileSync(filePath,
+                Object.assign({ encoding: this.encoding, flag: "r" })
+            ).toString();
+            return fileContent.slice(1);
         } catch (e) {
             console.error(e);
             return "";

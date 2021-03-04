@@ -153,7 +153,7 @@ export default class SmlElement extends SmlNamedNode {
     }
 
     public getNumberValues(attributeName: string): number[] {
-        return this.getAttribute(attributeName).getValues().map(Number) as number[];
+        return this.getAttribute(attributeName).getNumberValues();
     }
 
     public toString(): string {

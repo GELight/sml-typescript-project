@@ -29,12 +29,7 @@ class SmlNode {
         this.comment = comment;
     }
     toWsvLines(document, level, defaultIndentation, endKeyword) {
-        /**
-         * TODO Argument of type 'this' is not assignable to parameter of type 'SmlElement'.
-         * Type 'SmlNode' is missing the following properties from type 'SmlElement':
-         * nodes, endWhitespaces, endComment, setEndWhitespaces, and 18 more.
-         */
-        // SmlSerializer.serializeElementInternal(this, document, level, defaultIndentation, endKeyword);
+        // Overwritten from other classes
     }
 }
 exports.default = SmlNode;
