@@ -94,9 +94,18 @@
 
 // ------------------
 //
-console.log(">>> WsvDocumentServer");
-import WsvDocumentServer from "./sml/WsvDocumentServer";
+// console.log(">>> WsvDocumentServer");
+// import WsvDocumentServer from "./sml/WsvDocumentServer";
 
-// (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
-const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
-console.log(doc);
+// // (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
+// const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
+// console.log(doc);
+
+// ------------------
+//
+// console.log(">>> SmlDocumentServer");
+// import SmlDocumentServer from "./sml/SmlDocumentServer";
+
+// // (SmlDocumentServer.parse("Hallo\nAttribut 1 2 3\nEnd") as SmlDocumentServer).save("SmlDocumentServer-TEST.sml");
+// const doc = SmlDocumentServer.load("SmlDocumentServer-TEST.sml");
+// console.log(doc.toString());

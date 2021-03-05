@@ -85,9 +85,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // console.log(doc);
 // ------------------
 //
-console.log(">>> WsvDocumentServer");
-const WsvDocumentServer_1 = __importDefault(require("./sml/WsvDocumentServer"));
-// (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
-const doc = WsvDocumentServer_1.default.load("WsvDocumentServer-TEST.wsv");
-console.log(doc);
+// console.log(">>> WsvDocumentServer");
+// import WsvDocumentServer from "./sml/WsvDocumentServer";
+// // (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
+// const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
+// console.log(doc);
+// ------------------
+//
+console.log(">>> SmlDocumentServer");
+const SmlDocumentServer_1 = __importDefault(require("./sml/SmlDocumentServer"));
+// (SmlDocumentServer.parse("Hallo\nAttribut 1 2 3\nEnd") as SmlDocumentServer).save("SmlDocumentServer-TEST.sml");
+const doc = SmlDocumentServer_1.default.load("SmlDocumentServer-TEST.sml");
+console.log(doc.toString());
 //# sourceMappingURL=index.js.map
