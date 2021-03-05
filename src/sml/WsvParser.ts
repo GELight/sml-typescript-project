@@ -19,8 +19,7 @@ export default class WsvParser {
         return newLine;
     }
 
-    public static parseDocument(content: string): WsvDocument {
-        const document: WsvDocument = new WsvDocument();
+    public static parseDocument(content: string, document: WsvDocument): WsvDocument {
         const iterator: WsvParserCharIterator = new WsvParserCharIterator(content);
 
         while (true) {

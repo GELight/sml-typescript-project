@@ -4,6 +4,8 @@ import ReliableTxtException from "./ReliableTxtException";
 
 export default class ReliableTxtFile {
 
+    private fileContent: string = "";
+
     private static getEncodingFromBuffer(buffer: Buffer): ReliableTxtEncoding {
         if (buffer.length < 2) {
             return null;
@@ -39,7 +41,7 @@ export default class ReliableTxtFile {
         return this;
     }
 
-    public load(filePath: string): string {
+    public load(filePath: string): ReliableTxtFile {
         try {
             const fileBuffer: Buffer = readFileSync(filePath, Object.assign({ flag: "r" }));
             const detectedEncoding = ReliableTxtFile.getEncodingFromBuffer(fileBuffer);
@@ -50,11 +52,20 @@ export default class ReliableTxtFile {
             const fileContent: string = readFileSync(filePath,
                 Object.assign({ encoding: this.encoding, flag: "r" })
             ).toString();
-            return fileContent.slice(1);
+            this.fileContent = fileContent.slice(1);
+            return this;
         } catch (e) {
-            console.error(e);
-            return "";
+            throw Error(e.message);
+            return null;
         }
+    }
+
+    public getEncoding(): ReliableTxtEncoding {
+        return this.encoding;
+    }
+
+    public getContent(): string {
+        return this.fileContent;
     }
 
     private setEncoding(encoding: ReliableTxtEncoding) {

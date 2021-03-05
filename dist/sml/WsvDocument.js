@@ -12,7 +12,8 @@ class WsvDocument {
         // ...
     }
     static parse(content) {
-        return WsvParser_1.default.parseDocument(content);
+        const document = new WsvDocument();
+        return WsvParser_1.default.parseDocument(content, document);
     }
     addWsvLines(...lines) {
         for (const line of lines) {

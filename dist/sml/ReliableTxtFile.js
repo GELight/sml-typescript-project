@@ -8,6 +8,7 @@ const ReliableTxtEncoding_1 = __importDefault(require("./ReliableTxtEncoding"));
 const ReliableTxtException_1 = __importDefault(require("./ReliableTxtException"));
 class ReliableTxtFile {
     constructor(encoding) {
+        this.fileContent = "";
         this.encoding = ReliableTxtEncoding_1.default.UTF8;
         this.setEncoding(encoding);
         return this;
@@ -47,12 +48,19 @@ class ReliableTxtFile {
             }
             this.setEncoding(detectedEncoding);
             const fileContent = fs_1.readFileSync(filePath, Object.assign({ encoding: this.encoding, flag: "r" })).toString();
-            return fileContent.slice(1);
+            this.fileContent = fileContent.slice(1);
+            return this;
         }
         catch (e) {
-            console.error(e);
-            return "";
+            throw Error(e.message);
+            return null;
         }
+    }
+    getEncoding() {
+        return this.encoding;
+    }
+    getContent() {
+        return this.fileContent;
     }
     setEncoding(encoding) {
         if (encoding) {

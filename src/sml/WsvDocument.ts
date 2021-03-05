@@ -5,7 +5,8 @@ import WsvSerializer from "./WsvSerializer";
 export default class WsvDocument {
 
     public static parse(content: string): WsvDocument {
-        return WsvParser.parseDocument(content);
+        const document: WsvDocument = new WsvDocument();
+        return WsvParser.parseDocument(content, document);
     }
 
     public lines: WsvLine[] = [];

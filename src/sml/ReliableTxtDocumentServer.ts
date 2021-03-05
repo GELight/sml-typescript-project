@@ -4,25 +4,31 @@ import ReliableTxtFile from "./ReliableTxtFile";
 
 export default class ReliableTxtDocumentServer extends ReliableTxtDocument {
 
-    public encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
+    public static load(filePath: string): ReliableTxtDocumentServer {
+        const file: ReliableTxtFile = new ReliableTxtFile().load(filePath);
+        const document = new ReliableTxtDocumentServer(file.getContent());
+        document.setEncoding(file.getEncoding());
+        return document;
+    }
+
+    private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
     constructor(...args: string[]) {
         super(...args);
         return this;
     }
 
-    public setEncoding(encoding: ReliableTxtEncoding): ReliableTxtDocument {
+    public setEncoding(encoding: ReliableTxtEncoding): ReliableTxtDocumentServer {
         this.encoding = encoding;
         return this;
     }
 
-    public save(filePath: string): ReliableTxtDocument {
-        new ReliableTxtFile(this.encoding).save(filePath, this.text);
-        return this;
+    public getEncoding(): ReliableTxtEncoding {
+        return this.encoding;
     }
 
-    public load(filePath: string): string {
-        this.text = new ReliableTxtFile(this.encoding).load(filePath);
-        return this.text;
+    public save(filePath: string): ReliableTxtDocumentServer {
+        new ReliableTxtFile(this.encoding).save(filePath, this.text);
+        return this;
     }
 }

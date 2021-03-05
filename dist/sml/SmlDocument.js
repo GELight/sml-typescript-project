@@ -17,7 +17,8 @@ class SmlDocument {
         }
     }
     static parse(content) {
-        return SmlParser_1.default.parseDocument(content);
+        const document = new SmlDocument();
+        return SmlParser_1.default.parseDocument(content, document);
     }
     setEndKeyword(endKeyword) {
         this.endKeyword = endKeyword;

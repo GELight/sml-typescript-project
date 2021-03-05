@@ -37,7 +37,7 @@ npm run build
 
 * [x] SmlAttribute
 * [x] SmlDocument
-* [ ] * SmlDocumentServer
+* [x] SmlDocumentServer
 * [x] SmlElement
 * [x] SmlIllegalArgumentException
 * [x] SmlNamedNode

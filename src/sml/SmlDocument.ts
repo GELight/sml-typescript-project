@@ -1,3 +1,4 @@
+import SmlDocumentServer from "./SmlDocumentServer";
 import SmlElement from "./SmlElement";
 import SmlEmptyNode from "./SmlEmptyNode";
 import SmlParser from "./SmlParser";
@@ -7,7 +8,8 @@ import StringUtil from "./StringUtil";
 export default class SmlDocument {
 
     public static parse(content: string): SmlDocument {
-        return SmlParser.parseDocument(content);
+        const document: SmlDocument = new SmlDocument();
+        return SmlParser.parseDocument(content, document);
     }
 
     public emptyNodesBefore: SmlEmptyNode[] = [];

@@ -12,12 +12,11 @@ import WsvLineIterator from "./WsvLineIterator";
 
 export default class SmlParser {
 
-    public static parseDocument(content: string): SmlDocument {
+    public static parseDocument(content: string, document: SmlDocument): SmlDocument {
         const wsvDocument: WsvDocument = WsvDocument.parse(content);
         const endKeyword: string = SmlParser.getEndKeyword(wsvDocument);
         const iterator: WsvLineIterator = new WsvDocumentLineIterator(wsvDocument, endKeyword);
 
-        const document: SmlDocument = new SmlDocument();
         document.setEndKeyword(endKeyword);
 
         const rootElement: SmlElement = SmlParser.readRootElement(iterator, document.emptyNodesBefore);

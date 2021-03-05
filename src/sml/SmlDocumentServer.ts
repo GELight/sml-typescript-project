@@ -1,9 +1,22 @@
+import ReliableTxtDocumentServer from "./ReliableTxtDocumentServer";
 import ReliableTxtEncoding from "./ReliableTxtEncoding";
-import ReliableTxtFile from "./ReliableTxtFile";
 import SmlDocument from "./SmlDocument";
 import SmlElement from "./SmlElement";
+import SmlParser from "./SmlParser";
 
 export default class SmlDocumentServer extends SmlDocument {
+
+    public static parse(content: string): SmlDocument {
+        const document: SmlDocumentServer = new SmlDocumentServer();
+        return SmlParser.parseDocument(content, document);
+    }
+
+    public static load(filePath: string): SmlDocumentServer {
+        const document: ReliableTxtDocumentServer = ReliableTxtDocumentServer.load(filePath);
+        const result: SmlDocumentServer = SmlDocumentServer.parse(document.getText()) as SmlDocumentServer;
+        result.setEncoding(document.getEncoding());
+        return result;
+    }
 
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
@@ -21,13 +34,10 @@ export default class SmlDocumentServer extends SmlDocument {
         return this.encoding;
     }
 
-    public load(filePath: string): SmlDocument {
-        const content: string = new ReliableTxtFile(this.encoding).load(filePath);
-        return SmlDocumentServer.parse(content);
-    }
-
-    public save(filePath: string): SmlDocument {
-        new ReliableTxtFile(this.encoding).save(filePath, this.toString());
+    public save(filePath: string): SmlDocumentServer {
+        new ReliableTxtDocumentServer(this.toString())
+            .setEncoding(this.getEncoding())
+            .save(filePath);
         return this;
     }
 }

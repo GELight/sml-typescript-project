@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const SmlAttribute_1 = __importDefault(require("./SmlAttribute"));
-const SmlDocument_1 = __importDefault(require("./SmlDocument"));
 const SmlElement_1 = __importDefault(require("./SmlElement"));
 const SmlEmptyNode_1 = __importDefault(require("./SmlEmptyNode"));
 const SmlParserException_1 = __importDefault(require("./SmlParserException"));
@@ -12,11 +11,10 @@ const StringUtil_1 = __importDefault(require("./StringUtil"));
 const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 const WsvDocumentLineIterator_1 = __importDefault(require("./WsvDocumentLineIterator"));
 class SmlParser {
-    static parseDocument(content) {
+    static parseDocument(content, document) {
         const wsvDocument = WsvDocument_1.default.parse(content);
         const endKeyword = SmlParser.getEndKeyword(wsvDocument);
         const iterator = new WsvDocumentLineIterator_1.default(wsvDocument, endKeyword);
-        const document = new SmlDocument_1.default();
         document.setEndKeyword(endKeyword);
         const rootElement = SmlParser.readRootElement(iterator, document.emptyNodesBefore);
         document.setRoot(rootElement);

@@ -55,7 +55,6 @@
 
 // ------------------
 //
-// import { connected } from "process";
 // import SmlAttribute from "./sml/SmlAttribute";
 // import SmlDocument from "./sml/SmlDocument";
 // import SmlElement from "./sml/SmlElement";
@@ -66,24 +65,38 @@
 // element.add(attr);
 // console.log(element);
 // const doc = SmlDocument.parse(`
-// Mario
-//     Farbe RGB 255 0 0
-//     Group1
-//         Farbe RGBA 255 123 54 0.8
+// LinearLayout
+//   LayoutWidth MatchParent
+//   LayoutHeight MatchParent
+//   Orientation               Vertical
+//   Children
+//     TextView
+//       ID @+id/text
+//       Text "Hello World"
 //     End
+//     Button
+//       ... ...
+//     End
+//   End
 // End
 // `);
-// const values = doc.getRoot().getElement("Group1").getAttribute("Farbe").getValues(1);
+// const values = doc.getRoot().getAttribute("Orientation");
 // console.log(values);
-// console.log(`background: rgba(${values[0]}, ${values[1]}, ${values[2]}, ${values[3]});`);
 
-// // ------------------
-// //
-import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
-import ReliableTxtFile from "./sml/ReliableTxtFile";
-import StringUtil from "./sml/StringUtil";
-console.log(">>> ReliableTxtFile");
+// ------------------
+//
+// console.log(">>> ReliableTxtFile");
+// import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
 
 // new ReliableTxtDocumentServer("ab").save("ReliableTxtDocumentServer-TEST.txt");
-const file = new ReliableTxtFile().load("ReliableTxtDocumentServer-TEST.txt");
-console.log(StringUtil.stringToCodePoints(file));
+// const doc = ReliableTxtDocumentServer.load("ReliableTxtDocumentServer-TEST.txt");
+// console.log(doc);
+
+// ------------------
+//
+console.log(">>> WsvDocumentServer");
+import WsvDocumentServer from "./sml/WsvDocumentServer";
+
+// (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
+const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
+console.log(doc);

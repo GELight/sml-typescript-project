@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const StringUtil_1 = __importDefault(require("./StringUtil"));
-const WsvDocument_1 = __importDefault(require("./WsvDocument"));
 const WsvLine_1 = __importDefault(require("./WsvLine"));
 const WsvParserCharIterator_1 = __importDefault(require("./WsvParserCharIterator"));
 const WsvParserException_1 = __importDefault(require("./WsvParserException"));
@@ -20,8 +19,7 @@ class WsvParser {
         }
         return newLine;
     }
-    static parseDocument(content) {
-        const document = new WsvDocument_1.default();
+    static parseDocument(content, document) {
         const iterator = new WsvParserCharIterator_1.default(content);
         while (true) {
             const newLine = WsvParser.parseLineWithIterator(iterator);
