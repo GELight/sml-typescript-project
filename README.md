@@ -30,7 +30,7 @@ npm run build
 * [x] ReliableTxtDocument
 * [x] ReliableTxtDocumentServer
 * [x] ReliableTxtEncoding
-* [x] ReliableTxtFile
+* [x] - ReliableTxtFile
 * [X] ReliableTxtException
 * [ ] ReliableTxtStreamReader
 * [ ] ReliableTxtStreamWriter
@@ -43,25 +43,25 @@ npm run build
 * [x] SmlNamedNode
 * [x] SmlNode
 * [x] SmlEmptyNode
-* [x] SmlParser
+* [x] - SmlParser
 * [ ] SmlParserException (line number not implemented)
-* [x] SmlSerializer
+* [x] - SmlSerializer
 
-* [x] StringBuilder
+* [x] - StringBuilder
 * [x] StringUtil
 
 * [x] WsvChar
 * [x] WsvLine
 * [X] WsvDocument
-* [x] WsvDocumentLineIterator
+* [x] - WsvDocumentLineIterator
 * [x] WsvDocumentServer
-* [x] WsvLineIterator
-* [x] WsvParser
-* [x] WsvParserCharIterator
+* [x] - WsvLineIterator
+* [x] - WsvParser
+* [x] - WsvParserCharIterator
 * [x] WsvParserException
-* [x] WsvSerializer
+* [x] - WsvSerializer
 * [ ] WsvStreamReader
-* [ ] WsvStreamLineIterator
+* [ ] - WsvStreamLineIterator
 * [ ] WsvStreamWriter
 
 ## Test
