@@ -39,7 +39,6 @@ npm run build
 * [x] SmlDocument
 * [x] SmlDocumentServer
 * [x] SmlElement
-* [x] SmlIllegalArgumentException
 * [x] SmlNamedNode
 * [x] SmlNode
 * [x] SmlEmptyNode
@@ -66,105 +65,105 @@ npm run build
 
 ## Test
 ```js
+// ------------------
+//
+// import WsvParser from "./sml/WsvParser";
 
-// console.log("---- Parser -----------------------------------");
-// console.log("");
+// console.log(">>> WsvParser");
+// console.log(WsvParser.parseLine("a b c"));
+// console.log(WsvParser.parseLine("a b c #ein comment"));
+// const parsedDocument = WsvParser.parseDocument("a b c #ein comment\n d  e");
+// console.log(parsedDocument.getLines());
 
-// const parsedLines = new WsvParser().parse([
-//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-//     "\"hello\" abc",
-//     "#My doc",
-//     " #Doc\nR1_1 R1_2",
-//     " R2_1 R2_2 ",
-//     "R3_1 #",
-//     "",
-//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
-// ].join("\n"));
+// ------------------
+//
+// import WsvDocument from "./sml/WsvDocument";
+// import WsvSerializer from "./sml/WsvSerializer";
 
-// console.log(parsedLines);
-// console.log("");
+// console.log(">>> WsvDocument / WsvSerializer");
+// console.log(WsvSerializer.containsSpecialChars("abc"));
+// console.log(WsvSerializer.containsSpecialChars("ab c"));
 
-// console.log("");
-// console.log("---- SAVE WsvDocument -----------------------------------");
+// const documentString = "a b c #ein comment\n d  e";
+// const document = WsvDocument.parse(documentString);
+// console.log(document.toString());
+// console.log((document.toString() === documentString));
 
-// const saveWsvDocument: WsvDocument = new WsvDocument(
-//     `"hello ""world""!" "" "-" - "Line1"/"Line2"`,
-//     "\"hello\" abc",
-//     "#My doc",
-//     " #Doc",
-//     "R1_1 R1_2",
-//     " R2_1 R2_2 ",
-//     "R3_1 #",
-//     "",
-//     "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\""
-// );
-// saveWsvDocument.addLineByValues("Row1_1", "Row1 2", "Row1_3");
-// saveWsvDocument.addLine(new WsvLine("Row2_Value1", "Row2_Value2", "Row2 Value3"));
-// saveWsvDocument.addLineByValues("Row3_Val1", "Row3_Val2");
-// saveWsvDocument.save("Example-WsvDocument.wsv");
-// console.log("");
-// console.log(saveWsvDocument.getLines());
-// console.log("");
+// ------------------
+//
+// import SmlDocument from "./sml/SmlDocument";
+// import SmlParser from "./sml/SmlParser";
 
-// console.log("---- LOAD WsvDocument -----------------------------------");
+// console.log(">>> SmlParser");
+// console.log(SmlParser.parseDocument("The\nEnd"));
+// console.log(SmlParser.parseDocument("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd"));
+// const document = SmlDocument.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
+// console.log(document.toString());
 
-// const loadWsvDocument: WsvDocument = new WsvDocument();
-// const loadWsvDocumentData = loadWsvDocument.load("Example-WsvDocument.wsv");
-// console.log(loadWsvDocumentData);
-// console.log("");
+// // ------------------
+// //
+// import SmlAttribute from "./sml/SmlAttribute";
+// console.log(">>> SmlAttribute");
 
-// console.log("---- PARSE WsvDocument -----------------------------------");
+// console.log(new SmlAttribute("muh", ["test1", "test2"]).getValues());
+// console.log(new SmlAttribute("muh", [1, 2, 3, 4, 5]).getValues());
+// console.log(new SmlAttribute("muh", [1.23, 2.3, 3.45, 4.6786, 5.6785334]).getValues());
+// console.log(new SmlAttribute("muh", [true, false, true, true]).getValues());
 
-// const parseWsvDocument: WsvDocument = new WsvDocument("Value11 Value12\nValue 13", "Value14 Value15\nValue 16");
-// console.log(parseWsvDocument.getLines());
+// ------------------
+//
+// import SmlAttribute from "./sml/SmlAttribute";
+// import SmlDocument from "./sml/SmlDocument";
+// import SmlElement from "./sml/SmlElement";
+// console.log(">>> SmlElement");
 
-// console.log("---- ReliableTxtFile -----------------------------------");
-// new ReliableTxtFile().parse(`Row2_Value1 "Row 2_"/"Va""l""ue""2"""     "Row2 Value3"   Row2_Value4`);
+// const attr = new SmlAttribute("test", ["123", "34432"]);
+// const element = new SmlElement("elm-name");
+// element.add(attr);
+// console.log(element);
+// const doc = SmlDocument.parse(`
+// LinearLayout
+//   LayoutWidth MatchParent
+//   LayoutHeight MatchParent
+//   Orientation               Vertical
+//   Children
+//     TextView
+//       ID @+id/text
+//       Text "Hello World"
+//     End
+//     Button
+//       ... ...
+//     End
+//   End
+// End
+// `);
+// const values = doc.getRoot().getAttribute("Orientation");
+// console.log(values);
 
-// console.log("---- SERIALIZER -----------------------------------");
+// ------------------
+//
+// console.log(">>> ReliableTxtFile");
+// import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
 
-// const serializer: WsvSerializer = new WsvSerializer();
-// console.log(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`);
-// console.log(serializer.serialize(`Irgend ein "kleiner" Text\nmit einem Umbruch und einem # Kommentar`));
+// new ReliableTxtDocumentServer("ab").save("ReliableTxtDocumentServer-TEST.txt");
+// const doc = ReliableTxtDocumentServer.load("ReliableTxtDocumentServer-TEST.txt");
+// console.log(doc);
 
-// console.log("---- SAVE -----------------------------------");
+// ------------------
+//
+// console.log(">>> WsvDocumentServer");
+// import WsvDocumentServer from "./sml/WsvDocumentServer";
 
-// const saveDoc: ReliableTxtDocument = new ReliableTxtDocument(
-//     "Line 1", "Line 2", "मूर्खहस्ते न मां दद्यादिति वदति पुस्तकम्", "Line 4\nLine 5\nLine 6", "日本の保育園"
-// );
-// saveDoc.setEncoding(ReliableTxtEncoding.UTF8);
-// saveDoc.save("Example-ReliableTxtDocument.txt");
+// // (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
+// const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
+// console.log(doc);
 
-// console.log("---- ReliableTxtDocument - LOAD -----------------------------------");
+// ------------------
+//
+// console.log(">>> SmlDocumentServer");
+// import SmlDocumentServer from "./sml/SmlDocumentServer";
 
-// const loadDoc: ReliableTxtDocument = new ReliableTxtDocument();
-// const loadDocData = loadDoc.load("Example-ReliableTxtDocument.txt");
-
-// console.log("");
-// console.log("ReliableTxtDocument > loaded >>>", loadDocData);
-
-// console.log("---- ReliableTxtDocument - PARSE ----------------------------------");
-// console.log("");
-
-// const parseData = "\"hello \"\"world\"\"!\" \"\" \"-\" - \"Line1\"/\"Line2\"";
-// const reliableTxtDocument: ReliableTxtDocument = new ReliableTxtDocument(parseData);
-// console.log(parseData);
-// console.log(reliableTxtDocument.getParsedDocument());
-// console.log("");
-
-// console.log("");
-// console.log("---- WsvLine -----------------------------------");
-
-// const line: WsvLine = new WsvLine(
-//     "R1_1",
-//     "R1_2",
-//     "R3_1 #",
-//     ""
-// );
-// line.addValue("Value 5");
-
-// console.log("");
-// console.log(line.getValues());
-// console.log(line.toString());
-
+// // (SmlDocumentServer.parse("Hallo\nAttribut 1 2 3\nEnd") as SmlDocumentServer).save("SmlDocumentServer-TEST.sml");
+// const doc = SmlDocumentServer.load("SmlDocumentServer-TEST.sml");
+// console.log(doc.toString());
 ```

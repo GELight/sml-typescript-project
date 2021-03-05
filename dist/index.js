@@ -1,100 +1,41 @@
 "use strict";
-// export { default as ReliableTxtDocument } from "./sml/ReliableTxtDocument";
-// export { default as ReliableTxtDocumentServer } from "./sml/ReliableTxtDocumentServer";
-// export { default as ReliableTxtEncoding } from "./sml/ReliableTxtEncoding";
-// export { default as ReliableTxtFile } from "./sml/ReliableTxtFile";
-// export { default as WsvDocument } from "./sml/WsvDocument";
-// export { default as WsvDocumentServer } from "./sml/WsvDocumentServer";
-// export { default as WsvLine } from "./sml/WsvLine";
-// export { default as WsvParser } from "./sml/WsvParser";
-// export { default as WsvSerializer } from "./sml/WsvSerializer";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-// ------------------
-//
-// import WsvParser from "./sml/WsvParser";
-// console.log(">>> WsvParser");
-// console.log(WsvParser.parseLine("a b c"));
-// console.log(WsvParser.parseLine("a b c #ein comment"));
-// const parsedDocument = WsvParser.parseDocument("a b c #ein comment\n d  e");
-// console.log(parsedDocument.getLines());
-// ------------------
-//
-// import WsvDocument from "./sml/WsvDocument";
-// import WsvSerializer from "./sml/WsvSerializer";
-// console.log(">>> WsvDocument / WsvSerializer");
-// console.log(WsvSerializer.containsSpecialChars("abc"));
-// console.log(WsvSerializer.containsSpecialChars("ab c"));
-// const documentString = "a b c #ein comment\n d  e";
-// const document = WsvDocument.parse(documentString);
-// console.log(document.toString());
-// console.log((document.toString() === documentString));
-// ------------------
-//
-// import SmlDocument from "./sml/SmlDocument";
-// import SmlParser from "./sml/SmlParser";
-// console.log(">>> SmlParser");
-// console.log(SmlParser.parseDocument("The\nEnd"));
-// console.log(SmlParser.parseDocument("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd"));
-// const document = SmlDocument.parse("The\nAttribut 123\nAttribut 456\nAttribut 789\nEnd");
-// console.log(document.toString());
-// // ------------------
-// //
-// import SmlAttribute from "./sml/SmlAttribute";
-// console.log(">>> SmlAttribute");
-// console.log(new SmlAttribute("muh", ["test1", "test2"]).getValues());
-// console.log(new SmlAttribute("muh", [1, 2, 3, 4, 5]).getValues());
-// console.log(new SmlAttribute("muh", [1.23, 2.3, 3.45, 4.6786, 5.6785334]).getValues());
-// console.log(new SmlAttribute("muh", [true, false, true, true]).getValues());
-// ------------------
-//
-// import SmlAttribute from "./sml/SmlAttribute";
-// import SmlDocument from "./sml/SmlDocument";
-// import SmlElement from "./sml/SmlElement";
-// console.log(">>> SmlElement");
-// const attr = new SmlAttribute("test", ["123", "34432"]);
-// const element = new SmlElement("elm-name");
-// element.add(attr);
-// console.log(element);
-// const doc = SmlDocument.parse(`
-// LinearLayout
-//   LayoutWidth MatchParent
-//   LayoutHeight MatchParent
-//   Orientation               Vertical
-//   Children
-//     TextView
-//       ID @+id/text
-//       Text "Hello World"
-//     End
-//     Button
-//       ... ...
-//     End
-//   End
-// End
-// `);
-// const values = doc.getRoot().getAttribute("Orientation");
-// console.log(values);
-// ------------------
-//
-// console.log(">>> ReliableTxtFile");
-// import ReliableTxtDocumentServer from "./sml/ReliableTxtDocumentServer";
-// new ReliableTxtDocumentServer("ab").save("ReliableTxtDocumentServer-TEST.txt");
-// const doc = ReliableTxtDocumentServer.load("ReliableTxtDocumentServer-TEST.txt");
-// console.log(doc);
-// ------------------
-//
-// console.log(">>> WsvDocumentServer");
-// import WsvDocumentServer from "./sml/WsvDocumentServer";
-// // (WsvDocumentServer.parse("a b\nc d") as WsvDocumentServer).save("WsvDocumentServer-TEST.wsv");
-// const doc = WsvDocumentServer.load("WsvDocumentServer-TEST.wsv");
-// console.log(doc);
-// ------------------
-//
-console.log(">>> SmlDocumentServer");
-const SmlDocumentServer_1 = __importDefault(require("./sml/SmlDocumentServer"));
-// (SmlDocumentServer.parse("Hallo\nAttribut 1 2 3\nEnd") as SmlDocumentServer).save("SmlDocumentServer-TEST.sml");
-const doc = SmlDocumentServer_1.default.load("SmlDocumentServer-TEST.sml");
-console.log(doc.toString());
+var ReliableTxtDocument_1 = require("./sml/ReliableTxtDocument");
+Object.defineProperty(exports, "ReliableTxtDocument", { enumerable: true, get: function () { return ReliableTxtDocument_1.default; } });
+var ReliableTxtDocumentServer_1 = require("./sml/ReliableTxtDocumentServer");
+Object.defineProperty(exports, "ReliableTxtDocumentServer", { enumerable: true, get: function () { return ReliableTxtDocumentServer_1.default; } });
+var ReliableTxtException_1 = require("./sml/ReliableTxtException");
+Object.defineProperty(exports, "ReliableTxtException", { enumerable: true, get: function () { return ReliableTxtException_1.default; } });
+var ReliableTxtEncoding_1 = require("./sml/ReliableTxtEncoding");
+Object.defineProperty(exports, "ReliableTxtEncoding", { enumerable: true, get: function () { return ReliableTxtEncoding_1.default; } });
+var ReliableTxtFile_1 = require("./sml/ReliableTxtFile");
+Object.defineProperty(exports, "ReliableTxtFile", { enumerable: true, get: function () { return ReliableTxtFile_1.default; } });
+var SmlAttribute_1 = require("./sml/SmlAttribute");
+Object.defineProperty(exports, "SmlAttribute", { enumerable: true, get: function () { return SmlAttribute_1.default; } });
+var SmlDocument_1 = require("./sml/SmlDocument");
+Object.defineProperty(exports, "SmlDocument", { enumerable: true, get: function () { return SmlDocument_1.default; } });
+var SmlDocumentServer_1 = require("./sml/SmlDocumentServer");
+Object.defineProperty(exports, "SmlDocumentServer", { enumerable: true, get: function () { return SmlDocumentServer_1.default; } });
+var SmlElement_1 = require("./sml/SmlElement");
+Object.defineProperty(exports, "SmlElement", { enumerable: true, get: function () { return SmlElement_1.default; } });
+var SmlNamedNode_1 = require("./sml/SmlNamedNode");
+Object.defineProperty(exports, "SmlNamedNode", { enumerable: true, get: function () { return SmlNamedNode_1.default; } });
+var SmlNode_1 = require("./sml/SmlNode");
+Object.defineProperty(exports, "SmlNode", { enumerable: true, get: function () { return SmlNode_1.default; } });
+var SmlEmptyNode_1 = require("./sml/SmlEmptyNode");
+Object.defineProperty(exports, "SmlEmptyNode", { enumerable: true, get: function () { return SmlEmptyNode_1.default; } });
+var SmlParserException_1 = require("./sml/SmlParserException");
+Object.defineProperty(exports, "SmlParserException", { enumerable: true, get: function () { return SmlParserException_1.default; } });
+var WsvChar_1 = require("./sml/WsvChar");
+Object.defineProperty(exports, "WsvChar", { enumerable: true, get: function () { return WsvChar_1.default; } });
+var WsvLine_1 = require("./sml/WsvLine");
+Object.defineProperty(exports, "WsvLine", { enumerable: true, get: function () { return WsvLine_1.default; } });
+var WsvDocument_1 = require("./sml/WsvDocument");
+Object.defineProperty(exports, "WsvDocument", { enumerable: true, get: function () { return WsvDocument_1.default; } });
+var WsvDocumentServer_1 = require("./sml/WsvDocumentServer");
+Object.defineProperty(exports, "WsvDocumentServer", { enumerable: true, get: function () { return WsvDocumentServer_1.default; } });
+var WsvParserException_1 = require("./sml/WsvParserException");
+Object.defineProperty(exports, "WsvParserException", { enumerable: true, get: function () { return WsvParserException_1.default; } });
+var StringUtil_1 = require("./sml/StringUtil");
+Object.defineProperty(exports, "StringUtil", { enumerable: true, get: function () { return StringUtil_1.default; } });
 //# sourceMappingURL=index.js.map
