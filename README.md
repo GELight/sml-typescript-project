@@ -41,10 +41,10 @@ npm run build
 * [x] SmlElement
 * [x] SmlIllegalArgumentException
 * [x] SmlNamedNode
-* [x] SmlNode (method "toWsvLines" not implemented yet)
+* [x] SmlNode
 * [x] SmlEmptyNode
 * [x] SmlParser
-* [/] SmlParserException (line number not implemented)
+* [ ] SmlParserException (line number not implemented)
 * [x] SmlSerializer
 
 * [x] StringBuilder
@@ -54,7 +54,7 @@ npm run build
 * [x] WsvLine
 * [X] WsvDocument
 * [x] WsvDocumentLineIterator
-* [ ] * WsvDocumentServer
+* [x] WsvDocumentServer
 * [x] WsvLineIterator
 * [x] WsvParser
 * [x] WsvParserCharIterator
