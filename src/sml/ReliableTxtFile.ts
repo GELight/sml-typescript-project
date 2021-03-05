@@ -4,8 +4,6 @@ import ReliableTxtException from "./ReliableTxtException";
 
 export default class ReliableTxtFile {
 
-    private fileContent: string = "";
-
     private static getEncodingFromBuffer(buffer: Buffer): ReliableTxtEncoding {
         if (buffer.length < 2) {
             return null;
@@ -23,6 +21,8 @@ export default class ReliableTxtFile {
 
         return null;
     }
+
+    private fileContent: string = "";
 
     private encoding: ReliableTxtEncoding = ReliableTxtEncoding.UTF8;
 
